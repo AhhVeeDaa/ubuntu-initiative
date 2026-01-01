@@ -1,0 +1,33 @@
+{
+  "name": "ubuntu-initiative",
+  "version": "1.0.0",
+  "description": "This is the technical infrastructure for the Ubuntu Initiative - a system to transparently track and manage the development of Africa's first sovereign AI supercomputer powered by Inga hydropower.",
+  "main": "index.js",
+  "workspaces": [
+    "apps/*"
+  ],
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run dev -w web\" \"npm run dev -w dashboard\" -c cyan,magenta --names \"WEB,DASH\"",
+    "build": "npm run build -w web && npm run build -w dashboard",
+    "start": "npm run start -w web"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.89.0",
+    "autoprefixer": "^10.4.23",
+    "dotenv": "^17.2.3",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

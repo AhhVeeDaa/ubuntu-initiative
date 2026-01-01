@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  --background: 222 47% 11%;     /* Deep Congo Blue */
+  --foreground: 210 40% 98%;     /* Soft White */
+  
+  --primary: 180 100% 50%;       /* Electric Cyan */
+  --primary-foreground: 222 47% 11%;
+  
+  --secondary: 217 33% 17%;      /* Lighter Blue/Gray */
+  --secondary-foreground: 210 40% 98%;
+  
+  --accent: 45 100% 50%;         /* Sovereign Gold */
+  --accent-foreground: 222 47% 11%;
+  
+  --card: 217 33% 17%;
+  --card-foreground: 210 40% 98%;
+  
+  --border: 217 33% 30%;
+  --input: 217 33% 25%;
+  --ring: 180 100% 50%;
+}
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10;
+  }
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl hover:bg-white/10 transition-colors duration-300;
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))];
+  }
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}

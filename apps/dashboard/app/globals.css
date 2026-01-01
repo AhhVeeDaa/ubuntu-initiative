@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  --background: 222 47% 11%;
+  /* Deep Congo Blue */
+  --foreground: 210 40% 98%;
+  /* Soft White */
+
+  --primary: 180 100% 50%;
+  /* Electric Cyan */
+  --primary-foreground: 222 47% 11%;
+
+  --secondary: 217 33% 17%;
+  /* Lighter Blue/Gray */
+  --secondary-foreground: 210 40% 98%;
+
+  --accent: 45 100% 50%;
+  /* Sovereign Gold */
+  --accent-foreground: 222 47% 11%;
+
+  --card: 220 35% 15%;
+  /* Dashboard Card BG */
+  --card-foreground: 210 40% 98%;
+
+  --border: 217 33% 25%;
+  --input: 217 33% 20%;
+  --ring: 180 100% 50%;
+
+  /* Recharts Colors */
+  --chart-1: 180 100% 50%;
+  --chart-2: 45 100% 50%;
+  --chart-3: 280 100% 60%;
+  --chart-4: 0 80% 60%;
+  --chart-5: 140 70% 50%;
+}
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-card/50 backdrop-blur-sm border border-white/5;
+  }
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
