@@ -6,7 +6,9 @@ if (!stripeKey) {
     console.error('Missing STRIPE_SECRET_KEY in environment. Set it and retry.');
     process.exit(1);
 }
-const stripe = new Stripe(stripeKey);
+const stripe = new Stripe(stripeKey, {
+    apiVersion: '2025-12-15.clover'
+});
 
 async function testConnection() {
     try {
