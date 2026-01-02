@@ -13,14 +13,14 @@ export function HeroSection() {
 
     useEffect(() => {
         setDaysRunning(getDaysSinceLaunch());
-        
+
         async function fetchProgress() {
             try {
                 const { data: milestones } = await supabase
                     .from('milestones')
                     .select('*')
                     .eq('phase', 'phase_0');
-                
+
                 if (milestones) {
                     setPhase0Progress(calculatePhase0Progress(milestones));
                 }
@@ -30,7 +30,7 @@ export function HeroSection() {
                 setLoading(false);
             }
         }
-        
+
         fetchProgress();
     }, []);
 
@@ -38,6 +38,15 @@ export function HeroSection() {
         <div className="relative overflow-hidden pt-32 pb-20 lg:pt-48 lg:pb-32">
             {/* Background Elements */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none">
+                {/* Congo River Background */}
+                <div className="absolute inset-0 opacity-5">
+                    <img
+                        src="/congo-river.jpg"
+                        alt="Congo River aerial view"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--background))] via-transparent to-[hsl(var(--background))]"></div>
+                </div>
                 <div className="absolute top-20 left-10 w-72 h-72 bg-[hsl(var(--primary))] rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-pulse"></div>
                 <div className="absolute top-40 right-10 w-72 h-72 bg-[hsl(var(--accent))] rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-pulse delay-75"></div>
             </div>
@@ -54,8 +63,8 @@ export function HeroSection() {
                 </h1>
 
                 <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-400 mb-10">
-                    We're building Africa's first sovereign AI supercomputer, powered by the Congo River's 
-                    Inga Falls—the world's largest untapped clean energy source. Track our progress in real-time, 
+                    We're building Africa's first sovereign AI supercomputer, powered by the Congo River's
+                    Inga Falls—the world's largest untapped clean energy source. Track our progress in real-time,
                     from day one.
                 </p>
 
