@@ -38,14 +38,16 @@ export function HeroSection() {
         <div className="relative overflow-hidden pt-32 pb-20 lg:pt-48 lg:pb-32">
             {/* Background Elements */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none">
-                {/* Congo River Background */}
-                <div className="absolute inset-0 opacity-5">
+                {/* Hero Vision Background - Inga + Datacenter */}
+                <div className="absolute inset-0 opacity-20">
                     <img
-                        src="/congo-river.jpg"
-                        alt="Congo River aerial view"
+                        src="/hero-inga-vision.jpg"
+                        alt="Vision of Inga Falls hydropower station with modern AI computing facility"
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--background))] via-transparent to-[hsl(var(--background))]"></div>
+                    {/* Multi-layer gradient overlay for text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--background))]/95 via-[hsl(var(--background))]/60 to-[hsl(var(--background))]/95"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--background))]/80 via-transparent to-[hsl(var(--background))]/80"></div>
                 </div>
                 <div className="absolute top-20 left-10 w-72 h-72 bg-[hsl(var(--primary))] rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-pulse"></div>
                 <div className="absolute top-40 right-10 w-72 h-72 bg-[hsl(var(--accent))] rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-pulse delay-75"></div>
