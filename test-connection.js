@@ -3,8 +3,13 @@
 // Test Supabase connection and verify database setup
 const { createClient } = require('@supabase/supabase-js');
 
-const supabaseUrl = 'https://frforinozbawkikgiywe.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZyZm9yaW5vemJhd2tpa2dpeXdlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcyNzM5NjAsImV4cCI6MjA4Mjg0OTk2MH0.HiosrsS_HsCHXy0GhFFJ_T63PM8OOQ9Yxp1JHRpMJd8';
+const supabaseUrl = process.env.SUPABASE_URL || 'https://your-project.supabase.co';
+const supabaseKey = process.env.SUPABASE_KEY || '';
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error('Missing SUPABASE_URL or SUPABASE_KEY in environment. Set them and retry.');
+  process.exit(1);
+}
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 

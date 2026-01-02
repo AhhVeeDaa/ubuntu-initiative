@@ -1,7 +1,12 @@
 const Stripe = require('stripe');
 
-// Initialize Stripe with the key from env or the one provided
-const stripe = new Stripe('sk_test_51HDarFBkp2utrOiWzFCwpFIwEkjFdrl0JRyuIpg5J0lguNfv8rSj6I4AAH1eaYoIULq9ZWs6KjRrneCFXd6yjrNQ0071g2aBWJ');
+// Initialize Stripe with the key from env
+const stripeKey = process.env.STRIPE_SECRET_KEY || '';
+if (!stripeKey) {
+    console.error('Missing STRIPE_SECRET_KEY in environment. Set it and retry.');
+    process.exit(1);
+}
+const stripe = new Stripe(stripeKey);
 
 async function testConnection() {
     try {

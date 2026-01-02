@@ -6,10 +6,18 @@ import { supabase } from '@/lib/supabase';
 import { useState } from 'react';
 import { Send, CheckCircle } from 'lucide-react';
 
+// Typed shape for contacts table rows
+type ContactRow = {
+    name: string;
+    email: string;
+    organization?: string;
+    message: string;
+};
+
 export default function ContactPage() {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<ContactRow>({
         name: '',
         email: '',
         organization: '',
@@ -21,7 +29,7 @@ export default function ContactPage() {
         setLoading(true);
 
         try {
-            const { error } = await supabase
+            const { error } = await (supabase as any)
                 .from('contacts')
                 .insert([formData]);
 

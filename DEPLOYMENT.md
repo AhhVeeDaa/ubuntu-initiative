@@ -1,61 +1,45 @@
-# Deployment Guide
+# 🚀 Deployment Checklist
 
-## Deploying to Vercel
+Follow these steps to go live. We are using a **monorepo** structure, so the paths are specific.
 
-### Prerequisites
-- GitHub account
-- Vercel account (sign up at https://vercel.com)
-- Both applications pushed to GitHub
-
-### Step 1: Deploy the Public Website
-
-1. Go to https://vercel.com/new
-2. Import your repository
-3. Select `apps/web` as the root directory
-4. Add environment variables:
+## 🔁 Vercel — Deploy Public Website
+1. Go to [vercel.com/new](https://vercel.com/new) and import your GitHub repo.
+2. **Project Settings**:
+   - **Project Name**: `ubuntu-initiative-web`
+   - **Root Directory**: `apps/web` (⚠️ Important: must include `apps/`)
+   - **Framework Preset**: Next.js
+3. **Environment Variables**:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=...
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=...
+   STRIPE_SECRET_KEY=... (mark as sensitive)
+   NEXT_PUBLIC_DASHBOARD_URL= (add this AFTER dashboard is deployed)
    ```
-   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...
-   STRIPE_SECRET_KEY=sk_live_...
-   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-   NEXT_PUBLIC_DASHBOARD_URL=https://your-dashboard.vercel.app
+4. Click **Deploy**.
+
+## 🔁 Vercel — Deploy Mission Control (Dashboard)
+1. Import the same repo again as a **new project**.
+2. **Project Settings**:
+   - **Project Name**: `ubuntu-dashboard`
+   - **Root Directory**: `apps/dashboard` (⚠️ Important: must include `apps/`)
+3. **Environment Variables**:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=...
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=...
    ```
-5. Click "Deploy"
+4. Click **Deploy**.
 
-### Step 2: Deploy the Dashboard
+## 🔐 Database Setup (Supabase SQL Editor)
+Run these two scripts in order:
+1. `apps/dashboard/lib/db-schema.sql` (Compute Nodes)
+2. `apps/web/lib/contact-schema.sql` (Inquiry Tracking)
 
-1. Create a new project in Vercel
-2. Import the same repository
-3. Select `apps/dashboard` as the root directory
-4. Add environment variables:
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-   ```
-5. Click "Deploy"
-
-### Step 3: Update Environment Variables
-
-After the Dashboard is deployed:
-
-1. Copy the Dashboard production URL (e.g., `https://ubuntu-dashboard.vercel.app`)
-2. Go to your **Public Website** project settings in Vercel
-3. Update `NEXT_PUBLIC_DASHBOARD_URL` to the Dashboard production URL
-4. Redeploy the website
-
-### Step 4: Database Setup
-
-Run the following SQL scripts in your Supabase SQL Editor:
-
-1. **Nodes table**: `apps/dashboard/lib/db-schema.sql`
-2. **Contacts table**: `apps/web/lib/contact-schema.sql`
-
-### Verification
-
-- Visit your public website URL
-- Click "Open Dashboard" button - should open the production dashboard
-- Test Contact form submission
-- Check Dashboard `/contacts` page for the submission
+## ✅ Verification
+1. Open your website.
+2. Click **"Dashboard"** — it should open your deployed Vercel dashboard.
+3. Submit a test inquiry on the **Contact** page.
+4. Verify it appears in the **Dashboard -> Inquiries** list.
 
 ## Local Development
 
