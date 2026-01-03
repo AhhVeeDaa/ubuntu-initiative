@@ -129,15 +129,18 @@ export default function Home() {
         </section>
 
         {/* AI Assistant Section */}
-        <section className="py-20 bg-black/40">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-white mb-8">Ask Ubuntu Intelligence</h2>
-            <div className="rounded-xl overflow-hidden glass border border-white/10 shadow-2xl">
-              <iframe
-                src="https://interfaces.zapier.com/embed/page/cmjxpv2ni000613dvce67w2lh?noBackground=false&allowQueryParams=true"
-                style={{ width: '100%', height: '700px', border: 'none' }}
-                title="Ubuntu AI Assistant"
-              ></iframe>
+        <section className="py-24 bg-black/40 relative overflow-hidden">
+          {/* Decorative background element for the AI section */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[hsl(var(--primary))]/5 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ask Inga Intelligence</h2>
+              <p className="text-gray-400">Our sovereign AI agent is ready to answer your questions about the initiative.</p>
+            </div>
+
+            <div className="mx-auto">
+              <IngaChat />
             </div>
           </div>
         </section>
