@@ -1,6 +1,8 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { HeroSection } from '@/components/ui/HeroSection';
+import { IngaChat } from '@/components/ai/IngaChat';
+import { ImpactDonation } from '@/components/stripe/ImpactDonation';
 
 export default function Home() {
   return (
@@ -9,6 +11,11 @@ export default function Home() {
 
       <main className="flex-grow">
         <HeroSection />
+
+        {/* Campaign / Funding Section - High Visibility */}
+        <div id="contribute" className="border-b border-white/10 bg-black/40">
+          <ImpactDonation />
+        </div>
 
         {/* Mission Section */}
         <section className="py-20 bg-[hsl(var(--secondary))]/50">
@@ -109,7 +116,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Dashboard CTA Section */}
+        {/* Mission Control CTA */}
         <section className="py-16 bg-gradient-to-r from-[hsl(var(--primary))]/10 to-[hsl(var(--accent))]/10 border-y border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold text-white mb-4">Mission Control</h2>
