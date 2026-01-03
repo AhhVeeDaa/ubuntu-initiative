@@ -1,23 +1,22 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
+import { useChat } from 'ai/react';
 import { Send, Bot, User, Sparkles, AlertCircle } from 'lucide-react';
 import clsx from 'clsx';
 
-type Message = {
-    role: 'user' | 'assistant';
-    content: string;
-};
-
 export function IngaChat() {
-    const [messages, setMessages] = useState<Message[]>([
-        {
-            role: 'assistant',
-            content: "Hello. I am Inga GPT, the voice of the Ubuntu Initiative. ask me about our mission to solve Africa's energy poverty and establish sovereign AI infrastructure."
-        }
-    ]);
-    const [input, setInput] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
+        api: '/api/chat',
+        initialMessages: [
+            {
+                id: 'welcome-message',
+                role: 'assistant',
+                content: "Hello. I am Inga GPT, the voice of the Ubuntu Initiative. I have access to our live funding databases—ask me about our mission or our current Phase 0 progress."
+            }
+        ]
+    });
+
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
@@ -27,39 +26,6 @@ export function IngaChat() {
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!input.trim() || isLoading) return;
-
-        const userMessage = input.trim();
-        setInput('');
-        setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
-        setIsLoading(true);
-
-        try {
-            const response = await fetch('/api/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMessage }),
-            });
-
-            if (!response.ok) throw new Error('Failed to get response');
-
-            const data = await response.json();
-
-            // Simulate typing effect if desired, or just set immediately
-            setMessages(prev => [...prev, { role: 'assistant', content: data.reply }]);
-        } catch (error) {
-            console.error('Chat error:', error);
-            setMessages(prev => [...prev, {
-                role: 'assistant',
-                content: "I apologize, but I'm having trouble connecting to the Inga network right now. Please try again in a moment."
-            }]);
-        } finally {
-            setIsLoading(false);
-        }
-    };
 
     return (
         <div className="w-full h-[600px] flex flex-col bg-black/40 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden shadow-2xl relative">
@@ -81,9 +47,9 @@ export function IngaChat() {
 
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                {messages.map((msg, idx) => (
+                {messages.map((msg) => (
                     <div
-                        key={idx}
+                        key={msg.id}
                         className={clsx(
                             "flex items-start max-w-[85%]",
                             msg.role === 'user' ? "ml-auto flex-row-reverse" : "mr-auto"
@@ -111,6 +77,7 @@ export function IngaChat() {
                                 : "bg-white/5 text-gray-200 border border-white/10 rounded-tl-none hover:bg-white/10 transition-colors"
                         )}>
                             {msg.content}
+                            {/* Render tool invocations if any (optional enhancement, but good for debugging) */}
                         </div>
                     </div>
                 ))}
@@ -127,6 +94,16 @@ export function IngaChat() {
                         </div>
                     </div>
                 )}
+
+                {error && (
+                    <div className="flex justify-center my-4">
+                        <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-2 rounded-lg text-sm flex items-center">
+                            <AlertCircle className="h-4 w-4 mr-2" />
+                            Unable to connect to Inga Intelligence Network.
+                        </div>
+                    </div>
+                )}
+
                 <div ref={messagesEndRef} />
             </div>
 
@@ -136,8 +113,8 @@ export function IngaChat() {
                     <input
                         type="text"
                         value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        placeholder="Ask about Inga or our sovereign AI mission..."
+                        onChange={handleInputChange}
+                        placeholder="Ask about Inga, progress, or funding..."
                         disabled={isLoading}
                         className="w-full bg-black/20 text-white placeholder-gray-500 rounded-xl pl-4 pr-12 py-4 border border-white/10 focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))] focus:outline-none transition-all disabled:opacity-50"
                     />
@@ -150,7 +127,7 @@ export function IngaChat() {
                     </button>
                 </form>
                 <div className="text-center mt-2">
-                    <p className="text-[10px] text-gray-600">Inga GPT can make mistakes. Consider checking important information.</p>
+                    <p className="text-[10px] text-gray-600">Inga GPT accesses real-time mission data. Mistakes possible.</p>
                 </div>
             </div>
         </div>
