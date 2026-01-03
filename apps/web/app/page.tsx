@@ -127,6 +127,20 @@ export default function Home() {
             </a>
           </div>
         </section>
+
+        {/* AI Assistant Section */}
+        <section className="py-20 bg-black/40">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold text-white mb-8">Ask Ubuntu Intelligence</h2>
+            <div className="rounded-xl overflow-hidden glass border border-white/10 shadow-2xl">
+              <iframe
+                src="https://interfaces.zapier.com/embed/page/cmjxpv2ni000613dvce67w2lh?noBackground=false&allowQueryParams=true"
+                style={{ width: '100%', height: '700px', border: 'none' }}
+                title="Ubuntu AI Assistant"
+              ></iframe>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />
