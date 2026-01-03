@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   description: "Powering Africa's future with the world's first sovereign AI supercomputer.",
 };
 
+import { IngaFloatingButton } from '@/components/ai/IngaFloatingButton';
+
+// ... (previous imports)
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -16,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={outfit.className}>{children}</body>
+      <body className={outfit.className}>
+        {children}
+        <IngaFloatingButton />
+      </body>
     </html>
   );
 }
