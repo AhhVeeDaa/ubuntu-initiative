@@ -1,47 +1,58 @@
-// Ubuntu Initiative - Policy Agent Manual Trigger
-// POST /api/agents/policy
+/**
+ * Policy Agent API Endpoint
+ * POST /api/agents/policy
+ * 
+ * This endpoint will trigger the policy monitoring agent
+ * Currently returns a placeholder response - full implementation pending
+ */
 
 import { NextResponse } from 'next/server';
-import { PolicyAgent } from '@/lib/agents/policy';
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    // TODO: Add authentication check here
-    // For Phase 0, we'll allow manual triggers
-    // In production, verify user has 'admin' or 'approver' role
-    
-    const agent = new PolicyAgent({
-      agentId: 'agent_001_policy_monitor',
-      version: '1.0.0',
-      dryRun: false,
-      relevanceThreshold: 0.4
-    });
-
-    const result = await agent.run('manual', 'system'); // TODO: Use actual user ID
+    // TODO: Implement actual policy agent trigger logic
+    // This is a placeholder that simulates a successful agent run
     
     return NextResponse.json({
       success: true,
-      ...result
+      status: 'simulated',
+      message: 'Policy agent trigger endpoint - Full implementation pending',
+      runId: `sim_${Date.now()}`,
+      itemsProcessed: 0,
+      note: 'This is a placeholder response. The full policy agent will be deployed separately.',
+      timestamp: new Date().toISOString()
     });
     
   } catch (error: any) {
-    console.error('Policy agent error:', error);
+    console.error('Error in policy agent endpoint:', error);
+    
     return NextResponse.json(
-      {
-        success: false,
-        error: error.message
+      { 
+        success: false, 
+        error: error.message || 'Internal server error'
       },
       { status: 500 }
     );
   }
 }
 
+// Handle GET requests
 export async function GET() {
   return NextResponse.json({
-    agent: 'Policy Monitor',
-    id: 'agent_001_policy_monitor',
+    name: 'Policy Monitoring Agent',
+    id: 'agent_001_policy',
+    status: 'configured',
     version: '1.0.0',
-    status: 'active',
-    methods: ['POST']
+    description: 'Monitors policy discussions and regulatory changes affecting renewable energy',
+    capabilities: [
+      'Track policy updates',
+      'Analyze regulatory impacts',
+      'Generate policy briefs'
+    ],
+    endpoints: {
+      trigger: 'POST /api/agents/policy',
+      status: 'GET /api/agents/policy'
+    },
+    note: 'Full implementation will be deployed with the complete policy agent system'
   });
 }
