@@ -4,8 +4,8 @@ import dynamic from 'next/dynamic';
 
 // Use Next.js dynamic import with ssr: false to completely skip server-side rendering
 // This prevents ANY module resolution during the build phase
-const IngaChat = dynamic(
-  () => import('./IngaChat').then(mod => ({ default: mod.IngaChat })),
+const IngaChatClient = dynamic(
+  () => import('./IngaChatClient').then(mod => ({ default: mod.IngaChatClient })),
   { 
     ssr: false,
     loading: () => (
@@ -20,5 +20,5 @@ const IngaChat = dynamic(
 );
 
 export function IngaChatWrapper() {
-  return <IngaChat />;
+  return <IngaChatClient />;
 }

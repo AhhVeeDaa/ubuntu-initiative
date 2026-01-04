@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { IngaChat } from './IngaChat';
+import { IngaChatClient } from './IngaChatClient';
 import { Sparkles, X, MessageSquare, ChevronDown } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
@@ -39,7 +39,7 @@ export function IngaFloatingButton() {
                     {/* Render the shared IngaChat component */}
                     {/* We might need to adjust height for floating context */}
                     <div className="h-[600px] rounded-2xl overflow-hidden relative border border-[hsl(var(--primary))]/30">
-                        <IngaChat />
+                        <IngaChatClient />
                     </div>
                 </div>
             </div>
