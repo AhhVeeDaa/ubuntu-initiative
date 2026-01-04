@@ -39,12 +39,12 @@ export default function PolicyAgentPage() {
         .from('policy_updates')
         .select('status, confidence_score');
 
-      if (updates) {
-        const pending = updates.filter(u => u.status === 'pending').length;
-        const approved = updates.filter(u => u.status === 'approved').length;
-        const rejected = updates.filter(u => u.status === 'rejected').length;
+      if (updates && Array.isArray(updates)) {
+        const pending = updates.filter((u: any) => u.status === 'pending').length;
+        const approved = updates.filter((u: any) => u.status === 'approved').length;
+        const rejected = updates.filter((u: any) => u.status === 'rejected').length;
         const avgConf = updates.length > 0
-          ? updates.reduce((sum, u) => sum + u.confidence_score, 0) / updates.length
+          ? updates.reduce((sum: number, u: any) => sum + (u.confidence_score || 0), 0) / updates.length
           : 0;
 
         setStats({
