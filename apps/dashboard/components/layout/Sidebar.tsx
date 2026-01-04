@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Server, Activity, FileText, Cpu, Mail, Terminal, Home, Bot } from 'lucide-react';
+import { LayoutDashboard, Server, Activity, FileText, Cpu, Mail, Terminal, Home, Bot, Clock, Shield } from 'lucide-react';
 import clsx from 'clsx';
 
 const navigation = [
@@ -10,6 +10,8 @@ const navigation = [
     { name: 'Compute Nodes', href: '/nodes', icon: Server },
     { name: 'Energy Grid', href: '/energy', icon: Activity },
     { name: 'Agents', href: '/agents', icon: Bot },
+    { name: 'Policy Agent', href: '/agents/policy', icon: Shield },
+    { name: 'Approval Queue', href: '/approval', icon: Clock },
     { name: 'Inquiries', href: '/contacts', icon: Mail },
     { name: 'Remote Execute', href: '/terminal', icon: Terminal },
     { name: 'System Logs', href: '/logs', icon: FileText },
