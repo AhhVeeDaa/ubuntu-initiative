@@ -1,12 +1,12 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
-import { useChat } from 'ai/react';
+import { useChat } from '@ai-sdk/react';
 import { Send, Bot, User, Sparkles, AlertCircle } from 'lucide-react';
 import clsx from 'clsx';
-
 export function IngaChat() {
-    const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
+    // Type cast to work around strict typing in @ai-sdk/react 3.0.6
+    const chatResult = useChat({
         api: '/api/chat',
         initialMessages: [
             {
@@ -15,9 +15,14 @@ export function IngaChat() {
                 content: "Hello. I am Inga GPT, the voice of the Ubuntu Initiative. I have access to our live funding databases—ask me about our mission or our current Phase 0 progress."
             }
         ]
-    });
+    } as any);
+
+    const { messages = [], input = '', handleInputChange, handleSubmit, isLoading = false, error } = (chatResult || {}) as any;
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    
+    // Ensure input is always a string to prevent trim() errors during SSR
+    const safeInput = String(input || '');
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -47,7 +52,11 @@ export function IngaChat() {
 
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                {messages.map((msg) => (
+                {Array.isArray(messages) && messages.map((msg: any) => {
+                    // Ensure msg has required properties to prevent build errors
+                    if (!msg || !msg.id || !msg.role || typeof msg.content !== 'string') return null;
+                    
+                    return (
                     <div
                         key={msg.id}
                         className={clsx(
@@ -77,10 +86,10 @@ export function IngaChat() {
                                 : "bg-white/5 text-gray-200 border border-white/10 rounded-tl-none hover:bg-white/10 transition-colors"
                         )}>
                             {msg.content}
-                            {/* Render tool invocations if any (optional enhancement, but good for debugging) */}
                         </div>
                     </div>
-                ))}
+                    );
+                })}
 
                 {isLoading && (
                     <div className="flex items-start mr-auto max-w-[80%]">
@@ -112,7 +121,7 @@ export function IngaChat() {
                 <form onSubmit={handleSubmit} className="relative flex items-center">
                     <input
                         type="text"
-                        value={input}
+                        value={safeInput}
                         onChange={handleInputChange}
                         placeholder="Ask about Inga, progress, or funding..."
                         disabled={isLoading}
@@ -120,7 +129,7 @@ export function IngaChat() {
                     />
                     <button
                         type="submit"
-                        disabled={!input.trim() || isLoading}
+                        disabled={!safeInput || !safeInput.trim() || isLoading}
                         className="absolute right-2 p-2 bg-[hsl(var(--primary))] text-white rounded-lg hover:bg-[hsl(var(--primary))]/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                     >
                         <Send className="h-5 w-5" />

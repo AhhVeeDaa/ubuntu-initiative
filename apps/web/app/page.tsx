@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { HeroSection } from '@/components/ui/HeroSection';
-import { IngaChat } from '@/components/ai/IngaChat';
+import { IngaChatWrapper } from '@/components/ai/IngaChatWrapper';
 import { ImpactDonation } from '@/components/stripe/ImpactDonation';
 
 export default function Home() {
@@ -147,7 +147,7 @@ export default function Home() {
             </div>
 
             <div className="mx-auto">
-              <IngaChat />
+              <IngaChatWrapper />
             </div>
           </div>
         </section>
