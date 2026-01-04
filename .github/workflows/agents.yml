@@ -1,0 +1,82 @@
+name: Ubuntu Initiative Agents
+
+on:
+  schedule:
+    # Daily policy update at 06:00 UTC
+    - cron: '0 6 * * *'
+    # Weekly community insights on Sunday at 18:00 UTC
+    - cron: '0 18 * * 0'
+  
+  workflow_dispatch:
+    inputs:
+      automation:
+        description: 'Which automation to run'
+        required: true
+        type: choice
+        options:
+          - daily-policy-update
+          - weekly-insights
+          - all
+
+jobs:
+  daily-policy-update:
+    if: |
+      github.event_name == 'workflow_dispatch' && 
+      (github.event.inputs.automation == 'daily-policy-update' || github.event.inputs.automation == 'all') ||
+      github.event.schedule == '0 6 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: packages/agents/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd packages/agents
+          npm ci
+
+      - name: Run daily policy update
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          cd packages/agents
+          node src/automations/daily-policy-update.js
+
+  weekly-insights:
+    if: |
+      github.event_name == 'workflow_dispatch' && 
+      (github.event.inputs.automation == 'weekly-insights' || github.event.inputs.automation == 'all') ||
+      github.event.schedule == '0 18 * * 0'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: packages/agents/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd packages/agents
+          npm ci
+
+      - name: Run weekly community insights
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          cd packages/agents
+          node src/automations/weekly-insights.js
