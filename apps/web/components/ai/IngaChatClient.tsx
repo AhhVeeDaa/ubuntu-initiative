@@ -1,13 +1,13 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { Send, Bot, User, Sparkles, AlertCircle } from 'lucide-react';
 import clsx from 'clsx';
 
 export function IngaChatClient() {
-    // Type cast to work around strict typing in @ai-sdk/react 3.0.6
-    const chatResult = useChat({
+    // Type assertion to work around @ai-sdk/react 3.0.6 API changes
+    const chatHook = useChat({
         api: '/api/chat',
         initialMessages: [
             {
@@ -18,12 +18,18 @@ export function IngaChatClient() {
         ]
     } as any);
 
-    const { messages = [], input = '', handleInputChange, handleSubmit, isLoading = false, error } = (chatResult || {}) as any;
+    // Cast the entire hook result to any to access all properties
+    const {
+        messages = [],
+        input = '',
+        handleInputChange,
+        handleSubmit,
+        isLoading = false,
+        error,
+        setInput
+    } = chatHook as any;
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    
-    // Ensure input is always a string to prevent trim() errors during SSR
-    const safeInput = String(input || '');
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -32,6 +38,23 @@ export function IngaChatClient() {
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    // Create a safe input change handler
+    const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (handleInputChange) {
+            handleInputChange(e);
+        } else if (setInput) {
+            setInput(e.target.value);
+        }
+    };
+
+    // Create a safe submit handler
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (handleSubmit) {
+            handleSubmit(e);
+        }
+    };
 
     return (
         <div className="w-full h-[600px] flex flex-col bg-black/40 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden shadow-2xl relative">
@@ -53,7 +76,7 @@ export function IngaChatClient() {
 
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                {Array.isArray(messages) && messages.map((msg: any) => {
+                {messages && messages.map((msg: any) => {
                     if (!msg || !msg.id || !msg.role || typeof msg.content !== 'string') return null;
                     
                     return (
@@ -116,18 +139,18 @@ export function IngaChatClient() {
 
             {/* Input Area */}
             <div className="p-4 bg-white/5 border-t border-white/10">
-                <form onSubmit={handleSubmit} className="relative flex items-center">
+                <form onSubmit={onSubmit} className="relative flex items-center">
                     <input
                         type="text"
-                        value={safeInput}
-                        onChange={handleInputChange}
+                        value={input}
+                        onChange={onInputChange}
                         placeholder="Ask about Inga, progress, or funding..."
                         disabled={isLoading}
                         className="w-full bg-black/20 text-white placeholder-gray-500 rounded-xl pl-4 pr-12 py-4 border border-white/10 focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))] focus:outline-none transition-all disabled:opacity-50"
                     />
                     <button
                         type="submit"
-                        disabled={!safeInput || !safeInput.trim() || isLoading}
+                        disabled={!input || !input.trim() || isLoading}
                         className="absolute right-2 p-2 bg-[hsl(var(--primary))] text-white rounded-lg hover:bg-[hsl(var(--primary))]/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                     >
                         <Send className="h-5 w-5" />
