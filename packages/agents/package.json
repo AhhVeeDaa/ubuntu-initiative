@@ -1,0 +1,23 @@
+{
+  "name": "@ubuntu-initiative/agents",
+  "version": "1.0.0",
+  "description": "Agent system for Ubuntu Initiative automation",
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "dev": "node --watch src/index.js",
+    "agent:funding": "node src/agents/funding-agent.js",
+    "agent:milestone": "node src/agents/milestone-agent.js",
+    "agent:policy": "node src/agents/policy-agent.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.89.0",
+    "dotenv": "^17.2.3",
+    "stripe": "^14.10.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

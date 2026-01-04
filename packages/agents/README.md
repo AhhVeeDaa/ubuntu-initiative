@@ -1,101 +1,138 @@
-# Ubuntu Initiative Agent Swarm
+# Ubuntu Initiative Agent System
 
-This directory contains the agentic AI framework integrating with Google Antigravity.
+Multi-agent automation system for transparent governance and milestone tracking.
 
-## Agent Architecture
+## Architecture
 
-```
-Agent Swarm
-├── orchestrator.js       # Main orchestration layer
-├── agents/
-│   ├── research.js       # Research Intelligence Agent
-│   ├── partnerships.js   # Partnership Scout Agent
-│   ├── documents.js      # Document Engine Agent
-│   ├── financials.js     # Financial Modeler Agent
-│   ├── communications.js # Communications Manager Agent
-│   └── publisher.js      # Website Publisher Agent
-├── tools/
-│   ├── web-scraping.js   # Web scraping utilities
-│   ├── email.js          # Email integration
-│   ├── calendar.js       # Calendar management
-│   └── documents.js      # Document generation
-└── config/
-    └── agents.json       # Agent configuration
-```
+### Agents
+- **Funding Agent** (`agent_002`): Processes donations, detects fraud, tracks grants
+- **Milestone Agent** (`agent_004`): Validates progress milestones with evidence
+- **Policy Agent** (`agent_001`): Monitors policy changes (coming soon)
+- **Chatbot Agent** (`agent_005`): Powers Inga GPT (coming soon)
 
-## Agent Definitions
+### Database Schema
+Located in `supabase/migrations/001_initial_schema.sql`
 
-### Research Intelligence Agent
-**Purpose**: Monitor and analyze information about Inga, DRC, African energy, AI trends  
-**Inputs**: Search queries, RSS feeds, news sources  
-**Outputs**: Intelligence briefings, risk alerts, opportunity identification  
-**Schedule**: Runs daily at 6 AM UTC
-
-### Partnership Scout Agent  
-**Purpose**: Identify and qualify potential partners  
-**Inputs**: Partner criteria, industry databases  
-**Outputs**: Partner profiles, outreach recommendations  
-**Schedule**: Runs weekly on Mondays
-
-### Document Engine Agent
-**Purpose**: Draft and refine documents  
-**Inputs**: Templates, data, requirements  
-**Outputs**: MOUs, pitch decks, studies, reports  
-**Schedule**: On-demand
-
-### Financial Modeler Agent
-**Purpose**: Build and maintain financial projections  
-**Inputs**: Assumptions, market data, scenarios  
-**Outputs**: Financial models, investor materials  
-**Schedule**: Updates weekly
-
-### Communications Manager Agent
-**Purpose**: Draft and track outreach  
-**Inputs**: Partner info, templates, context  
-**Outputs**: Emails, follow-ups, meeting summaries  
-**Schedule**: On-demand + daily follow-up checks
-
-### Website Publisher Agent
-**Purpose**: Update public website with curated progress  
-**Inputs**: Dashboard activities, approved updates  
-**Outputs**: Website content updates  
-**Schedule**: Daily at 9 AM UTC
+Tables:
+- `milestone_events` - Public progress tracking
+- `policy_events` - Public policy timeline
+- `donation_aggregates` - Anonymized donation stats
+- `knowledge_base` - Chatbot Q&A pairs
+- `donations` (private) - Full donation records
+- `agent_audit_log` (private) - Complete audit trail
+- `approval_queue` (private) - Human review queue
 
 ## Setup
 
-1. Install dependencies:
+1. **Install dependencies**
 ```bash
-npm install @google/generative-ai
+cd packages/agents
+npm install
 ```
 
-2. Configure Google Antigravity:
+2. **Configure environment**
 ```bash
-export GOOGLE_AI_API_KEY="your-key-here"
+cp .env.example .env
+# Edit .env with your credentials
 ```
 
-3. Test agents:
+3. **Deploy database schema**
 ```bash
-node orchestrator.js --test
+# Using Supabase CLI
+supabase db push
+
+# Or manually run the migration in Supabase dashboard
 ```
 
 ## Usage
 
-```javascript
-const { ResearchAgent } = require('./agents/research');
+### Test Agents
 
-const agent = new ResearchAgent();
-await agent.run({
-  topic: 'inga dam updates',
-  sources: ['news', 'government', 'academic']
-});
+```bash
+# Test all agents
+node src/cli.js test:all
+
+# Test specific agent
+node src/cli.js test:funding
+node src/cli.js test:milestone
+
+# Show help
+node src/cli.js help
 ```
 
-## Integration with Dashboard
+### Run Individual Agent
 
-Agents write outputs to the database tables:
-- `research` table for intelligence gathered
-- `agent_tasks` table for task tracking
-- `activities` table for activity logging
-- `documents` table for generated content
+```bash
+# Funding agent
+npm run agent:funding
 
-Dashboard displays agent outputs in real-time.
+# Milestone agent
+npm run agent:milestone
+```
+
+## Development
+
+### Creating a New Agent
+
+1. Extend `BaseAgent` class
+2. Implement `run()` method
+3. Use provided helper methods:
+   - `logAction()` - Audit trail
+   - `queueForReview()` - Human approval
+   - `generateAI()` - AI generation
+   - `calculateConfidence()` - Confidence scoring
+
+Example:
+```javascript
+import { BaseAgent } from '../base-agent.js';
+
+export class MyAgent extends BaseAgent {
+    constructor() {
+        super('agent_xxx_name', { /* config */ });
+    }
+
+    async run() {
+        // Your agent logic here
+    }
+}
+```
+
+### Safety Guardrails
+
+All agents include:
+- Confidence thresholds (default: 0.9 for auto-publish)
+- Human approval queue for uncertain outputs
+- Complete audit logging
+- Data boundary respect (RLS policies)
+
+## Testing
+
+```bash
+# Run tests
+npm test
+
+# Watch mode
+npm run dev
+```
+
+## Deployment
+
+Agents can be deployed as:
+1. **Supabase Edge Functions** - For webhooks and realtime
+2. **GitHub Actions** - For scheduled jobs
+3. **Vercel Serverless Functions** - For API endpoints
+
+## Monitoring
+
+View agent activity:
+- Dashboard: `/dashboard` (authenticated)
+- Audit Log: `private.agent_audit_log` table
+- Approval Queue: `private.approval_queue` table
+
+## Documentation
+
+Full architecture: See `ubuntu_agent_architecture.json`
+
+## License
+
+MIT
