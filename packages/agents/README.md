@@ -1,297 +1,360 @@
 # Ubuntu Initiative Agent System
 
-Multi-agent automation system for transparent governance and milestone tracking.
+## 🌍 Overview
 
-## Phase 2 Status: ✅ 5/8 Agents Deployed
+The Ubuntu Initiative Agent System is an AI-powered automation framework for Africa's first sovereign AI supercomputer project. Built on principles of transparency, accountability, and Congolese values, this system provides intelligent assistance while maintaining strict human oversight.
 
-### Deployed Agents
-1. ✅ **Funding Agent** - Real-time donation processing, fraud detection
-2. ✅ **Milestone Agent** - Evidence-based milestone validation  
-3. ✅ **Policy Agent** - Policy tracking with relevance scoring
-4. ✅ **Community Agent** - Sentiment analysis and insights
-5. ✅ **Narrative Agent** - Content generation (advisory mode)
+## 🎯 Core Principles
 
-### Coming Soon
-6. 🚧 **Research Synthesis Agent** - Academic paper curation
-7. 🚧 **Chatbot Agent** (Inga GPT) - Enhanced Q&A
-8. 🚧 **Due Diligence Agent** - Stakeholder vetting
+### 1. **Advisory Mode Always**
+- No autonomous actions on sensitive matters
+- All AI decisions require human review
+- Clear confidence scores on every recommendation
+- Complete audit trail of all activities
 
-## Automations
+### 2. **Transparency First**
+- All sources cited and verifiable
+- Clear reasoning for every decision
+- Public accountability baked in
+- No "black box" operations
 
-### Active
-- ✅ **Daily Policy Update** (06:00 UTC) - Scans policy sources, auto-publishes routine updates
-- ✅ **Weekly Community Insights** (Sunday 18:00 UTC) - Sentiment analysis report
+### 3. **Congolese Values**
+- Community-centered approach
+- Respect for authority and hierarchy
+- Conservative risk assessment
+- Long-term thinking over quick wins
 
-### Planned
-- Weekly funding opportunities digest
-- Milestone completion announcements
-- Monthly transparency report
-- Real-time donation counter updates
+## 📦 System Components
 
-## Quick Start
+### Base Agent
+Foundation class providing:
+- Supabase database integration
+- Google Gemini AI capabilities
+- Logging and audit trails
+- Confidence scoring framework
+- Human review queue management
 
-### 1. Install Dependencies
+### Specialized Agents
+
+#### 1. **PolicyAgent** (agent_001_policy)
+Monitors policy changes affecting the project
+- Tracks DRC government regulations
+- Classifies policy relevance and impact
+- Generates alerts for leadership
+- Quarterly compliance reviews
+
+#### 2. **CommunityAgent** (agent_002_community)
+Listens to community sentiment and questions
+- Social media monitoring
+- Sentiment analysis
+- Signal categorization (questions/feedback/concerns)
+- Duplicate detection and threading
+
+#### 3. **NarrativeAgent** (agent_003_narrative)
+Generates transparent content- Public website updates
+- Social media posts  
+- Research summaries
+- Policy explanations
+- **Prohibition enforcement**: No promises, guarantees, or speculation about future phases
+- **Human review required**: All content queued for approval
+
+#### 4. **FundingAgent** (agent_004_funding)
+Identifies and monitors grant opportunities
+- Scans grant databases
+- Checks eligibility requirements
+- Tracks application deadlines
+- Estimates success probability
+- Generates application briefs
+
+#### 5. **ChatbotAgent** (agent_005_chatbot) - "Inga GPT"
+Powers public Q&A interface
+- Knowledge base integration
+- Query escalation for sensitive topics
+- Confidence-scored responses
+- Session tracking
+- Source citation
+
+#### 6. **MilestoneAgent** (agent_006_milestone)
+Tracks project progress
+- Phase 0 milestone monitoring
+- Completion status tracking
+- Alert generation for delays
+- Progress reporting
+
+#### 7. **ResearchAgent** (agent_007_research)
+Synthesizes academic research
+- Monitors research sources (arXiv, Google Scholar, etc.)
+- Relevance scoring (0-1 scale)
+- Theme identification
+- Automated summaries
+
+#### 8. **DueDiligenceAgent** (agent_008_due_diligence)
+Vets potential partners and stakeholders
+- Multi-source verification
+- Risk flag identification
+- Opportunity scoring
+- Recommendation generation
+- **Always requires human review**
+
+## 🚀 Quick Start
+
+### Installation
+
 ```bash
 cd packages/agents
 npm install
 ```
 
-### 2. Configure Environment
+### Configuration
+
+1. Copy environment template:
 ```bash
 cp .env.example .env
-# Edit .env with your credentials
 ```
 
-### 3. Test Agents
+2. Configure required variables:
+```env
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_SERVICE_KEY=your_service_key
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+### Using the CLI
+
+List available agents:
 ```bash
-# Test all agents
-npm run test:phase2
-
-# Test individual agents
-node src/cli.js test:policy
-node src/cli.js test:community
-node src/cli.js test:narrative
+npm run cli list
 ```
 
-### 4. Run Automations Locally
+Check system status:
 ```bash
-# Daily policy update
-node src/automations/daily-policy-update.js
-
-# Weekly community insights
-node src/automations/weekly-insights.js
+npm run cli status
 ```
 
-## Testing
-
+Run a specific agent:
 ```bash
-# Phase 1 agents (Funding, Milestone)
-npm test
-
-# Phase 2 agents (Policy, Community, Narrative)
-node src/test-phase2.js
-
-# All tests
-npm test && node src/test-phase2.js
+npm run cli run research
+npm run cli run chatbot
+npm run cli run policy
 ```
 
-**Current Status**: 12/12 tests passing ✅
+Run tests:
+```bash
+npm test                # Run all tests
+npm run test:phase2     # Core logic tests
+npm run test:phase3     # Enhanced features
+npm run test:phase4     # Integration tests
+```
 
-## Deployment
+Interactive mode:
+```bash
+npm run cli interactive
+```
 
-### GitHub Actions (Recommended)
-Automations run on schedule via `.github/workflows/agents.yml`
-
-**Manual Trigger**:
-1. Go to Actions tab in GitHub
-2. Select "Ubuntu Initiative Agents"
-3. Click "Run workflow"
-4. Choose automation to run
-
-### Required Secrets
-Configure in GitHub Settings > Secrets:
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_KEY`
-- `GEMINI_API_KEY`
-
-### Vercel Serverless (Alternative)
-Deploy as API routes for webhook triggers.
-
-## Agent Details
-
-### Policy Agent
-**Purpose**: Monitor policy changes affecting hydropower, AI sovereignty, infrastructure
-
-**Features**:
-- Keyword-based relevance scoring (0-1)
-- Auto-publish if relevance <0.8
-- High-impact detection and review queue
-- Category classification (energy, infrastructure, governance, etc.)
-
-**Test**: `node src/cli.js test:policy`
-
-### Community Agent
-**Purpose**: Analyze community sentiment across platforms
-
-**Features**:
-- Sentiment analysis (-1 to 1 scale)
-- Category classification (funding, progress, question, concern)
-- Weekly insights report generation
-- Alert on negative trends
-- Complete anonymization
-
-**Test**: `node src/cli.js test:community`
-
-### Narrative Agent
-**Purpose**: Generate consistent, culturally-aware messaging
-
-**Features**:
-- AI-powered content generation
-- Prohibited terms detection (future phases, promises)
-- Superlative validation (requires data support)
-- Evidence link verification
-- 100% human approval required (advisory mode)
-
-**Test**: `node src/cli.js test:narrative`
-
-## Safety Features
-
-### Confidence Gating
-- >0.9 - Auto-publish
-- 0.7-0.9 - Human review (medium priority)
-- <0.7 - Reject or urgent review
-
-### Audit Trail
-Every action logged with:
-- Input/output data
-- Confidence score
-- Reasoning text
-- Timestamp
-
-### Human Oversight
-- Approval queue for uncertain outputs
-- Priority levels (low, medium, high, urgent)
-- Feedback loop for continuous improvement
-
-## Architecture
+## 📁 Project Structure
 
 ```
 packages/agents/
 ├── src/
-│   ├── agents/
-│   │   ├── funding-agent.js       (Phase 1)
-│   │   ├── milestone-agent.js     (Phase 1)
-│   │   ├── policy-agent.js        (Phase 2)
-│   │   ├── community-agent.js     (Phase 2)
-│   │   └── narrative-agent.js     (Phase 2)
-│   ├── automations/
+│   ├── base-agent.js          # Foundation class
+│   ├── cli.js                 # Command-line interface
+│   ├── agents/                # Specialized agents
+│   │   ├── policy-agent.js
+│   │   ├── community-agent.js
+│   │   ├── narrative-agent.js
+│   │   ├── funding-agent.js
+│   │   ├── chatbot-agent.js
+│   │   ├── milestone-agent.js
+│   │   ├── research-agent.js
+│   │   └── due-diligence-agent.js
+│   ├── automations/           # Scheduled workflows
 │   │   ├── daily-policy-update.js
 │   │   └── weekly-insights.js
-│   ├── base-agent.js
-│   ├── cli.js
-│   ├── test.js                    (Phase 1 tests)
-│   └── test-phase2.js             (Phase 2 tests)
-└── package.json
+│   ├── test-phase2.js         # Core logic tests
+│   ├── test-phase3.js         # Enhanced features tests
+│   ├── test-phase4.js         # Integration tests
+│   └── test-all.js            # Complete test runner
+├── package.json
+├── .env.example
+├── README.md
+└── PROGRESS.md
 ```
 
-## Usage Examples
+## 🔧 Development
 
-### Generate Policy Insights
+### Running Individual Agents
+
+```javascript
+import { ResearchAgent } from './agents/research-agent.js';
+
+const agent = new ResearchAgent();
+const result = await agent.run();
+console.log(result);
+```
+
+### Creating Custom Workflows
+
 ```javascript
 import { PolicyAgent } from './agents/policy-agent.js';
-
-const agent = new PolicyAgent();
-const results = await agent.run();
-// Processes policies, calculates relevance, queues high-impact items
-```
-
-### Analyze Community Sentiment
-```javascript
-import { CommunityAgent } from './agents/community-agent.js';
-
-const agent = new CommunityAgent();
-const insights = await agent.generateWeeklyInsights();
-// Returns: avg_sentiment, trend, top_category, alerts
-```
-
-### Generate Milestone Announcement
-```javascript
 import { NarrativeAgent } from './agents/narrative-agent.js';
 
-const agent = new NarrativeAgent();
-const result = await agent.generateMilestoneAnnouncement(milestone);
-// Creates draft, validates content, queues for approval
+// Monitor policy changes
+const policy = new PolicyAgent();
+const changes = await policy.run();
+
+// Generate narrative update
+const narrative = new NarrativeAgent();
+const update = await narrative.generateUpdate({
+    type: 'policy_alert',
+    policy: changes.newPolicies[0]
+});
 ```
 
-## Performance
+### Adding New Agents
 
-- **Funding Agent**: <100ms (real-time webhook)
-- **Milestone Agent**: <200ms (validation + DB write)
-- **Policy Agent**: ~2-5s (fetch + process multiple sources)
-- **Community Agent**: ~1-3s (analyze signals + generate insights)
-- **Narrative Agent**: ~3-5s (AI generation + validation)
-
-## Monitoring
-
-### Dashboard
-View at `/dashboard` (requires auth):
-- Agent activity logs
-- Approval queue
-- Milestone statistics
-- Real-time updates
-
-### Database Queries
-```sql
--- Recent agent activity
-SELECT * FROM private.agent_audit_log 
-ORDER BY timestamp DESC LIMIT 20;
-
--- Approval queue status
-SELECT item_type, status, COUNT(*) 
-FROM private.approval_queue 
-GROUP BY item_type, status;
-
--- Policy relevance distribution
-SELECT 
-  ROUND(relevance_score, 1) as score,
-  COUNT(*) 
-FROM public.policy_events 
-GROUP BY score 
-ORDER BY score DESC;
-```
-
-## Development
-
-### Adding a New Agent
-
-1. Create agent file in `src/agents/`
-2. Extend `BaseAgent` class
-3. Implement `run()` method
-4. Add tests to `test-phase2.js`
-5. Update CLI with new commands
-
-Example:
+1. Extend BaseAgent:
 ```javascript
 import { BaseAgent } from '../base-agent.js';
 
 export class MyAgent extends BaseAgent {
     constructor() {
-        super('agent_xxx_name', { /* config */ });
+        super('agent_009_myagent', {
+            // Configuration
+        });
     }
 
     async run() {
-        // Your logic here
+        // Implementation
     }
 }
 ```
 
-### Creating an Automation
+2. Add to CLI registry in `src/cli.js`
+3. Add tests in appropriate phase file
 
-1. Create file in `src/automations/`
-2. Import relevant agents
-3. Implement main function
-4. Add to GitHub Actions workflow
+## 📊 Testing
 
-## Contributing
+### Test Coverage
+- **Phase 2**: Core agent logic (7 tests)
+- **Phase 3**: Enhanced methods (8 tests)
+- **Phase 4**: System integration (8 tests)
+- **Total**: 23 tests across all phases
 
-1. Fork the repository
-2. Create feature branch
-3. Add tests for new functionality
-4. Ensure all tests pass
-5. Submit pull request
+### Running Tests
 
-## Documentation
+```bash
+# All tests
+npm test
 
-- **DEPLOYMENT_GUIDE.md** - Complete deployment walkthrough
-- **Architecture JSON** - Full system design in artifacts
-- **API Reference** - See base-agent.js JSDoc comments
+# Specific phase
+npm run test:phase2
+npm run test:phase3
+npm run test:phase4
+```
 
-## License
+### Test Philosophy
+- Unit tests for core logic
+- Integration tests for workflows
+- Mock data for development
+- Production validation separate
 
-MIT
+## 🔒 Security
+
+### Best Practices
+1. **Never commit .env files**
+2. **Use service keys, not user keys**
+3. **All sensitive operations logged**
+4. **Human review for critical actions**
+5. **Rate limiting on AI API calls**
+
+### Data Protection
+- Stakeholder profiles in private schema
+- Audit logs for all agent activities
+- No PII in public logs
+- Encrypted database connections
+
+## 📈 Monitoring
+
+### Agent Performance Metrics
+- Confidence score distributions
+- Escalation rates
+- Response times
+- Error rates
+- API quota usage
+
+### System Health Checks
+```bash
+npm run cli status
+```
+
+Monitors:
+- Environment configuration
+- Agent availability
+- Database connectivity
+- API key validity
+
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+**"supabaseUrl is required"**
+- Check .env file exists
+- Verify SUPABASE_URL is set
+- Ensure .env is in correct directory
+
+**"API key not valid"**
+- Check GEMINI_API_KEY in .env
+- Verify API key has quota remaining
+- Test key with simple request
+
+**Tests failing with database errors**
+- Expected with placeholder credentials
+- Core logic tests pass without DB
+- Full suite requires valid credentials
+
+### Debug Mode
+
+Enable verbose logging:
+```bash
+npm run cli run policy --verbose
+```
+
+## 📖 Documentation
+
+- [Progress Report](./PROGRESS.md) - Development status
+- [API Documentation](./docs/API.md) - Coming soon
+- [Setup Guide](./docs/SETUP.md) - Coming soon
+- [Agent Guide](./docs/AGENTS.md) - Coming soon
+
+## 🤝 Contributing
+
+### Development Workflow
+1. Create feature branch
+2. Implement changes
+3. Add/update tests
+4. Run test suite
+5. Update documentation
+6. Submit for review
+
+### Code Style
+- ES6+ modules
+- Async/await for promises
+- Descriptive variable names
+- Comments for complex logic
+- JSDoc for public methods
+
+## 📝 License
+
+Proprietary - Ubuntu Initiative
+
+## 🌟 Credits
+
+Built for the Ubuntu Initiative - Africa's first sovereign AI supercomputer powered by Inga hydropower.
+
+**Team**: Ubuntu Initiative Development
+**Version**: 0.5.0
+**Status**: Production Ready (with valid credentials)
 
 ---
 
-**Status**: Phase 2 Complete - 5/8 Agents + 2/12 Automations  
-**Tests**: 12/12 passing ✅  
-**Next**: Research Synthesis + Chatbot Enhancement + Remaining Automations
+For questions or support, contact the Ubuntu Initiative development team.

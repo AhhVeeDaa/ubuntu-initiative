@@ -1,10 +1,23 @@
 {
   "name": "@ubuntu-initiative/agents",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "description": "Agent system for Ubuntu Initiative automation",
   "type": "module",
+  "main": "src/base-agent.js",
+  "bin": {
+    "ubuntu-agents": "./src/cli.js"
+  },
   "scripts": {
-    "test": "node --test",
+    "test": "node src/test-all.js",
+    "test:phase2": "node src/test-phase2.js",
+    "test:phase3": "node src/test-phase3.js",
+    "test:phase4": "node src/test-phase4.js",
+    "cli": "node src/cli.js",
+    "deploy": "node src/deploy-simple.js",
+    "deploy:full": "node src/deploy.js",
+    "setup:configure": "node src/setup.js",
+    "setup:database": "node src/setup-database.js",
+    "setup:all": "npm run setup:configure && npm run setup:database",
     "dev": "node --watch src/index.js",
     "agent:funding": "node src/agents/funding-agent.js",
     "agent:milestone": "node src/agents/milestone-agent.js",
@@ -13,7 +26,11 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@supabase/supabase-js": "^2.89.0",
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
     "dotenv": "^17.2.3",
+    "inquirer": "^9.2.0",
+    "ora": "^8.0.1",
     "stripe": "^14.10.0",
     "node-fetch": "^3.3.2"
   },
