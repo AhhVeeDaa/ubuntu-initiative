@@ -96,7 +96,12 @@ export type Database = {
           id: string
           category: string
           status: string
+          title: string | null
+          description: string | null
+          created_at: string
         }
+        Insert: Omit<Database['public']['Tables']['milestone_events']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['milestone_events']['Insert']>
       }
     }
   }
