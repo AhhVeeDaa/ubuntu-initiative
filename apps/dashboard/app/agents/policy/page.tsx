@@ -80,19 +80,33 @@ export default function PolicyAgentPage() {
       const response = await fetch('/api/agents/policy', {
         method: 'POST'
       });
+      
+      // Check if response is ok before parsing JSON
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`HTTP ${response.status}: ${text || response.statusText}`);
+      }
+      
+      // Check if response has content
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Server returned non-JSON response');
+      }
+      
       const result = await response.json();
       
       if (result.success) {
-        alert('Agent run started successfully!');
+        alert('✅ Agent run started successfully!');
         setTimeout(() => {
           fetchStats();
           fetchRecentRuns();
         }, 2000);
       } else {
-        alert('Failed to start agent: ' + result.error);
+        alert('❌ Failed to start agent: ' + (result.error || 'Unknown error'));
       }
-    } catch (error) {
-      alert('Error triggering agent: ' + error);
+    } catch (error: any) {
+      console.error('Error triggering agent:', error);
+      alert('⚠️ Error triggering agent: ' + error.message);
     } finally {
       setTriggering(false);
     }
