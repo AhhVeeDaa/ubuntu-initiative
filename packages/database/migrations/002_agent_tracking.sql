@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS approval_queue (
 -- Milestone Events: Detailed tracking of milestone changes
 CREATE TABLE IF NOT EXISTS milestone_events (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  milestone_id UUID REFERENCES milestones(id) ON DELETE CASCADE,
+  milestone_id UUID,
   event_type TEXT NOT NULL,
   category TEXT NOT NULL,
   old_status TEXT,
@@ -60,13 +60,27 @@ CREATE INDEX idx_agent_audit_log_timestamp ON agent_audit_log(timestamp DESC);
 CREATE INDEX idx_approval_queue_status ON approval_queue(status);
 CREATE INDEX idx_milestone_events_created_at ON milestone_events(created_at DESC);
 
--- Seed sample data
-INSERT INTO agent_audit_log (agent_id, action_type, reasoning, confidence_score, entity_type) VALUES
-('agent_001_policy', 'monitoring_initialized', 'Started monitoring DRC energy policy changes', 0.95, 'research'),
-('agent_002_community', 'sentiment_analysis_complete', 'Analyzed 247 social media posts about Inga Dam project', 0.87, 'research'),
-('agent_003_narrative', 'content_draft_created', 'Generated blog post about clean energy impact', 0.92, 'document'),
-('agent_004_funding', 'grant_opportunity_found', 'Identified renewable energy grant from AfDB worth $2M', 0.89, 'research'),
-('agent_005_chatbot', 'user_interaction_logged', 'Answered 15 questions about project timeline', 0.94, NULL),
-('agent_006_milestone', 'progress_updated', 'Updated feasibility study milestone to 35% complete', 0.98, 'milestone'),
-('agent_007_research', 'technical_paper_analyzed', 'Synthesized 3 research papers on hydropower optimization', 0.91, 'research'),
-('agent_008_due_diligence', 'stakeholder_vetted', 'Completed background check on potential investor', 0.88, 'partner');
+-- Seed sample data (each INSERT on its own line to avoid string issues)
+INSERT INTO agent_audit_log (agent_id, action_type, reasoning, confidence_score, entity_type) 
+VALUES ('agent_001_policy', 'monitoring_initialized', 'Started monitoring DRC energy policy changes', 0.95, 'research');
+
+INSERT INTO agent_audit_log (agent_id, action_type, reasoning, confidence_score, entity_type) 
+VALUES ('agent_002_community', 'sentiment_analysis_complete', 'Analyzed 247 social media posts about Inga Dam project', 0.87, 'research');
+
+INSERT INTO agent_audit_log (agent_id, action_type, reasoning, confidence_score, entity_type) 
+VALUES ('agent_003_narrative', 'content_draft_created', 'Generated blog post about clean energy impact', 0.92, 'document');
+
+INSERT INTO agent_audit_log (agent_id, action_type, reasoning, confidence_score, entity_type) 
+VALUES ('agent_004_funding', 'grant_opportunity_found', 'Identified renewable energy grant from AfDB worth $2M', 0.89, 'research');
+
+INSERT INTO agent_audit_log (agent_id, action_type, reasoning, confidence_score, entity_type) 
+VALUES ('agent_005_chatbot', 'user_interaction_logged', 'Answered 15 questions about project timeline', 0.94, NULL);
+
+INSERT INTO agent_audit_log (agent_id, action_type, reasoning, confidence_score, entity_type) 
+VALUES ('agent_006_milestone', 'progress_updated', 'Updated feasibility study milestone to 35 percent complete', 0.98, 'milestone');
+
+INSERT INTO agent_audit_log (agent_id, action_type, reasoning, confidence_score, entity_type) 
+VALUES ('agent_007_research', 'technical_paper_analyzed', 'Synthesized 3 research papers on hydropower optimization', 0.91, 'research');
+
+INSERT INTO agent_audit_log (agent_id, action_type, reasoning, confidence_score, entity_type) 
+VALUES ('agent_008_due_diligence', 'stakeholder_vetted', 'Completed background check on potential investor', 0.88, 'partner');
