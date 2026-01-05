@@ -32,7 +32,7 @@ export function Navbar() {
                                 Contact
                             </Link>
                             <a
-                                href={process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3001"}
+                                href="https://ubuntu-initiative-dashboard.vercel.app"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
@@ -81,7 +81,7 @@ export function Navbar() {
                             Contact
                         </Link>
                         <a
-                            href={process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3001"}
+                            href="https://ubuntu-initiative-dashboard.vercel.app"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"

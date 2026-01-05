@@ -13,7 +13,7 @@ export default function Home() {
         <HeroSection />
 
         {/* Campaign / Funding Section - High Visibility */}
-        <div id="contribute" className="border-b border-white/10 bg-black/40">
+        <div className="border-b border-white/10 bg-black/40">
           <ImpactDonation />
         </div>
 
@@ -124,7 +124,7 @@ export default function Home() {
               Access real-time monitoring of the Inga compute cluster, node status, and system metrics.
             </p>
             <a
-              href={process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3001"}
+              href="https://ubuntu-initiative-dashboard.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-3 border-2 border-[hsl(var(--primary))] text-[hsl(var(--primary))] rounded-lg hover:bg-[hsl(var(--primary))] hover:text-[hsl(var(--primary-foreground))] transition-all font-bold text-lg"

@@ -32,7 +32,7 @@ export default async function DashboardPage() {
 
   const stats = {
     total: milestones?.length || 0,
-    verified: milestones?.filter(m => m.status === 'verified').length || 0,
+    verified: milestones?.filter((m: any) => m.status === 'verified').length || 0,
     pending: approvalQueue?.length || 0
   };
 
@@ -62,7 +62,7 @@ export default async function DashboardPage() {
           <h2 className="text-2xl font-bold mb-4">Approval Queue</h2>
           {approvalQueue && approvalQueue.length > 0 ? (
             <div className="space-y-4">
-              {approvalQueue.map((item) => (
+              {approvalQueue?.map((item: any) => (
                 <div key={item.id} className="bg-white/5 rounded-lg p-4 border border-white/10">
                   <div className="flex justify-between items-start">
                     <div>
@@ -95,7 +95,7 @@ export default async function DashboardPage() {
           <h2 className="text-2xl font-bold mb-4">Recent Agent Activity</h2>
           {auditLogs && auditLogs.length > 0 ? (
             <div className="space-y-3">
-              {auditLogs.map((log) => (
+              {auditLogs?.map((log: any) => (
                 <div key={log.id} className="bg-white/5 rounded-lg p-4 border border-white/10">
                   <div className="flex justify-between items-start">
                     <div>

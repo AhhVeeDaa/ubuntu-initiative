@@ -36,7 +36,7 @@ export class FundingGrantAgent extends BaseAgent {
     });
 
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-      apiVersion: '2024-12-18.acacia'
+      apiVersion: '2025-12-15.clover' as any
     });
   }
 
@@ -82,7 +82,7 @@ export class FundingGrantAgent extends BaseAgent {
           donor_name: event.donor_name,
           message: event.message,
           fraud_check_status: this.checkFraudRisk(event.amount) ? 'flagged' : 'approved'
-        })
+        } as any)
         .select()
         .single();
 
@@ -114,7 +114,7 @@ export class FundingGrantAgent extends BaseAgent {
             date: today,
             daily_total: event.amount,
             donor_count: 1
-          });
+          } as any);
       }
 
       // 3. Log audit trail
@@ -202,7 +202,7 @@ export class FundingGrantAgent extends BaseAgent {
             url: opp.url,
             eligibility_match_score: opp.eligibility_match_score,
             public_visible: opp.eligibility_match_score > 0.9
-          });
+          } as any);
       }
 
       await this.logAudit({

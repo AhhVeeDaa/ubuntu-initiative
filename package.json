@@ -21,6 +21,7 @@
   "type": "commonjs",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.89.0",
     "autoprefixer": "^10.4.23",
     "dotenv": "^17.2.3",

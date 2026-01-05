@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link';
-import { ArrowRight, Zap, Database, Globe } from 'lucide-react';
+import { ArrowRight, Zap, Database, Globe, Activity } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { getDaysSinceLaunch, calculatePhase0Progress } from '@/lib/utils';
@@ -60,15 +60,29 @@ export function HeroSection() {
                 </div>
 
                 <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-8">
-                    Building Africa's <br />
-                    <span className="text-gradient">Sovereign AI Future</span>
+                    The Infrastructure <br />
+                    <span className="text-gradient">Catalyst for Africa</span>
                 </h1>
 
-                <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-400 mb-10">
-                    We're building Africa's first sovereign AI supercomputer, powered by the Congo River's
-                    Inga Falls—the world's largest untapped clean energy source. Track our progress in real-time,
-                    from day one.
+                <p className="mt-4 max-w-3xl mx-auto text-xl text-gray-300 mb-6">
+                    We're the <strong className="text-[hsl(var(--primary))]">Anchor Tenant</strong> that makes Inga Dam bankable. 
+                    Our AI supercomputer provides the 24/7 baseload demand required to secure international financing—unlocking 
+                    42,000 MW of clean energy for the continent.
                 </p>
+
+                <div className="max-w-2xl mx-auto mb-10">
+                    <div className="glass-card p-6 border-2 border-[hsl(var(--primary))]/40">
+                        <div className="flex items-center justify-center gap-3 mb-3">
+                            <Activity className="h-6 w-6 text-[hsl(var(--primary))] animate-pulse" />
+                            <h3 className="text-lg font-bold text-white">The Anchor Tenant Model</h3>
+                        </div>
+                        <p className="text-sm text-gray-400 leading-relaxed">
+                            We're not just a power consumer—we're the engine that makes the entire grid possible. 
+                            By guaranteeing 500MW of constant demand, we provide lenders the revenue certainty needed 
+                            to finance the $80B Inga Dam expansion, bringing electricity to 500 million Africans.
+                        </p>
+                    </div>
+                </div>
 
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                     <Link
@@ -79,37 +93,43 @@ export function HeroSection() {
                         <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                     <Link
-                        href="/vision"
+                        href="https://ubuntu-initiative-dashboard.vercel.app"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="inline-flex items-center justify-center px-8 py-3 border border-white/20 text-base font-medium rounded-md text-white glass hover:bg-white/10 md:text-lg transition-all"
                     >
-                        Read the Blueprint
+                        Mission Control
+                        <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                 </div>
 
-                {/* Stats Grid */}
+                {/* Updated Stats Grid with Anchor Tenant Focus */}
                 <div className="mt-20 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:gap-8">
                     <div className="glass-card p-6">
                         <div className="flex items-center justify-center h-12 w-12 rounded-md bg-[hsl(var(--primary))]/20 text-[hsl(var(--primary))] mx-auto mb-4">
                             <Zap className="h-6 w-6" />
                         </div>
-                        <h3 className="text-lg font-medium text-white">42,000 MW</h3>
-                        <p className="mt-2 text-sm text-gray-400">Inga Falls Potential</p>
+                        <h3 className="text-lg font-medium text-white">500 MW Baseload</h3>
+                        <p className="mt-2 text-sm text-gray-400">24/7 Guaranteed Demand</p>
+                        <p className="mt-1 text-xs text-[hsl(var(--primary))]">The Anchor That Secures Financing</p>
                     </div>
 
                     <div className="glass-card p-6">
                         <div className="flex items-center justify-center h-12 w-12 rounded-md bg-[hsl(var(--accent))]/20 text-[hsl(var(--accent))] mx-auto mb-4">
                             <Database className="h-6 w-6" />
                         </div>
-                        <h3 className="text-lg font-medium text-white">100% Sovereign</h3>
-                        <p className="mt-2 text-sm text-gray-400">African Data, African Soil</p>
+                        <h3 className="text-lg font-medium text-white">100% Sovereign AI</h3>
+                        <p className="mt-2 text-sm text-gray-400">Africa's Data, Africa's Infrastructure</p>
+                        <p className="mt-1 text-xs text-[hsl(var(--accent))]">Built on African Soil</p>
                     </div>
 
                     <div className="glass-card p-6">
                         <div className="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500/20 text-purple-400 mx-auto mb-4">
                             <Globe className="h-6 w-6" />
                         </div>
-                        <h3 className="text-lg font-medium text-white">60M+ People</h3>
-                        <p className="mt-2 text-sm text-gray-400">Gaining Electricity Access</p>
+                        <h3 className="text-lg font-medium text-white">4,000 MW Surplus</h3>
+                        <p className="mt-2 text-sm text-gray-400">Public Grid Output</p>
+                        <p className="mt-1 text-xs text-purple-400">Powering 60M+ People</p>
                     </div>
                 </div>
             </div>

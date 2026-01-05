@@ -6,8 +6,9 @@ import { Sidebar } from '@/components/layout/Sidebar';
 const outfit = Outfit({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Ubuntu Initiative | Mission Control',
-  description: 'Real-time monitoring of the Inga compute cluster.',
+  title: 'Ubuntu Initiative | Mission Control Dashboard',
+  description: 'Real-time Phase 0 progress tracking. Monitor the anchor tenant model powering Africa\'s sovereign AI infrastructure catalyst.',
+  keywords: 'Dashboard, Mission Control, Phase 0, Milestone Tracking, Inga Dam Progress',
 };
 
 export default function RootLayout({

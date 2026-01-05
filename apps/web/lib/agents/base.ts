@@ -66,7 +66,7 @@ export abstract class BaseAgent {
           agent_id: this.config.id,
           ...entry,
           timestamp: new Date().toISOString()
-        });
+        } as any);
 
       if (error) {
         console.error(`[${this.config.id}] Audit log failed:`, error);
@@ -92,7 +92,7 @@ export abstract class BaseAgent {
           agent_recommendation: recommendation,
           priority,
           status: 'pending'
-        });
+        } as any);
 
       if (error) {
         console.error(`[${this.config.id}] Failed to add to approval queue:`, error);

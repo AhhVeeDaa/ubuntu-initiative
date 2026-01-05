@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Activity, Users, FileText, TrendingUp } from 'lucide-react';
 import { getDaysSinceLaunch, calculatePhase0Progress } from '@/lib/utils';
+import { EnergyFlow, MilestoneTracker } from '@/components/visualization';
 
 export default function DashboardPage() {
   const [stats, setStats] = useState({
@@ -110,8 +111,8 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-white">Phase 0 Command Center</h1>
-        <p className="text-gray-400">Ubuntu Initiative: Building Africa's Sovereign AI</p>
+        <h1 className="text-2xl font-bold text-white">Mission Control: Africa's Sovereign AI</h1>
+        <p className="text-gray-400">Real-time infrastructure catalyst operations</p>
       </div>
 
       {/* Stats Grid */}
@@ -136,28 +137,15 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      {/* Under Construction Notice */}
-      <div className="glass-panel rounded-xl p-8 border-2 border-[hsl(var(--primary))]/30">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">🚧 Dashboard Under Construction</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            This dashboard is being actively built. Real Phase 0 data is now connected.
-            Additional views (partnership pipeline, document library, agent monitoring) coming soon.
-          </p>
-          <div className="mt-6">
-            <a
-              href="http://localhost:3000/progress"
-              className="inline-flex items-center px-6 py-3 border-2 border-[hsl(var(--primary))] text-[hsl(var(--primary))] rounded-lg hover:bg-[hsl(var(--primary))] hover:text-[hsl(var(--primary-foreground))] transition-all font-bold"
-            >
-              View Public Progress Page →
-            </a>
-          </div>
-        </div>
-      </div>
+      {/* Energy Flow Visualization - NEW */}
+      <EnergyFlow />
+
+      {/* Milestone Tracker - NEW */}
+      <MilestoneTracker />
 
       {/* Quick Stats */}
       <div className="glass-panel rounded-xl p-6">
-        <h3 className="text-lg font-medium text-white mb-4">Phase 0 Milestones</h3>
+        <h3 className="text-lg font-medium text-white mb-4">Phase 0 Milestones Summary</h3>
         <div className="space-y-2">
           <div className="flex justify-between items-center">
             <span className="text-gray-400">Completed</span>
