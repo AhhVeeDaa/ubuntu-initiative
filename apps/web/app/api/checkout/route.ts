@@ -43,8 +43,9 @@ export async function POST(req: Request) {
         });
 
         return NextResponse.json({ url: session.url });
-    } catch (err: any) {
-        console.error(err);
-        return new NextResponse(err.message, { status: 500 });
+    } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : 'Internal Server Error';
+        console.error('Checkout error:', errorMessage);
+        return new NextResponse(errorMessage, { status: 500 });
     }
 }

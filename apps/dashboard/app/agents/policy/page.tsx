@@ -6,14 +6,14 @@ import { Activity, CheckCircle, XCircle, Clock, AlertTriangle, PlayCircle } from
 
 export default function PolicyAgentPage() {
   const [stats, setStats] = useState({
-    lastRun: null as any,
+    lastRun: null as Record<string, any> | null,
     totalUpdates: 0,
     pendingApproval: 0,
     approved: 0,
     rejected: 0,
     avgConfidence: 0
   });
-  
+
   const [recentRuns, setRecentRuns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [triggering, setTriggering] = useState(false);
@@ -40,11 +40,11 @@ export default function PolicyAgentPage() {
         .select('status, confidence_score');
 
       if (updates && Array.isArray(updates)) {
-        const pending = updates.filter((u: any) => u.status === 'pending').length;
-        const approved = updates.filter((u: any) => u.status === 'approved').length;
-        const rejected = updates.filter((u: any) => u.status === 'rejected').length;
+        const pending = updates.filter((u: Record<string, any>) => u.status === 'pending').length;
+        const approved = updates.filter((u: Record<string, any>) => u.status === 'approved').length;
+        const rejected = updates.filter((u: Record<string, any>) => u.status === 'rejected').length;
         const avgConf = updates.length > 0
-          ? updates.reduce((sum: number, u: any) => sum + (u.confidence_score || 0), 0) / updates.length
+          ? updates.reduce((sum: number, u: Record<string, any>) => sum + (u.confidence_score || 0), 0) / updates.length
           : 0;
 
         setStats({
@@ -80,21 +80,21 @@ export default function PolicyAgentPage() {
       const response = await fetch('/api/agents/policy', {
         method: 'POST'
       });
-      
+
       // Check if response is ok before parsing JSON
       if (!response.ok) {
         const text = await response.text();
         throw new Error(`HTTP ${response.status}: ${text || response.statusText}`);
       }
-      
+
       // Check if response has content
       const contentType = response.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) {
         throw new Error('Server returned non-JSON response');
       }
-      
+
       const result = await response.json();
-      
+
       if (result.success) {
         alert('✅ Agent run started successfully!');
         setTimeout(() => {
@@ -104,9 +104,10 @@ export default function PolicyAgentPage() {
       } else {
         alert('❌ Failed to start agent: ' + (result.error || 'Unknown error'));
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error triggering agent:', error);
-      alert('⚠️ Error triggering agent: ' + error.message);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      alert('⚠️ Error triggering agent: ' + errorMessage);
     } finally {
       setTriggering(false);
     }
@@ -182,11 +183,10 @@ export default function PolicyAgentPage() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
             <div>
               <p className="text-gray-400">Status</p>
-              <p className={`font-medium mt-1 ${
-                stats.lastRun.status === 'success' ? 'text-green-500' :
-                stats.lastRun.status === 'partial' ? 'text-yellow-500' :
-                'text-red-500'
-              }`}>
+              <p className={`font-medium mt-1 ${stats.lastRun.status === 'success' ? 'text-green-500' :
+                  stats.lastRun.status === 'partial' ? 'text-yellow-500' :
+                    'text-red-500'
+                }`}>
                 {stats.lastRun.status}
               </p>
             </div>
@@ -232,14 +232,13 @@ export default function PolicyAgentPage() {
       <div className="glass-panel p-6 rounded-xl">
         <h3 className="text-lg font-medium text-white mb-4">Recent Runs</h3>
         <div className="space-y-3">
-          {recentRuns.map((run: any) => (
+          {recentRuns.map((run: Record<string, any>) => (
             <div key={run.id} className="flex items-center justify-between p-4 bg-black/30 rounded-lg">
               <div className="flex items-center gap-4">
-                <div className={`w-2 h-2 rounded-full ${
-                  run.status === 'success' ? 'bg-green-500' :
-                  run.status === 'partial' ? 'bg-yellow-500' :
-                  'bg-red-500'
-                }`} />
+                <div className={`w-2 h-2 rounded-full ${run.status === 'success' ? 'bg-green-500' :
+                    run.status === 'partial' ? 'bg-yellow-500' :
+                      'bg-red-500'
+                  }`} />
                 <div>
                   <p className="text-white text-sm font-medium">
                     {new Date(run.created_at).toLocaleString()}
@@ -249,11 +248,10 @@ export default function PolicyAgentPage() {
                   </p>
                 </div>
               </div>
-              <span className={`text-sm font-medium ${
-                run.status === 'success' ? 'text-green-500' :
-                run.status === 'partial' ? 'text-yellow-500' :
-                'text-red-500'
-              }`}>
+              <span className={`text-sm font-medium ${run.status === 'success' ? 'text-green-500' :
+                  run.status === 'partial' ? 'text-yellow-500' :
+                    'text-red-500'
+                }`}>
                 {run.status}
               </span>
             </div>

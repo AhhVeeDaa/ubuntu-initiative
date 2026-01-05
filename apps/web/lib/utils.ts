@@ -15,12 +15,12 @@ export function getDaysSinceLaunch(): number {
 /**
  * Calculate Phase 0 progress percentage
  */
-export function calculatePhase0Progress(milestones: any[]): number {
+export function calculatePhase0Progress(milestones: Record<string, any>[]): number {
   if (!milestones || milestones.length === 0) return 0
-  
+
   const phase0Milestones = milestones.filter(m => m.phase === 'phase_0')
   if (phase0Milestones.length === 0) return 0
-  
+
   const totalProgress = phase0Milestones.reduce((sum, m) => sum + (m.progress || 0), 0)
   return Math.round(totalProgress / phase0Milestones.length)
 }
@@ -46,12 +46,12 @@ export function formatRelativeTime(date: string | Date): string {
   const diffMins = Math.floor(diffMs / 60000)
   const diffHours = Math.floor(diffMs / 3600000)
   const diffDays = Math.floor(diffMs / 86400000)
-  
+
   if (diffMins < 1) return 'just now'
   if (diffMins < 60) return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`
   if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`
   if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`
-  
+
   return formatDate(date)
 }
 

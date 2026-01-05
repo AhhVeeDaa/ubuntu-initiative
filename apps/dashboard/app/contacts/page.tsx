@@ -31,11 +31,15 @@ export default function ContactsPage() {
 
             if (error) throw error;
             setContacts(data || []);
-        } catch (error: any) {
-            console.error('Error fetching contacts:', error.message || error, error);
-            if (error.code) console.error('Error code:', error.code);
-            if (error.details) console.error('Error details:', error.details);
-            if (error.hint) console.error('Error hint:', error.hint);
+        } catch (error: unknown) {
+            console.error('Error fetching contacts:', error);
+            if (error && typeof error === 'object') {
+                const err = error as Record<string, unknown>;
+                if (err.message) console.error('Error message:', err.message);
+                if (err.code) console.error('Error code:', err.code);
+                if (err.details) console.error('Error details:', err.details);
+                if (err.hint) console.error('Error hint:', err.hint);
+            }
         } finally {
             setLoading(false);
         }

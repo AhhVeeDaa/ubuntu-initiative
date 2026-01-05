@@ -13,12 +13,12 @@ export default function Home() {
         <HeroSection />
 
         {/* Campaign / Funding Section - High Visibility */}
-        <div className="border-b border-white/10 bg-black/40">
+        <div id="support" className="border-b border-white/10 bg-black/40">
           <ImpactDonation />
         </div>
 
         {/* Mission Section */}
-        <section className="py-20 bg-[hsl(var(--secondary))]/50">
+        <section id="mission" className="py-24 relative overflow-hidden bg-black/20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold text-white mb-4">Why This Matters Now</h2>
@@ -117,7 +117,7 @@ export default function Home() {
         </section>
 
         {/* Mission Control CTA */}
-        <section className="py-16 bg-gradient-to-r from-[hsl(var(--primary))]/10 to-[hsl(var(--accent))]/10 border-y border-white/10">
+        <section id="dashboard" className="py-16 bg-gradient-to-r from-[hsl(var(--primary))]/10 to-[hsl(var(--accent))]/10 border-y border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold text-white mb-4">Mission Control</h2>
             <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
@@ -136,7 +136,7 @@ export default function Home() {
         </section>
 
         {/* AI Assistant Section */}
-        <section className="py-24 bg-black/40 relative overflow-hidden">
+        <section id="ai-assistant" className="py-24 bg-black/40 relative overflow-hidden">
           {/* Decorative background element for the AI section */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[hsl(var(--primary))]/5 rounded-full blur-3xl pointer-events-none"></div>
 

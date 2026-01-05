@@ -65,8 +65,8 @@ export function HeroSection() {
                 </h1>
 
                 <p className="mt-4 max-w-3xl mx-auto text-xl text-gray-300 mb-6">
-                    We're the <strong className="text-[hsl(var(--primary))]">Anchor Tenant</strong> that makes Inga Dam bankable. 
-                    Our AI supercomputer provides the 24/7 baseload demand required to secure international financing—unlocking 
+                    We're the <strong className="text-[hsl(var(--primary))]">Anchor Tenant</strong> that makes Inga Dam bankable.
+                    Our AI supercomputer provides the 24/7 baseload demand required to secure international financing—unlocking
                     42,000 MW of clean energy for the continent.
                 </p>
 
@@ -77,8 +77,8 @@ export function HeroSection() {
                             <h3 className="text-lg font-bold text-white">The Anchor Tenant Model</h3>
                         </div>
                         <p className="text-sm text-gray-400 leading-relaxed">
-                            We're not just a power consumer—we're the engine that makes the entire grid possible. 
-                            By guaranteeing 500MW of constant demand, we provide lenders the revenue certainty needed 
+                            We're not just a power consumer—we're the engine that makes the entire grid possible.
+                            By guaranteeing 500MW of constant demand, we provide lenders the revenue certainty needed
                             to finance the $80B Inga Dam expansion, bringing electricity to 500 million Africans.
                         </p>
                     </div>
@@ -86,13 +86,20 @@ export function HeroSection() {
 
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                     <Link
-                        href="/progress"
+                        href="/blueprint"
                         className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-md text-[hsl(var(--primary-foreground))] bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))]/90 md:text-lg transition-all hover:scale-105"
+                    >
+                        View Blueprint
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                    <Link
+                        href="/progress"
+                        className="inline-flex items-center justify-center px-8 py-3 border border-white/20 text-base font-medium rounded-md text-white glass hover:bg-white/10 md:text-lg transition-all"
                     >
                         View Progress
                         <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
-                    <Link
+                    <a
                         href="https://ubuntu-initiative-dashboard.vercel.app"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -100,7 +107,7 @@ export function HeroSection() {
                     >
                         Mission Control
                         <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
+                    </a>
                 </div>
 
                 {/* Updated Stats Grid with Anchor Tenant Focus */}

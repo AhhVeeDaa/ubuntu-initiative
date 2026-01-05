@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   try {
     // Get the main web app URL from environment or use default
     const webAppUrl = process.env.NEXT_PUBLIC_WEB_APP_URL || 'https://ubuntu-initiative-web.vercel.app';
-    
+
     // Call the actual policy agent endpoint on the web app
     const response = await fetch(`${webAppUrl}/api/agents/policy`, {
       method: 'POST',
@@ -24,9 +24,9 @@ export async function POST(req: Request) {
     // Check if response is ok
     if (!response.ok) {
       return NextResponse.json(
-        { 
-          success: false, 
-          error: `Agent returned ${response.status}: ${response.statusText}` 
+        {
+          success: false,
+          error: `Agent returned ${response.status}: ${response.statusText}`
         },
         { status: response.status }
       );
@@ -34,16 +34,17 @@ export async function POST(req: Request) {
 
     // Parse the response
     const result = await response.json();
-    
+
     return NextResponse.json(result);
-    
-  } catch (error: any) {
-    console.error('Error triggering policy agent:', error);
-    
+
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Failed to trigger agent';
+    console.error('Error triggering policy agent:', errorMessage);
+
     return NextResponse.json(
-      { 
-        success: false, 
-        error: error.message || 'Failed to trigger agent',
+      {
+        success: false,
+        error: errorMessage,
         details: 'The policy agent endpoint may not exist yet. This is expected if the policy agent has not been deployed.'
       },
       { status: 500 }

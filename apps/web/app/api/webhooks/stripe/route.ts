@@ -19,12 +19,13 @@ export async function POST(req: Request) {
             signature,
             process.env.STRIPE_WEBHOOK_SECRET || ''
         );
-    } catch (err: any) {
-        console.error(`Webhook signature verification failed: ${err.message}`);
-        return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
+    } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+        console.error(`Webhook signature verification failed: ${errorMessage}`);
+        return new NextResponse(`Webhook Error: ${errorMessage}`, { status: 400 });
     }
 
-    const session = event.data.object as any;
+    const session = event.data.object as Record<string, any>;
 
     // Initialize Funding & Grant Agent
     const fundingAgent = new FundingGrantAgent();
@@ -33,7 +34,7 @@ export async function POST(req: Request) {
     switch (event.type) {
         case 'checkout.session.completed':
             console.log(`Payment successful for session: ${session.id}`);
-            
+
             // Extract donation details
             const donationAmount = session.amount_total / 100; // Stripe amounts are in cents
             const currency = session.currency?.toUpperCase() || 'USD';
@@ -56,23 +57,23 @@ export async function POST(req: Request) {
             if (!result.success) {
                 console.error('Funding agent failed to process donation:', result.errors);
                 // Still return 200 to Stripe to avoid retries
-                return new NextResponse(JSON.stringify({ 
-                    received: true, 
+                return new NextResponse(JSON.stringify({
+                    received: true,
                     agent_processed: false,
-                    errors: result.errors 
-                }), { 
+                    errors: result.errors
+                }), {
                     status: 200,
                     headers: { 'Content-Type': 'application/json' }
                 });
             }
 
-            console.log(`Donation processed by agent. Fraud flagged: ${result.data?.fraud_flagged}`);
-            
-            return new NextResponse(JSON.stringify({ 
+            console.log(`Donation processed by agent. Fraud flagged: ${(result.data as Record<string, any>)?.fraud_flagged}`);
+
+            return new NextResponse(JSON.stringify({
                 received: true,
                 agent_processed: true,
                 fraud_review_required: result.requiresReview
-            }), { 
+            }), {
                 status: 200,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -85,7 +86,7 @@ export async function POST(req: Request) {
             console.warn(`Unhandled event type: ${event.type}`);
     }
 
-    return new NextResponse(JSON.stringify({ received: true }), { 
+    return new NextResponse(JSON.stringify({ received: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' }
     });

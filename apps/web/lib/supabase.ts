@@ -35,7 +35,7 @@ export type Database = {
           country: string | null
           website: string | null
           description: string | null
-          key_contacts: any
+          key_contacts: Record<string, unknown>[] | null
           interest_level: string | null
           next_action: string | null
           next_action_date: string | null
@@ -55,7 +55,7 @@ export type Database = {
           title: string
           description: string | null
           actor: string
-          metadata: any
+          metadata: Record<string, unknown> | null
           public: boolean
           created_at: string
         }
@@ -89,10 +89,11 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)
 // Helper function to check connection
 export async function testConnection() {
   try {
-    const { data, error } = await supabase.from('milestones').select('count')
+    const { error } = await supabase.from('milestones').select('count')
     if (error) throw error
     return { success: true, message: 'Connected to Supabase' }
-  } catch (error) {
-    return { success: false, message: 'Failed to connect', error }
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown connection error'
+    return { success: false, message: 'Failed to connect', error: errorMessage }
   }
 }

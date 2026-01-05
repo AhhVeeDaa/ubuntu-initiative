@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { Terminal as TerminalIcon, Send, RefreshCw, ShieldAlert, Cpu } from 'lucide-react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { Send, ShieldAlert } from 'lucide-react';
 
 type LogEntry = {
     id: string;
@@ -27,12 +27,7 @@ export function WebTerminal() {
         scrollToBottom();
     }, [logs]);
 
-    useEffect(() => {
-        (window as any).executeCommand = handleCommand;
-        return () => { delete (window as any).executeCommand; };
-    }, []);
-
-    const handleCommand = (cmd: string) => {
+    const handleCommand = useCallback((cmd: string) => {
         const timestamp = new Date().toISOString();
 
         // Add command to log
@@ -62,7 +57,12 @@ export function WebTerminal() {
                 setLogs(prev => [...prev, response!]);
             }
         }, 400);
-    };
+    }, []);
+
+    useEffect(() => {
+        (window as any).executeCommand = handleCommand;
+        return () => { delete (window as any).executeCommand; };
+    }, [handleCommand]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

@@ -2,7 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 
 export default async function DashboardPage() {
-  const supabase = createClient();
+  const supabase = await createClient();
   
   // Check authentication (placeholder - implement proper auth)
   const { data: { user } } = await supabase.auth.getUser();

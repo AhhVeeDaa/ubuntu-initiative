@@ -2,7 +2,7 @@
 // Tracks funding opportunities, grant announcements, and Phase 0 donation progress
 // Autonomy Level: Semi-autonomous
 
-import { BaseAgent, AgentInput, AgentOutput, AgentConfig } from './base';
+import { BaseAgent, AgentInput, AgentOutput } from './base';
 import Stripe from 'stripe';
 
 interface DonationEvent {
@@ -45,13 +45,13 @@ export class FundingGrantAgent extends BaseAgent {
       switch (input.trigger) {
         case 'donation_webhook':
           return await this.processDonation(input.data as DonationEvent);
-        
+
         case 'scan_grants':
           return await this.scanGrantOpportunities();
-        
+
         case 'generate_funding_report':
           return await this.generateFundingReport();
-        
+
         default:
           return {
             success: false,
@@ -90,8 +90,8 @@ export class FundingGrantAgent extends BaseAgent {
 
       // 2. Update public aggregates (anonymized)
       const today = new Date().toISOString().split('T')[0];
-      
-      const { data: existing, error: fetchError } = await this.supabase
+
+      const { data: existing, error: _fetchError } = await this.supabase
         .from('donation_aggregates')
         .select('*')
         .eq('date', today)
@@ -99,12 +99,15 @@ export class FundingGrantAgent extends BaseAgent {
 
       if (existing) {
         // Update existing aggregate
+        const agg = existing as Record<string, any>;
+        const updateData = {
+          daily_total: agg.daily_total + event.amount,
+          donor_count: agg.donor_count + 1
+        };
         await this.supabase
           .from('donation_aggregates')
-          .update({
-            daily_total: existing.daily_total + event.amount,
-            donor_count: existing.donor_count + 1
-          })
+          // @ts-ignore - Supabase type inference issue for updates
+          .update(updateData as any)
           .eq('date', today);
       } else {
         // Create new aggregate
@@ -117,21 +120,26 @@ export class FundingGrantAgent extends BaseAgent {
           } as any);
       }
 
+      const donationData = donation as Record<string, any> | null;
+
       // 3. Log audit trail
       await this.logAudit({
         action_type: 'process_donation',
         input_data: { amount: event.amount, currency: event.currency },
-        output_data: { donation_id: donation.id, fraud_check: donation.fraud_check_status },
+        output_data: {
+          donation_id: donationData?.id,
+          fraud_check: donationData?.fraud_check_status
+        },
         confidence_score: 1.0,
-        human_review_status: donation.fraud_check_status === 'flagged' ? 'pending' : 'not_required',
+        human_review_status: donationData?.fraud_check_status === 'flagged' ? 'pending' : 'not_required',
         reasoning: 'Donation processed and aggregated. PII stored securely in private schema.'
       });
 
       // 4. If fraud flagged, add to approval queue
-      if (donation.fraud_check_status === 'flagged') {
+      if (donationData?.fraud_check_status === 'flagged') {
         await this.addToApprovalQueue(
           'grant', // Using 'grant' type for funding items
-          donation.id,
+          donationData?.id,
           {
             reason: 'Large donation or unusual pattern',
             amount: event.amount,
@@ -144,12 +152,12 @@ export class FundingGrantAgent extends BaseAgent {
       return {
         success: true,
         data: {
-          donation_id: donation.id,
+          donation_id: donationData?.id,
           aggregated: true,
-          fraud_flagged: donation.fraud_check_status === 'flagged'
+          fraud_flagged: donationData?.fraud_check_status === 'flagged'
         },
         confidence: 1.0,
-        requiresReview: donation.fraud_check_status === 'flagged',
+        requiresReview: donationData?.fraud_check_status === 'flagged',
         reasoning: 'Donation processed successfully. Real-time aggregate updated.'
       };
 
@@ -176,7 +184,7 @@ export class FundingGrantAgent extends BaseAgent {
       // - African Development Bank
       // - Climate finance trackers
       // For now, placeholder logic
-      
+
       const opportunities: GrantOpportunity[] = [
         // Example: Would be fetched from external APIs
       ];
@@ -189,7 +197,7 @@ export class FundingGrantAgent extends BaseAgent {
 
       // Store high-match opportunities
       const highMatchOpps = scoredOpportunities.filter(o => o.eligibility_match_score > 0.8);
-      
+
       for (const opp of highMatchOpps) {
         await this.supabase
           .from('grant_opportunities')
@@ -240,12 +248,12 @@ export class FundingGrantAgent extends BaseAgent {
 
     // Increase score for relevant keywords
     const relevantKeywords = [
-      'infrastructure', 'hydropower', 'energy', 'africa', 
+      'infrastructure', 'hydropower', 'energy', 'africa',
       'drc', 'democratic republic congo', 'renewable', 'inga'
     ];
 
     const text = `${opp.title} ${opp.eligibility_description}`.toLowerCase();
-    
+
     relevantKeywords.forEach(keyword => {
       if (text.includes(keyword)) {
         score += 0.05;
@@ -267,8 +275,8 @@ export class FundingGrantAgent extends BaseAgent {
 
       if (error) throw error;
 
-      const totalRaised = aggregates?.reduce((sum, day) => sum + day.daily_total, 0) || 0;
-      const totalDonors = aggregates?.reduce((sum, day) => sum + day.donor_count, 0) || 0;
+      const totalRaised = aggregates?.reduce((sum, day) => sum + (day as Record<string, any>).daily_total, 0) || 0;
+      const totalDonors = aggregates?.reduce((sum, day) => sum + (day as Record<string, any>).donor_count, 0) || 0;
 
       const report = {
         period: 'Last 30 days',

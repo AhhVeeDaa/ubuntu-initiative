@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   try {
     // TODO: Implement actual policy agent trigger logic
     // This is a placeholder that simulates a successful agent run
-    
+
     return NextResponse.json({
       success: true,
       status: 'simulated',
@@ -22,14 +22,15 @@ export async function POST(req: Request) {
       note: 'This is a placeholder response. The full policy agent will be deployed separately.',
       timestamp: new Date().toISOString()
     });
-    
-  } catch (error: any) {
-    console.error('Error in policy agent endpoint:', error);
-    
+
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
+    console.error('Error in policy agent endpoint:', errorMessage);
+
     return NextResponse.json(
-      { 
-        success: false, 
-        error: error.message || 'Internal server error'
+      {
+        success: false,
+        error: errorMessage
       },
       { status: 500 }
     );

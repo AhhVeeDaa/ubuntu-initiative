@@ -10,7 +10,7 @@ export async function GET(request: Request) {
     // Verify Vercel Cron Secret
     const authHeader = request.headers.get('authorization');
     const cronSecret = process.env.CRON_SECRET;
-    
+
     if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
       return NextResponse.json(
         { error: 'Unauthorized' },
@@ -27,20 +27,21 @@ export async function GET(request: Request) {
     });
 
     const result = await policyAgent.run('scheduled');
-    
+
     return NextResponse.json({
       success: true,
       agent: 'policy_monitor',
       ...result,
       timestamp: new Date().toISOString()
     });
-    
-  } catch (error: any) {
-    console.error('Cron agent error:', error);
+
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown cron error';
+    console.error('Cron agent error:', errorMessage);
     return NextResponse.json(
       {
         success: false,
-        error: error.message,
+        error: errorMessage,
         timestamp: new Date().toISOString()
       },
       { status: 500 }

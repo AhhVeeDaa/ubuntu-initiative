@@ -33,7 +33,7 @@ export type Database = {
           country: string | null
           website: string | null
           description: string | null
-          key_contacts: any
+          key_contacts: unknown
           interest_level: string | null
           next_action: string | null
           next_action_date: string | null
@@ -53,7 +53,7 @@ export type Database = {
           title: string
           description: string | null
           actor: string
-          metadata: any
+          metadata: unknown
           public: boolean
           created_at: string
         }
@@ -85,7 +85,7 @@ export type Database = {
           id: string
           item_type: string
           item_id: string
-          agent_recommendation: any
+          agent_recommendation: unknown
           priority: string
           status: string
           created_at: string

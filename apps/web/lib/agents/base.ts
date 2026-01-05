@@ -12,13 +12,13 @@ export interface AgentConfig {
 
 export interface AgentInput {
   trigger: string;
-  data?: any;
-  context?: Record<string, any>;
+  data?: unknown;
+  context?: Record<string, unknown>;
 }
 
 export interface AgentOutput {
   success: boolean;
-  data?: any;
+  data?: unknown;
   confidence?: number;
   reasoning?: string;
   requiresReview: boolean;
@@ -28,8 +28,8 @@ export interface AgentOutput {
 export interface AgentAuditEntry {
   agent_id: string;
   action_type: string;
-  input_data: any;
-  output_data: any;
+  input_data: unknown;
+  output_data: unknown;
   confidence_score?: number;
   human_review_status: 'not_required' | 'pending' | 'approved' | 'rejected';
   reasoning?: string;
@@ -41,17 +41,22 @@ export abstract class BaseAgent {
 
   constructor(config: AgentConfig) {
     this.config = config;
-    
+
     // Initialize Supabase client with service role for agent operations
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-    
+
     this.supabase = createClient(supabaseUrl, supabaseServiceKey, {
       auth: {
         autoRefreshToken: false,
         persistSession: false
       }
     });
+  }
+
+  // Get agent configuration
+  public getConfig(): AgentConfig {
+    return this.config;
   }
 
   // Abstract methods that each agent must implement
@@ -80,7 +85,7 @@ export abstract class BaseAgent {
   protected async addToApprovalQueue(
     itemType: 'policy' | 'milestone' | 'narrative' | 'grant' | 'insight',
     itemId: string,
-    recommendation: any,
+    recommendation: unknown,
     priority: 'low' | 'medium' | 'high' | 'urgent' = 'medium'
   ): Promise<void> {
     try {
@@ -110,7 +115,7 @@ export abstract class BaseAgent {
   // Helper: Validate against Phase 0 constraints
   protected validatePhase0Content(content: string): { valid: boolean; violations: string[] } {
     const violations: string[] = [];
-    
+
     // Banned speculative terms
     const bannedTerms = [
       /phase\s*[123]/gi,
@@ -157,6 +162,6 @@ export class AgentRegistry {
   }
 
   static listAll(): AgentConfig[] {
-    return Array.from(this.agents.values()).map(agent => (agent as any).config);
+    return Array.from(this.agents.values()).map(agent => agent.getConfig());
   }
 }

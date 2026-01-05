@@ -2,7 +2,7 @@
 // Automatically ingests and validates milestone completion data
 // Autonomy Level: Semi-autonomous
 
-import { BaseAgent, AgentInput, AgentOutput, AgentConfig } from './base';
+import { BaseAgent, AgentInput, AgentOutput } from './base';
 
 interface MilestoneSubmission {
   title: string;
@@ -19,6 +19,21 @@ interface ValidationResult {
   issues: string[];
 }
 
+interface GitHubPayload {
+  pull_request?: {
+    title: string;
+    body: string;
+    html_url: string;
+  };
+  issue?: {
+    title: string;
+    body: string;
+    html_url: string;
+  };
+  merged_at?: string;
+  closed_at?: string;
+}
+
 export class ProgressMilestoneAgent extends BaseAgent {
   constructor() {
     super({
@@ -33,14 +48,14 @@ export class ProgressMilestoneAgent extends BaseAgent {
     try {
       switch (input.trigger) {
         case 'github_webhook':
-          return await this.processGitHubMilestone(input.data);
-        
+          return await this.processGitHubMilestone(input.data as GitHubPayload);
+
         case 'manual_submission':
           return await this.processManualSubmission(input.data as MilestoneSubmission);
-        
+
         case 'validate_milestone':
-          return await this.validateMilestone(input.data);
-        
+          return await this.validateMilestone(input.data as MilestoneSubmission);
+
         default:
           return {
             success: false,
@@ -58,7 +73,7 @@ export class ProgressMilestoneAgent extends BaseAgent {
   }
 
   // Process milestone from GitHub webhook
-  private async processGitHubMilestone(data: any): Promise<AgentOutput> {
+  private async processGitHubMilestone(data: GitHubPayload): Promise<AgentOutput> {
     try {
       // Extract milestone info from GitHub PR or issue
       const milestone: MilestoneSubmission = {
@@ -66,7 +81,7 @@ export class ProgressMilestoneAgent extends BaseAgent {
         description: data.pull_request?.body || data.issue?.body,
         category: this.inferCategory(data),
         completion_date: data.merged_at || data.closed_at || new Date().toISOString(),
-        evidence_url: data.pull_request?.html_url || data.issue?.html_url
+        evidence_url: data.pull_request?.html_url || data.issue?.html_url || ''
       };
 
       // Validate milestone
@@ -87,16 +102,17 @@ export class ProgressMilestoneAgent extends BaseAgent {
             evidence_url: milestone.evidence_url,
             confidence_score: validation.confidence,
             status: 'verified'
-          })
+          } as any)
           .select()
           .single();
 
         if (error) throw error;
 
+        const publishedData = published as Record<string, any> | null;
         await this.logAudit({
           action_type: 'publish_milestone',
           input_data: milestone,
-          output_data: { milestone_id: published.id },
+          output_data: { milestone_id: publishedData?.id },
           confidence_score: validation.confidence,
           human_review_status: 'not_required',
           reasoning: `Auto-published: High confidence (${validation.confidence}) with valid GitHub evidence.`
@@ -104,7 +120,7 @@ export class ProgressMilestoneAgent extends BaseAgent {
 
         return {
           success: true,
-          data: { milestone_id: published.id, auto_published: true },
+          data: { milestone_id: publishedData?.id, auto_published: true },
           confidence: validation.confidence,
           requiresReview: false,
           reasoning: 'Milestone validated and published automatically.'
@@ -122,15 +138,16 @@ export class ProgressMilestoneAgent extends BaseAgent {
             evidence_url: milestone.evidence_url,
             confidence_score: validation.confidence,
             status: 'completed' // Not verified yet
-          })
+          } as any)
           .select()
           .single();
 
         if (error) throw error;
 
+        const draftData = draft as Record<string, any> | null;
         await this.addToApprovalQueue(
           'milestone',
-          draft.id,
+          draftData?.id,
           {
             milestone: milestone,
             validation: validation,
@@ -142,7 +159,7 @@ export class ProgressMilestoneAgent extends BaseAgent {
         await this.logAudit({
           action_type: 'queue_milestone',
           input_data: milestone,
-          output_data: { milestone_id: draft.id },
+          output_data: { milestone_id: draftData?.id },
           confidence_score: validation.confidence,
           human_review_status: 'pending',
           reasoning: `Queued for review: Confidence ${validation.confidence}. Issues: ${validation.issues.join(', ')}`
@@ -150,7 +167,7 @@ export class ProgressMilestoneAgent extends BaseAgent {
 
         return {
           success: true,
-          data: { milestone_id: draft.id, queued_for_review: true },
+          data: { milestone_id: draftData?.id, queued_for_review: true },
           confidence: validation.confidence,
           requiresReview: true,
           reasoning: 'Milestone requires human validation before publishing.'
@@ -183,15 +200,16 @@ export class ProgressMilestoneAgent extends BaseAgent {
           evidence_url: submission.evidence_url,
           confidence_score: validation.confidence * 0.8, // Reduce confidence for manual submissions
           status: 'completed'
-        })
+        } as any)
         .select()
         .single();
 
       if (error) throw error;
 
+      const draftData = draft as Record<string, any>;
       await this.addToApprovalQueue(
         'milestone',
-        draft.id,
+        draftData.id,
         {
           submission: submission,
           validation: validation,
@@ -204,7 +222,7 @@ export class ProgressMilestoneAgent extends BaseAgent {
       await this.logAudit({
         action_type: 'manual_milestone_submission',
         input_data: submission,
-        output_data: { milestone_id: draft.id },
+        output_data: { milestone_id: draftData.id },
         confidence_score: validation.confidence * 0.8,
         human_review_status: 'pending',
         reasoning: 'Manual submission queued for review. Evidence validation required.'
@@ -212,7 +230,7 @@ export class ProgressMilestoneAgent extends BaseAgent {
 
       return {
         success: true,
-        data: { milestone_id: draft.id, queued: true },
+        data: { milestone_id: draftData.id, queued: true },
         confidence: validation.confidence * 0.8,
         requiresReview: true,
         reasoning: 'Manual submissions require team validation before publishing.'
@@ -272,9 +290,9 @@ export class ProgressMilestoneAgent extends BaseAgent {
   }
 
   // Validate milestone data
-  private async validateMilestone(data: any): Promise<AgentOutput> {
+  private async validateMilestone(data: MilestoneSubmission): Promise<AgentOutput> {
     const validation = await this.validateMilestoneContent(data);
-    
+
     return {
       success: true,
       data: validation,
@@ -284,7 +302,7 @@ export class ProgressMilestoneAgent extends BaseAgent {
   }
 
   // Infer category from GitHub data
-  private inferCategory(data: any): 'technical' | 'community' | 'policy' | 'funding' {
+  private inferCategory(data: GitHubPayload): 'technical' | 'community' | 'policy' | 'funding' {
     const text = `${data.pull_request?.title || ''} ${data.pull_request?.body || ''} ${data.issue?.title || ''}`.toLowerCase();
 
     if (text.includes('funding') || text.includes('donation') || text.includes('grant')) {

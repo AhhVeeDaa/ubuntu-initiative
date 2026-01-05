@@ -7,7 +7,7 @@ export function getDaysSinceLaunch() {
     return diffDays;
 }
 
-export function calculatePhase0Progress(milestones: any[]) {
+export function calculatePhase0Progress(milestones: Record<string, any>[]) {
     if (!milestones || milestones.length === 0) return 0;
     const completed = milestones.filter(m => m.status === 'completed').length;
     return Math.round((completed / milestones.length) * 100);

@@ -106,11 +106,12 @@ export async function GET() {
       version: '0.5.0',
       project: 'Ubuntu Initiative Agent System'
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
     return NextResponse.json(
       {
         status: 'error',
-        error: error.message,
+        error: errorMessage,
         timestamp: new Date().toISOString()
       },
       { status: 500 }

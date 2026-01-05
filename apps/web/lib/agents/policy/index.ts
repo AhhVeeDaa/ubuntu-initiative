@@ -4,11 +4,11 @@
 import { createClient } from '@supabase/supabase-js';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { POLICY_AGENT_SYSTEM_PROMPT } from './prompt';
-import type { 
-  PolicyAgentConfig, 
-  PolicySource, 
+import type {
+  PolicyAgentConfig,
+  PolicySource,
   GeminiPolicyAnalysis,
-  AgentRunResult 
+  AgentRunResult
 } from './types';
 
 export class PolicyAgent {
@@ -20,13 +20,13 @@ export class PolicyAgent {
 
   constructor(config: PolicyAgentConfig) {
     this.config = config;
-    
+
     // Initialize Supabase with service role key
     this.supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_KEY!
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
-    
+
     // Initialize Gemini
     this.gemini = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY!);
   }
@@ -39,46 +39,47 @@ export class PolicyAgent {
     triggerBy?: string
   ): Promise<AgentRunResult> {
     this.startTime = Date.now();
-    
+
     try {
       // 1. Initialize run
       this.runId = await this.initializeRun(triggerType, triggerBy);
-      
+
       // 2. Fetch policy sources
       const sources = await this.fetchPolicySources();
-      
+
       // 3. Process each source
       const results = [];
       const errors = [];
-      
+
       for (const source of sources) {
         try {
           const result = await this.processSource(source);
           if (result) {
             results.push(result);
           }
-        } catch (error: any) {
-          console.error(`Error processing source ${source.name}:`, error);
-          errors.push(error.message);
+        } catch (error: unknown) {
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          console.error(`Error processing source ${source.name}:`, errorMessage);
+          errors.push(errorMessage);
           await this.logError(source, error);
         }
       }
-      
+
       // 4. Finalize run
-      const status = errors.length > 0 
+      const status = errors.length > 0
         ? (results.length > 0 ? 'partial' : 'failed')
         : 'success';
-      
+
       await this.finalizeRun(status, sources.length, results.length);
-      
+
       return {
         status,
         runId: this.runId,
         itemsProcessed: results.length,
         errors: errors.length > 0 ? errors : undefined
       };
-      
-    } catch (error: any) {
+
+    } catch (error: unknown) {
       console.error('Critical agent error:', error);
       await this.finalizeRun('failed', 0, 0);
       throw error;
@@ -89,7 +90,7 @@ export class PolicyAgent {
    * Initialize agent run and return run ID
    */
   private async initializeRun(
-    triggerType: string, 
+    triggerType: string,
     triggerBy?: string
   ): Promise<string> {
     const { data, error } = await this.supabase
@@ -105,12 +106,12 @@ export class PolicyAgent {
       })
       .select('id')
       .single();
-    
+
     if (error) {
       console.error('Failed to initialize run:', error);
       throw new Error('Failed to initialize agent run');
     }
-    
+
     return data.id;
   }
 
@@ -121,7 +122,7 @@ export class PolicyAgent {
   private async fetchPolicySources(): Promise<PolicySource[]> {
     // For Phase 0: Manually curated sources
     // Future: RSS feeds, APIs, web scraping
-    
+
     const sources: PolicySource[] = [
       {
         name: 'DRC Energy Policy Example',
@@ -132,12 +133,12 @@ export class PolicyAgent {
         content: 'The Democratic Republic of Congo announces new framework for private hydropower investment...'
       }
     ];
-    
+
     await this.logAction('source_fetch', {
       source_count: sources.length,
       sources: sources.map(s => s.name)
     });
-    
+
     return sources;
   }
 
@@ -147,11 +148,11 @@ export class PolicyAgent {
   private async processSource(source: PolicySource): Promise<any> {
     // 1. Fetch content (for Phase 0, using manual content)
     const content = source.content || await this.fetchContent(source);
-    
+
     // 2. Analyze with Gemini
     await this.logAction('gemini_analysis', { source: source.name });
     const analysis = await this.analyzeWithGemini(content, source);
-    
+
     // 3. Apply relevance filter
     const threshold = this.config.relevanceThreshold || 0.4;
     if (analysis.relevance_score < threshold) {
@@ -162,13 +163,13 @@ export class PolicyAgent {
       });
       return null;
     }
-    
+
     // 4. Write to database
     const policyUpdateId = await this.writePolicyUpdate(analysis, source);
-    
+
     // 5. Add to approval queue
     await this.addToApprovalQueue(policyUpdateId, analysis);
-    
+
     return analysis;
   }
 
@@ -181,7 +182,7 @@ export class PolicyAgent {
     if (source.content) {
       return source.content;
     }
-    
+
     // Placeholder for future implementation
     return 'Policy content would be fetched here in production';
   }
@@ -190,7 +191,7 @@ export class PolicyAgent {
    * Analyze content with Gemini
    */
   private async analyzeWithGemini(
-    content: string, 
+    content: string,
     source: PolicySource
   ): Promise<GeminiPolicyAnalysis> {
     const model = this.gemini.getGenerativeModel({
@@ -217,24 +218,25 @@ ${content}
       const result = await model.generateContent(prompt);
       const response = await result.response;
       const text = response.text();
-      
+
       // Parse JSON response
       const parsed = JSON.parse(text) as GeminiPolicyAnalysis;
-      
+
       await this.logAction('gemini_analysis', {
         input_length: content.length,
         output: parsed,
         confidence: parsed.confidence_score
       });
-      
+
       return parsed;
-      
-    } catch (error: any) {
+
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown Gemini error';
       await this.logError(
         { type: 'gemini_parse_error', source: source.name },
         error
       );
-      throw new Error(`Failed to analyze with Gemini: ${error.message}`);
+      throw new Error(`Failed to analyze with Gemini: ${errorMessage}`);
     }
   }
 
@@ -264,17 +266,17 @@ ${content}
       })
       .select('id')
       .single();
-    
+
     if (error) {
       console.error('Failed to write policy update:', error);
       throw new Error('Failed to write policy update to database');
     }
-    
+
     await this.logAction('database_write', {
       policy_update_id: data.id,
       headline: analysis.headline
     });
-    
+
     return data.id;
   }
 
@@ -288,7 +290,7 @@ ${content}
     // Determine priority based on scores and flags
     let priority: 'low' | 'medium' | 'high' | 'urgent' = 'medium';
     let priorityReason = 'Standard policy update';
-    
+
     if (analysis.confidence_score < 0.5 || analysis.risk_flag) {
       priority = 'urgent';
       priorityReason = analysis.risk_flag
@@ -301,11 +303,11 @@ ${content}
       priority = 'low';
       priorityReason = 'Lower relevance score';
     }
-    
+
     // Set auto-expire date (7 days from now)
     const autoExpireAt = new Date();
     autoExpireAt.setDate(autoExpireAt.getDate() + 7);
-    
+
     const { error } = await this.supabase
       .from('approval_queue')
       .insert({
@@ -317,19 +319,19 @@ ${content}
         auto_expire_at: autoExpireAt.toISOString(),
         status: 'pending'
       });
-    
+
     if (error) {
       console.error('Failed to add to approval queue:', error);
       throw new Error('Failed to add to approval queue');
     }
-    
+
     await this.logAction('approval_queue', { priority, policyUpdateId });
   }
 
   /**
    * Log an action to audit trail
    */
-  private async logAction(actionType: string, context: any): Promise<void> {
+  private async logAction(actionType: string, context: Record<string, unknown>): Promise<void> {
     try {
       await this.supabase
         .from('agent_audit_log')
@@ -353,7 +355,11 @@ ${content}
   /**
    * Log an error
    */
-  private async logError(context: any, error: any): Promise<void> {
+  private async logError(context: unknown, error: unknown): Promise<void> {
+    const errorObj = error as Record<string, unknown>;
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const errorStack = error instanceof Error ? error.stack : undefined;
+
     try {
       await this.supabase
         .from('agent_audit_log')
@@ -361,9 +367,9 @@ ${content}
           agent_run_id: this.runId,
           agent_id: this.config.agentId,
           action_type: 'error_handled',
-          action_description: `Error: ${error.message}`,
+          action_description: `Error: ${errorMessage}`,
           input_data: context,
-          output_data: { error: error.message, stack: error.stack },
+          output_data: { error: errorMessage, stack: errorStack },
           timestamp: new Date().toISOString()
         });
     } catch (logError) {
@@ -374,7 +380,7 @@ ${content}
   /**
    * Get human-readable action description
    */
-  private getActionDescription(actionType: string, context: any): string {
+  private getActionDescription(actionType: string, context: Record<string, unknown>): string {
     const descriptions: Record<string, string> = {
       source_fetch: `Fetched ${context.source_count || 1} policy sources`,
       gemini_analysis: `Analyzed content from ${context.source || 'source'}`,
@@ -383,7 +389,7 @@ ${content}
       approval_queue: `Added to ${context.priority} priority queue`,
       error_handled: `Handled error: ${context.message || 'unknown'}`
     };
-    
+
     return descriptions[actionType] || `Performed ${actionType}`;
   }
 
@@ -396,7 +402,7 @@ ${content}
     itemsProcessed: number
   ): Promise<void> {
     const duration = Date.now() - this.startTime;
-    
+
     try {
       await this.supabase
         .from('agent_runs')

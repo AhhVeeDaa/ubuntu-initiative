@@ -29,10 +29,12 @@ export function IngaChatClient() {
         setInput
     } = chatHook as any;
 
-    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+        }
     };
 
     useEffect(() => {
@@ -75,40 +77,43 @@ export function IngaChatClient() {
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+            <div
+                ref={scrollContainerRef}
+                className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent"
+            >
                 {messages && messages.map((msg: any) => {
                     if (!msg || !msg.id || !msg.role || typeof msg.content !== 'string') return null;
-                    
-                    return (
-                    <div
-                        key={msg.id}
-                        className={clsx(
-                            "flex items-start max-w-[85%]",
-                            msg.role === 'user' ? "ml-auto flex-row-reverse" : "mr-auto"
-                        )}
-                    >
-                        <div className={clsx(
-                            "flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center mt-1",
-                            msg.role === 'user'
-                                ? "ml-3 bg-white/10"
-                                : "mr-3 bg-[hsl(var(--primary))]/20 border border-[hsl(var(--primary))]/30"
-                        )}>
-                            {msg.role === 'user' ? (
-                                <User className="h-4 w-4 text-gray-300" />
-                            ) : (
-                                <Bot className="h-4 w-4 text-[hsl(var(--primary))]" />
-                            )}
-                        </div>
 
-                        <div className={clsx(
-                            "rounded-2xl px-5 py-3 text-sm leading-relaxed",
-                            msg.role === 'user'
-                                ? "bg-white text-black font-medium rounded-tr-none"
-                                : "bg-white/5 text-gray-200 border border-white/10 rounded-tl-none hover:bg-white/10 transition-colors"
-                        )}>
-                            {msg.content}
+                    return (
+                        <div
+                            key={msg.id}
+                            className={clsx(
+                                "flex items-start max-w-[85%]",
+                                msg.role === 'user' ? "ml-auto flex-row-reverse" : "mr-auto"
+                            )}
+                        >
+                            <div className={clsx(
+                                "flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center mt-1",
+                                msg.role === 'user'
+                                    ? "ml-3 bg-white/10"
+                                    : "mr-3 bg-[hsl(var(--primary))]/20 border border-[hsl(var(--primary))]/30"
+                            )}>
+                                {msg.role === 'user' ? (
+                                    <User className="h-4 w-4 text-gray-300" />
+                                ) : (
+                                    <Bot className="h-4 w-4 text-[hsl(var(--primary))]" />
+                                )}
+                            </div>
+
+                            <div className={clsx(
+                                "rounded-2xl px-5 py-3 text-sm leading-relaxed",
+                                msg.role === 'user'
+                                    ? "bg-white text-black font-medium rounded-tr-none"
+                                    : "bg-white/5 text-gray-200 border border-white/10 rounded-tl-none hover:bg-white/10 transition-colors"
+                            )}>
+                                {msg.content}
+                            </div>
                         </div>
-                    </div>
                     );
                 })}
 
@@ -134,7 +139,6 @@ export function IngaChatClient() {
                     </div>
                 )}
 
-                <div ref={messagesEndRef} />
             </div>
 
             {/* Input Area */}

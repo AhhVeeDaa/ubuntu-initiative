@@ -3,10 +3,17 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY!
-);
+// Lazy-load Supabase client to avoid build-time errors
+function getSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error('Missing Supabase environment variables. Please check NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY');
+  }
+
+  return createClient(supabaseUrl, supabaseKey);
+}
 
 export async function approvePolicyUpdate(
   approvalQueueId: string,
@@ -15,7 +22,8 @@ export async function approvePolicyUpdate(
   notes?: string
 ) {
   const now = new Date().toISOString();
-  
+  const supabase = getSupabaseClient();
+
   try {
     // Update policy_updates
     const { error: updateError } = await supabase
@@ -26,9 +34,9 @@ export async function approvePolicyUpdate(
         approved_by: userId
       })
       .eq('id', policyUpdateId);
-    
+
     if (updateError) throw updateError;
-    
+
     // Update approval_queue
     const { error: queueError } = await supabase
       .from('approval_queue')
@@ -38,9 +46,9 @@ export async function approvePolicyUpdate(
         review_notes: notes || null
       })
       .eq('id', approvalQueueId);
-    
+
     if (queueError) throw queueError;
-    
+
     // Log to audit trail
     await supabase
       .from('agent_audit_log')
@@ -52,12 +60,13 @@ export async function approvePolicyUpdate(
         reasoning: notes || null,
         timestamp: now
       });
-    
+
     return { success: true };
-    
-  } catch (error: any) {
-    console.error('Approval error:', error);
-    return { success: false, error: error.message };
+
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown approval error';
+    console.error('Approval error:', errorMessage);
+    return { success: false, error: errorMessage };
   }
 }
 
@@ -68,7 +77,8 @@ export async function rejectPolicyUpdate(
   reason: string
 ) {
   const now = new Date().toISOString();
-  
+  const supabase = getSupabaseClient();
+
   try {
     // Update policy_updates
     const { error: updateError } = await supabase
@@ -78,9 +88,9 @@ export async function rejectPolicyUpdate(
         rejection_reason: reason
       })
       .eq('id', policyUpdateId);
-    
+
     if (updateError) throw updateError;
-    
+
     // Update approval_queue
     const { error: queueError } = await supabase
       .from('approval_queue')
@@ -90,9 +100,9 @@ export async function rejectPolicyUpdate(
         review_notes: reason
       })
       .eq('id', approvalQueueId);
-    
+
     if (queueError) throw queueError;
-    
+
     // Log to audit trail
     await supabase
       .from('agent_audit_log')
@@ -104,11 +114,12 @@ export async function rejectPolicyUpdate(
         reasoning: reason,
         timestamp: now
       });
-    
+
     return { success: true };
-    
-  } catch (error: any) {
-    console.error('Rejection error:', error);
-    return { success: false, error: error.message };
+
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown rejection error';
+    console.error('Rejection error:', errorMessage);
+    return { success: false, error: errorMessage };
   }
 }
