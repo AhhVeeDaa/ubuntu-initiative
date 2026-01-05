@@ -26,10 +26,9 @@ export async function GET(request: Request) {
       relevanceThreshold: 0.4
     });
 
-    const result = await policyAgent.run('scheduled');
+    const result = await policyAgent.execute({ trigger: 'scheduled' });
 
     return NextResponse.json({
-      success: true,
       agent: 'policy_monitor',
       ...result,
       timestamp: new Date().toISOString()

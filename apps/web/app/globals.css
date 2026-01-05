@@ -1,25 +1,34 @@
 @import "tailwindcss";
 
+
+
+
+
 html {
   scroll-behavior: smooth;
 }
 
 :root {
-  --background: 222 47% 11%;     /* Deep Congo Blue */
-  --foreground: 210 40% 98%;     /* Soft White */
-  
-  --primary: 180 100% 50%;       /* Electric Cyan */
+  --background: 222 47% 11%;
+  /* Deep Congo Blue */
+  --foreground: 210 40% 98%;
+  /* Soft White */
+
+  --primary: 180 100% 50%;
+  /* Electric Cyan */
   --primary-foreground: 222 47% 11%;
-  
-  --secondary: 217 33% 17%;      /* Lighter Blue/Gray */
+
+  --secondary: 217 33% 17%;
+  /* Lighter Blue/Gray */
   --secondary-foreground: 210 40% 98%;
-  
-  --accent: 45 100% 50%;         /* Sovereign Gold */
+
+  --accent: 45 100% 50%;
+  /* Sovereign Gold */
   --accent-foreground: 222 47% 11%;
-  
+
   --card: 217 33% 17%;
   --card-foreground: 210 40% 98%;
-  
+
   --border: 217 33% 30%;
   --input: 217 33% 25%;
   --ring: 180 100% 50%;
@@ -45,11 +54,47 @@ html {
   .glass {
     @apply bg-white/5 backdrop-blur-lg border border-white/10;
   }
+
   .glass-card {
     @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl hover:bg-white/10 transition-colors duration-300;
   }
+
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))];
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-glow-breath {
+    animation: glow-breath 3s ease-in-out infinite;
+  }
+}
+
+@keyframes glow-breath {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px currentColor) drop-shadow(0 0 10px currentColor) opacity(0.8);
+    transform: scale(1);
+  }
+
+  50% {
+    filter: drop-shadow(0 0 15px currentColor) drop-shadow(0 0 30px currentColor) opacity(1);
+    transform: scale(1.02);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .5;
   }
 }
 

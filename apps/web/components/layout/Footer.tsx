@@ -39,7 +39,7 @@ export function Footer() {
 
                 <div className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
                     <p className="text-gray-500 text-xs">
-                        © {new Date().getFullYear()} Ubuntu Initiative. Open Source Infrastructure.
+                        © {new Date().getFullYear()} Ubuntu Initiative. Managed by AhVeeDaa.
                     </p>
                     <p className="text-gray-600 text-xs mt-2 md:mt-0 flex items-center">
                         <span className="w-2 h-2 rounded-full bg-green-500 mr-2"></span>

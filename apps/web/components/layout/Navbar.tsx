@@ -28,8 +28,14 @@ export function Navbar() {
                             <Link href="/blueprint" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 Blueprint
                             </Link>
+                            <Link href="/philosophy" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                Philosophy
+                            </Link>
                             <Link href="/vision" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 Vision
+                            </Link>
+                            <Link href="/agents" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                Agents
                             </Link>
                             <Link href="/contact" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 Contact
@@ -77,11 +83,25 @@ export function Navbar() {
                             Blueprint
                         </Link>
                         <Link
+                            href="/philosophy"
+                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Philosophy
+                        </Link>
+                        <Link
                             href="/vision"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                             onClick={() => setIsOpen(false)}
                         >
                             Vision
+                        </Link>
+                        <Link
+                            href="/agents"
+                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Agents
                         </Link>
                         <Link
                             href="/contact"
