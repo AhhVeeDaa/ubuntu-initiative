@@ -19,32 +19,39 @@ export default function HomePage() {
 
       <main className="flex-grow">
         {/* Hero Section - Grounding Statement */}
-        <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-          {/* Background Image */}
+        {/* Hero Image Section */}
+        <section className="relative h-[80vh] min-h-[600px] w-full overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
               src="/hero-infrastructure.jpg"
-              alt="Ubuntu Initiative Infrastructure - A fusion of nature and technology"
+              alt="Ubuntu Initiative Infrastructure"
               fill
               className="object-cover"
               priority
               quality={90}
             />
-            {/* Gradient Overlay for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black" />
+            {/* Subtle overlay for atmosphere, but keeping image clear */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black" />
           </div>
 
-          {/* Content */}
-          <div className="relative z-10 max-w-4xl mx-auto text-center px-4 pt-20">
-            <h1 className="text-5xl md:text-7xl font-black text-white mb-8 leading-tight drop-shadow-xl">
+          {/* Optional: Minimal Overlay Title/Brand if needed, or keeping it clean as pure visual */}
+          <div className="absolute bottom-10 left-0 right-0 text-center z-10">
+            <p className="text-white/80 font-mono text-sm uppercase tracking-widest mb-4">Infrastructure First</p>
+          </div>
+        </section>
+
+        {/* Hero Text Section - Now Below Image */}
+        <section className="relative py-20 px-4 bg-black">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl md:text-7xl font-black text-white mb-8 leading-tight">
               Energy into Intelligence.<br />
               Intelligence into <span className="text-[hsl(var(--primary))]">Sovereignty</span>.
             </h1>
-            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-12 max-w-3xl mx-auto drop-shadow-md font-medium">
+            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-12 max-w-3xl mx-auto font-medium">
               Ubuntu AI is a sovereign intelligence infrastructure that converts renewable energy
               into local compute, ethical AI systems, and shared prosperity.
             </p>
-            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto drop-shadow-md">
+            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
               It exists to ensure Africa is not only a consumer of global AI — but a producer,
               steward, and beneficiary of intelligence itself.
             </p>

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
+export const dynamic = 'force-dynamic';
 import { Outfit } from 'next/font/google';
 import './globals.css';
 import { I18nProvider } from '@/components/providers/I18nProvider';
 
-const outfit = Outfit({ 
+const outfit = Outfit({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-outfit',
