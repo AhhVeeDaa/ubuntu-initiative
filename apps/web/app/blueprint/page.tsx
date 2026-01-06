@@ -1,13 +1,15 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { 
-  SystemArchitecture, 
-  TechnicalSpecifications, 
-  SovereignStack, 
-  PPARoadmap 
+import {
+  SystemArchitecture,
+  TechnicalSpecifications,
+  SovereignStack,
+  PPARoadmap
 } from '@/components/blueprint';
 import { ArrowLeft, FileText } from 'lucide-react';
+
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata = {
   title: 'Blueprint | Ubuntu Initiative',
@@ -22,15 +24,22 @@ export default function BlueprintPage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-32 pb-20 bg-gradient-to-b from-[hsl(var(--background))] to-[hsl(var(--secondary))]/30">
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-20 left-10 w-72 h-72 bg-[hsl(var(--primary))] rounded-full mix-blend-multiply filter blur-[128px] animate-pulse"></div>
-            <div className="absolute bottom-20 right-10 w-72 h-72 bg-[hsl(var(--accent))] rounded-full mix-blend-multiply filter blur-[128px] animate-pulse delay-75"></div>
+        <section className="relative overflow-hidden pt-32 pb-20">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/hero-infrastructure.jpg"
+              alt="Blueprint Architecture Background"
+              fill
+              className="object-cover opacity-30"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/95 via-black/80 to-[hsl(var(--background))]" />
           </div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Back Link */}
-            <Link 
+            <Link
               href="/"
               className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-8"
             >
@@ -50,7 +59,7 @@ export default function BlueprintPage() {
               </h1>
 
               <p className="max-w-3xl mx-auto text-xl text-gray-300 leading-relaxed">
-                From hydropower infrastructure to sovereign AI: A complete technical overview 
+                From hydropower infrastructure to sovereign AI: A complete technical overview
                 of how we're building Africa's digital independence from the ground up.
               </p>
             </div>
@@ -77,7 +86,7 @@ export default function BlueprintPage() {
               Ready to Learn More?
             </h2>
             <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-              Explore our real-time dashboard for Phase 0 progress updates, or return home 
+              Explore our real-time dashboard for Phase 0 progress updates, or return home
               to see how you can support Africa's sovereign AI future.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

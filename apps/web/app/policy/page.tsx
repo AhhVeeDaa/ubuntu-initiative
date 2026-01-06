@@ -5,6 +5,7 @@ import { supabase } from '@/lib/supabase';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { ExternalLink, Shield, TrendingUp, Calendar } from 'lucide-react';
+import Image from 'next/image';
 
 export default function PolicyPage() {
   const [updates, setUpdates] = useState([]);
@@ -31,17 +32,34 @@ export default function PolicyPage() {
       <Navbar />
 
       <main className="flex-grow pt-24 pb-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+
+        {/* Header Hero */}
+        <section className="relative py-20 overflow-hidden mb-12 -mt-24 pt-48">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/hero-infrastructure.jpg"
+              alt="Policy Intelligence Background"
+              fill
+              className="object-cover opacity-30"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/80 to-[hsl(var(--background))]" />
+          </div>
+
+          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
               Policy Intelligence
             </h1>
-            <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            <p className="text-gray-300 max-w-2xl mx-auto text-lg drop-shadow-md">
               Verified policy and regulatory updates affecting African energy infrastructure and AI development.
               All entries reviewed by human experts before publication.
             </p>
           </div>
+        </section>
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Trust Badge */}
 
           {/* Trust Badge */}
           <div className="glass p-5 rounded-xl mb-8 flex items-start gap-4">

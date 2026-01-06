@@ -5,6 +5,7 @@ import { TechSpecs } from '@/components/vision/TechSpecs';
 import { SystemArchitecture } from '@/components/vision/SystemArchitecture';
 import { NoSSR } from '@/components/ai/NoSSR';
 import { ScrollText, Map, ShieldCheck, Activity } from 'lucide-react';
+import Image from 'next/image';
 
 export default function VisionPage() {
     return (
@@ -13,12 +14,24 @@ export default function VisionPage() {
 
             <main className="flex-grow pt-24">
                 {/* Header */}
-                <section className="relative py-20 overflow-hidden">
+                <section className="relative py-32 overflow-hidden">
+                    {/* Background Image */}
+                    <div className="absolute inset-0 z-0">
+                        <Image
+                            src="/hero-infrastructure.jpg"
+                            alt="Ubuntu Vision Background"
+                            fill
+                            className="object-cover opacity-40"
+                            priority
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black" />
+                    </div>
+
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                        <h1 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tighter">
+                        <h1 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tighter drop-shadow-lg">
                             The <span className="text-gradient">Blueprint</span>
                         </h1>
-                        <p className="max-w-3xl mx-auto text-xl text-gray-400 font-light leading-relaxed">
+                        <p className="max-w-3xl mx-auto text-xl text-gray-200 font-medium leading-relaxed drop-shadow-md">
                             A master plan to decouple African intelligence from foreign dependency.
                             We are building the physical and digital infrastructure for true sovereignty.
                         </p>

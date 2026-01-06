@@ -8,6 +8,10 @@ export const metadata = {
   description: 'The philosophical foundation of sovereign AI infrastructure for Africa',
 };
 
+import Image from 'next/image';
+
+// ... (previous imports)
+
 export default function PhilosophyPage() {
   return (
     <div className="min-h-screen flex flex-col bg-black">
@@ -15,17 +19,29 @@ export default function PhilosophyPage() {
 
       <main className="flex-grow pt-24 pb-20">
         {/* Grounding Section */}
-        <section className="relative py-20 px-4">
-          <div className="max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tight leading-tight">
+        <section className="relative py-24 px-4 overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/hero-infrastructure.jpg"
+              alt="Ubuntu Philosophy Background"
+              fill
+              className="object-cover opacity-40"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black" />
+          </div>
+
+          <div className="relative z-10 max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tight leading-tight drop-shadow-lg">
               What Ubuntu AI Is <span className="text-[hsl(var(--primary))]">(In Plain Terms)</span>
             </h1>
-            <p className="text-xl text-gray-300 leading-relaxed mb-8">
-              Ubuntu AI is a sovereign intelligence infrastructure that converts renewable energy 
+            <p className="text-xl text-gray-200 leading-relaxed mb-8 drop-shadow-md font-medium">
+              Ubuntu AI is a sovereign intelligence infrastructure that converts renewable energy
               into local compute, ethical AI governance, and community-owned technological capacity.
             </p>
-            <p className="text-xl text-gray-300 leading-relaxed">
-              It exists to ensure Africa is not merely a consumer of global AI, but a producer, 
+            <p className="text-xl text-gray-300 leading-relaxed drop-shadow-md">
+              It exists to ensure Africa is not merely a consumer of global AI, but a producer,
               steward, and beneficiary of intelligence systems.
             </p>
           </div>
@@ -36,7 +52,7 @@ export default function PhilosophyPage() {
           <h2 className="text-3xl font-black text-white mb-12 uppercase tracking-tight">
             Three Pillars of Ubuntu AI
           </h2>
-          
+
           <div className="space-y-6">
             <Pillar
               number="1"

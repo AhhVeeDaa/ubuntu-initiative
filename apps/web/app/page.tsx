@@ -8,6 +8,10 @@ export const metadata = {
   description: 'A sovereign intelligence infrastructure converting renewable energy into local compute, ethical AI systems, and shared prosperity.',
 };
 
+import Image from 'next/image';
+
+// ... (other imports)
+
 export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col bg-black">
@@ -15,18 +19,33 @@ export default function HomePage() {
 
       <main className="flex-grow">
         {/* Hero Section - Grounding Statement */}
-        <section className="relative pt-32 pb-20 px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-black text-white mb-8 leading-tight">
+        <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/hero-infrastructure.jpg"
+              alt="Ubuntu Initiative Infrastructure - A fusion of nature and technology"
+              fill
+              className="object-cover"
+              priority
+              quality={90}
+            />
+            {/* Gradient Overlay for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black" />
+          </div>
+
+          {/* Content */}
+          <div className="relative z-10 max-w-4xl mx-auto text-center px-4 pt-20">
+            <h1 className="text-5xl md:text-7xl font-black text-white mb-8 leading-tight drop-shadow-xl">
               Energy into Intelligence.<br />
               Intelligence into <span className="text-[hsl(var(--primary))]">Sovereignty</span>.
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 leading-relaxed mb-12 max-w-3xl mx-auto">
-              Ubuntu AI is a sovereign intelligence infrastructure that converts renewable energy 
+            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-12 max-w-3xl mx-auto drop-shadow-md font-medium">
+              Ubuntu AI is a sovereign intelligence infrastructure that converts renewable energy
               into local compute, ethical AI systems, and shared prosperity.
             </p>
-            <p className="text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">
-              It exists to ensure Africa is not only a consumer of global AI — but a producer, 
+            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto drop-shadow-md">
+              It exists to ensure Africa is not only a consumer of global AI — but a producer,
               steward, and beneficiary of intelligence itself.
             </p>
           </div>
@@ -39,11 +58,11 @@ export default function HomePage() {
               From Natural Power to Collective Intelligence
             </h2>
             <p className="text-lg text-gray-400 text-center mb-12 max-w-3xl mx-auto leading-relaxed">
-              Ubuntu AI begins with what already exists in abundance: natural energy. Instead of exporting 
-              raw power and importing intelligence, Ubuntu AI transforms energy at the source into computation, 
+              Ubuntu AI begins with what already exists in abundance: natural energy. Instead of exporting
+              raw power and importing intelligence, Ubuntu AI transforms energy at the source into computation,
               modeling, and decision-making capacity — owned locally and governed responsibly.
             </p>
-            
+
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-8 bg-black rounded-2xl border border-white/10">
               {[
                 { label: 'River', color: 'bg-blue-500' },
@@ -112,7 +131,7 @@ export default function HomePage() {
             <p className="text-lg text-gray-400 text-center mb-12">
               Ubuntu AI reverses the flow.
             </p>
-            
+
             <div className="overflow-hidden rounded-2xl border border-white/10">
               <table className="w-full">
                 <thead>
@@ -141,7 +160,7 @@ export default function HomePage() {
                 </tbody>
               </table>
             </div>
-            
+
             <p className="text-center text-lg text-gray-400 mt-8 italic">
               Ubuntu AI treats intelligence as infrastructure, not a product.
             </p>
@@ -157,7 +176,7 @@ export default function HomePage() {
             <p className="text-lg text-gray-400 mb-12">
               Ubuntu AI is not speculative.
             </p>
-            
+
             <div className="space-y-4">
               {[
                 'A defined energy-to-compute architecture',
@@ -172,7 +191,7 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-            
+
             <p className="text-gray-500 text-sm mt-8 text-center">
               Each component is designed to mature independently — and integrate seamlessly.
             </p>
@@ -185,7 +204,7 @@ export default function HomePage() {
             <h2 className="text-3xl font-black text-white mb-12 uppercase text-center">
               What Ubuntu AI Enables
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 'Energy optimization & resilience',
@@ -201,7 +220,7 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-            
+
             <p className="text-center text-lg text-gray-400 mt-12 max-w-2xl mx-auto leading-relaxed">
               All built on the principle that those closest to the resource should benefit most from its intelligence.
             </p>
@@ -214,7 +233,7 @@ export default function HomePage() {
             <h2 className="text-3xl font-black text-white mb-6 uppercase">
               Governed, Not Extracted
             </h2>
-            
+
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
               {[
                 'Community benefit structures',
@@ -227,7 +246,7 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-            
+
             <p className="text-lg text-gray-400 mt-12 italic">
               Technology here is not neutral. It is deliberate.
             </p>
@@ -243,7 +262,7 @@ export default function HomePage() {
             <p className="text-lg text-gray-400 mb-8 leading-relaxed">
               Ubuntu AI is an infrastructure initiative in formation — open to:
             </p>
-            
+
             <div className="flex flex-wrap justify-center gap-4 mb-12">
               {['Governments', 'Institutions', 'Engineers', 'Researchers', 'Communities'].map((group, i) => (
                 <div key={i} className="px-6 py-3 bg-black border border-white/10 rounded-full">
@@ -251,11 +270,11 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-            
+
             <p className="text-lg text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
               Those who believe intelligence should serve people, place, and future generations.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/philosophy"
