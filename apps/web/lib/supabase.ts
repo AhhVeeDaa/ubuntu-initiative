@@ -77,11 +77,11 @@ export type Database = {
 }
 
 // Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder_key';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('⚠️  Supabase credentials not found. Add to .env.local')
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+  console.warn('⚠️  Supabase credentials not found. Using placeholders for build.')
 }
 
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)

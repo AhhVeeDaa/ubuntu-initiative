@@ -1,0 +1,112 @@
+# ═══════════════════════════════════════════════════════════════════
+# UBUNTU INITIATIVE - VERCEL ENVIRONMENT VARIABLES
+# ═══════════════════════════════════════════════════════════════════
+# Generated: January 6, 2026
+# Use these exact values in Vercel Dashboard
+# ═══════════════════════════════════════════════════════════════════
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# REQUIRED FOR BOTH PROJECTS
+# (ubuntu-initiative-web + ubuntu-initiative-dashboard)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Supabase Database URL (public-safe)
+NEXT_PUBLIC_SUPABASE_URL=https://fohifgmbuewmjybdtidk.supabase.co
+
+# Supabase Service Role Key (server-only, full admin access)
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvaGlmZ21idWV3bWp5YmR0aWRrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NzI5MjY5NCwiZXhwIjoyMDgyODY4Njk0fQ.vAlNLR5gRPdhSZckz8dU4UapYslFAmCrk8UauQBE-L0
+
+# Google Gemini AI API Key (for agent intelligence)
+GOOGLE_AI_API_KEY=AIzaSyA_bAP956JwrF1pvDmRVNednigilCTuT44
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# REQUIRED ONLY FOR WEB APP
+# (ubuntu-initiative-web ONLY - NOT for dashboard)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Cron Job Security Secret (protects automated agent runs)
+CRON_SECRET=rRqnAQxuCEviyBmjEy+UKrWzL2li+P8yIFuLJoo9eU8=
+
+
+# ═══════════════════════════════════════════════════════════════════
+# SETUP INSTRUCTIONS
+# ═══════════════════════════════════════════════════════════════════
+#
+# PROJECT 1: ubuntu-initiative-web
+# ──────────────────────────────────────────────────────────────────
+# 1. Go to: https://vercel.com/avida-s-projects/ubuntu-initiative-web
+# 2. Click: Settings → Environment Variables
+# 3. Add all 4 variables above:
+#    - NEXT_PUBLIC_SUPABASE_URL
+#    - SUPABASE_SERVICE_ROLE_KEY
+#    - GOOGLE_AI_API_KEY
+#    - CRON_SECRET
+# 4. For each variable:
+#    ✓ Check: Production
+#    ✓ Check: Preview
+#    ✓ Check: Development
+# 5. Click: Save after each
+# 6. Go to: Deployments → Click ⋯ → Redeploy
+#
+# PROJECT 2: ubuntu-initiative-dashboard
+# ──────────────────────────────────────────────────────────────────
+# 1. Go to: https://vercel.com/avida-s-projects/ubuntu-initiative-dashboard
+# 2. Click: Settings → Environment Variables
+# 3. Add only 3 variables (NO CRON_SECRET):
+#    - NEXT_PUBLIC_SUPABASE_URL
+#    - SUPABASE_SERVICE_ROLE_KEY
+#    - GOOGLE_AI_API_KEY
+# 4. For each variable:
+#    ✓ Check: Production
+#    ✓ Check: Preview
+#    ✓ Check: Development
+# 5. Click: Save after each
+# 6. Go to: Deployments → Click ⋯ → Redeploy
+#
+# ═══════════════════════════════════════════════════════════════════
+# VERIFICATION
+# ═══════════════════════════════════════════════════════════════════
+#
+# After setup, test with:
+#
+# curl https://your-web-domain.vercel.app/api/agents/status
+#
+# Expected: {"status":"healthy","agents":[...],"count":8}
+#
+# ═══════════════════════════════════════════════════════════════════
+# SECURITY NOTES
+# ═══════════════════════════════════════════════════════════════════
+#
+# ⚠️  CRITICAL:
+#    - NEVER commit this file to git (already in .gitignore)
+#    - NEVER share SUPABASE_SERVICE_ROLE_KEY publicly
+#    - NEVER expose CRON_SECRET client-side
+#    - NEVER use service role key in browser code
+#
+# ✅  SAFE TO EXPOSE:
+#    - NEXT_PUBLIC_SUPABASE_URL (public URL only)
+#
+# 🔒  SERVER-ONLY (keep private):
+#    - SUPABASE_SERVICE_ROLE_KEY (full database access)
+#    - GOOGLE_AI_API_KEY (API quota & billing)
+#    - CRON_SECRET (prevents unauthorized automation)
+#
+# ═══════════════════════════════════════════════════════════════════
+# QUICK REFERENCE
+# ═══════════════════════════════════════════════════════════════════
+#
+# Variable Count by Project:
+#   ubuntu-initiative-web: 4 variables
+#   ubuntu-initiative-dashboard: 3 variables
+#
+# Total Setup Time: ~10-15 minutes
+# 
+# Helper Scripts:
+#   ./open-vercel-settings.sh  - Opens both Vercel settings pages
+#   ./activate-agents.sh       - Full system activation
+#
+# Full Guide:
+#   See artifact: "Vercel Environment Variables Setup Guide"
+#
+# ═══════════════════════════════════════════════════════════════════

@@ -1,8 +1,13 @@
 import type { Metadata } from 'next';
 import { Outfit } from 'next/font/google';
 import './globals.css';
+import { I18nProvider } from '@/components/providers/I18nProvider';
 
-const outfit = Outfit({ subsets: ['latin'] });
+const outfit = Outfit({ 
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-outfit',
+});
 
 export const metadata: Metadata = {
   title: 'Ubuntu Initiative | Africa\'s Sovereign AI Supercomputer',
@@ -17,18 +22,18 @@ export const metadata: Metadata = {
 
 import { IngaFloatingButton } from '@/components/ai/IngaFloatingButton';
 
-// ... (previous imports)
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={outfit.className}>
-        {children}
-        <IngaFloatingButton />
+    <html lang="en" className={outfit.variable}>
+      <body className="font-sans antialiased">
+        <I18nProvider>
+          {children}
+          <IngaFloatingButton />
+        </I18nProvider>
       </body>
     </html>
   );

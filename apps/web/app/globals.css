@@ -1,34 +1,26 @@
 @import "tailwindcss";
 
-
-
-
-
 html {
   scroll-behavior: smooth;
 }
 
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 :root {
   --background: 222 47% 11%;
-  /* Deep Congo Blue */
   --foreground: 210 40% 98%;
-  /* Soft White */
-
   --primary: 180 100% 50%;
-  /* Electric Cyan */
   --primary-foreground: 222 47% 11%;
-
   --secondary: 217 33% 17%;
-  /* Lighter Blue/Gray */
   --secondary-foreground: 210 40% 98%;
-
   --accent: 45 100% 50%;
-  /* Sovereign Gold */
   --accent-foreground: 222 47% 11%;
-
   --card: 217 33% 17%;
   --card-foreground: 210 40% 98%;
-
   --border: 217 33% 30%;
   --input: 217 33% 25%;
   --ring: 180 100% 50%;
@@ -48,6 +40,8 @@ html {
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+  
+  --font-sans: var(--font-outfit), system-ui, sans-serif;
 }
 
 @layer utilities {
@@ -66,33 +60,12 @@ html {
   .animate-pulse-slow {
     animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
-
-  .animate-glow-breath {
-    animation: glow-breath 3s ease-in-out infinite;
-  }
-}
-
-@keyframes glow-breath {
-
-  0%,
-  100% {
-    filter: drop-shadow(0 0 5px currentColor) drop-shadow(0 0 10px currentColor) opacity(0.8);
-    transform: scale(1);
-  }
-
-  50% {
-    filter: drop-shadow(0 0 15px currentColor) drop-shadow(0 0 30px currentColor) opacity(1);
-    transform: scale(1.02);
-  }
 }
 
 @keyframes pulse {
-
-  0%,
-  100% {
+  0%, 100% {
     opacity: 1;
   }
-
   50% {
     opacity: .5;
   }

@@ -1,0 +1,206 @@
+{
+  "common": {
+    "home": "Home",
+    "about": "About",
+    "vision": "Vision",
+    "blueprint": "Blueprint",
+    "philosophy": "Philosophy",
+    "progress": "Progress",
+    "policy": "Policy Updates",
+    "contact": "Contact",
+    "support": "Support",
+    "agents": "AI Agents",
+    "dashboard": "Dashboard"
+  },
+  "hero": {
+    "title": "The Ubuntu Initiative",
+    "subtitle": "Africa's First Sovereign AI Supercomputer",
+    "description": "Powered by the mighty Inga Falls, we're building AI infrastructure that serves Africa first—with transparency, accountability, and Congolese values at the core.",
+    "cta": "Explore the Vision",
+    "stats": {
+      "power": "42GW Potential",
+      "compute": "10+ Exaflops",
+      "lives": "60M+ Lives Electrified",
+      "jobs": "50K+ Jobs Created"
+    }
+  },
+  "vision": {
+    "title": "Our Vision",
+    "subtitle": "Building Africa's AI Future",
+    "mission": "To create sovereign AI infrastructure powered by renewable energy, serving African needs first while electrifying millions of lives.",
+    "values": {
+      "sovereignty": {
+        "title": "Digital Sovereignty",
+        "description": "Africa-owned, Africa-controlled AI infrastructure"
+      },
+      "transparency": {
+        "title": "Radical Transparency",
+        "description": "Open operations, auditable decisions, public accountability"
+      },
+      "community": {
+        "title": "Community First",
+        "description": "Local needs drive our priorities and development"
+      },
+      "sustainability": {
+        "title": "Sustainable Power",
+        "description": "100% renewable hydroelectric energy from Inga Falls"
+      }
+    }
+  },
+  "blueprint": {
+    "title": "Technical Blueprint",
+    "subtitle": "Energy-to-Compute Architecture",
+    "caption": "The 500MW Power Purchase Agreement (PPA) serves as the financial anchor that makes the entire Inga 3 expansion economically viable.",
+    "nodes": {
+      "inga": {
+        "label": "Inga Falls",
+        "metric": "42GW Potential",
+        "description": "World's largest hydropower potential"
+      },
+      "ppa": {
+        "label": "Ubuntu Power Station",
+        "metric": "500MW Dedicated PPA",
+        "description": "Financial trigger & infrastructure anchor"
+      },
+      "compute": {
+        "label": "AI Supercomputer",
+        "metric": "L1: Sovereign Intelligence",
+        "description": "10+ Exaflops FP16 compute power"
+      },
+      "grid": {
+        "label": "Regional Grid",
+        "metric": "Surplus: 60M+ Lives",
+        "description": "Electrification through excess capacity"
+      }
+    },
+    "specs": {
+      "title": "Phase 1 Technical Specifications",
+      "power": {
+        "label": "Power Source",
+        "value": "Run-of-River Hydro (Inga 3 Expansion)"
+      },
+      "cooling": {
+        "label": "Cooling",
+        "value": "Closed-loop liquid cooling using Congo River heat exchange"
+      },
+      "compute": {
+        "label": "Compute Target",
+        "value": "10+ Exaflops (FP16) focused on LLM training for African languages"
+      },
+      "connectivity": {
+        "label": "Connectivity",
+        "value": "Terabit-scale fiber link to Kinshasa and subsea cables via Muanda"
+      }
+    }
+  },
+  "philosophy": {
+    "title": "Ubuntu Philosophy",
+    "subtitle": "I Am Because We Are",
+    "description": "Our approach to AI is rooted in the African philosophy of Ubuntu—emphasizing community, shared humanity, and collective progress.",
+    "principles": {
+      "community": {
+        "title": "Community Centered",
+        "description": "Decisions prioritize collective benefit over individual gain"
+      },
+      "transparency": {
+        "title": "Transparent Operations",
+        "description": "All actions are auditable and publicly accountable"
+      },
+      "respect": {
+        "title": "Cultural Respect",
+        "description": "Honoring Congolese values, authority, and traditions"
+      },
+      "sustainability": {
+        "title": "Long-term Thinking",
+        "description": "Building for generations, not just quarters"
+      }
+    }
+  },
+  "agents": {
+    "title": "AI Agent System",
+    "subtitle": "Intelligent Automation with Human Oversight",
+    "description": "8 specialized AI agents monitor policy, track progress, and support operations—all with mandatory human review.",
+    "systemStatus": "System Status",
+    "healthy": "All Systems Operational",
+    "agentList": {
+      "policy": {
+        "name": "Policy Monitor",
+        "description": "Tracks DRC government regulations"
+      },
+      "community": {
+        "name": "Community Listener",
+        "description": "Monitors social sentiment"
+      },
+      "narrative": {
+        "name": "Content Generator",
+        "description": "Creates transparent updates"
+      },
+      "funding": {
+        "name": "Grant Finder",
+        "description": "Identifies funding opportunities"
+      },
+      "chatbot": {
+        "name": "Inga GPT",
+        "description": "Powers public Q&A"
+      },
+      "milestone": {
+        "name": "Progress Tracker",
+        "description": "Monitors Phase 0 progress"
+      },
+      "research": {
+        "name": "Research Synthesizer",
+        "description": "Analyzes academic papers"
+      },
+      "dueDiligence": {
+        "name": "Stakeholder Vetter",
+        "description": "Vets potential partners"
+      }
+    }
+  },
+  "progress": {
+    "title": "Project Progress",
+    "subtitle": "Phase 0: Foundation & Feasibility",
+    "currentPhase": "Current Phase",
+    "timeline": "Timeline",
+    "milestones": {
+      "feasibility": {
+        "title": "Feasibility Study",
+        "status": "In Progress"
+      },
+      "environmental": {
+        "title": "Environmental Impact Assessment",
+        "status": "Planned"
+      },
+      "ppa": {
+        "title": "Power Purchase Agreement",
+        "status": "Negotiation"
+      }
+    }
+  },
+  "policy": {
+    "title": "Policy Updates",
+    "subtitle": "DRC Government Regulations Affecting the Project",
+    "filters": {
+      "all": "All",
+      "pending": "Pending Review",
+      "approved": "Approved",
+      "high": "High Impact"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in Touch",
+    "description": "Have questions about the Ubuntu Initiative? We'd love to hear from you.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "submit": "Send Message"
+    }
+  },
+  "footer": {
+    "tagline": "Building Africa's AI Infrastructure Revolution",
+    "copyright": "© 2026 Ubuntu Initiative. All rights reserved.",
+    "poweredBy": "Powered by Inga Hydropower"
+  }
+}

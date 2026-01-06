@@ -1,0 +1,206 @@
+{
+  "common": {
+    "home": "Nyumbani",
+    "about": "Kuhusu",
+    "vision": "Maono",
+    "blueprint": "Mpango",
+    "philosophy": "Falsafa",
+    "progress": "Maendeleo",
+    "policy": "Sera za Serikali",
+    "contact": "Wasiliana",
+    "support": "Msaada",
+    "agents": "Mawakala wa AI",
+    "dashboard": "Dashibodi"
+  },
+  "hero": {
+    "title": "Mpango wa Ubuntu",
+    "subtitle": "Kompyuta ya Kwanza ya AI ya Uhuru wa Afrika",
+    "description": "Inaendeshwa na nguvu ya Maporomoko ya Inga, tunajenga miundombinu ya AI inayotumikia Afrika kwanza—kwa uwazi, uwajibikaji, na maadili ya Kikongo katikati.",
+    "cta": "Chunguza Maono",
+    "stats": {
+      "power": "Uwezo wa 42GW",
+      "compute": "10+ Exaflops",
+      "lives": "Maisha 60M+ Yametiwa Umeme",
+      "jobs": "Kazi 50K+ Zilizounda"
+    }
+  },
+  "vision": {
+    "title": "Maono Yetu",
+    "subtitle": "Kujenga Mustakabali wa AI wa Afrika",
+    "mission": "Kuunda miundombinu ya AI ya uhuru inayoendeshwa na nishati inayozalishwa upya, ikitumikia mahitaji ya Afrika kwanza huku ikitiwa umeme maisha ya mamilioni.",
+    "values": {
+      "sovereignty": {
+        "title": "Uhuru wa Kidijitali",
+        "description": "Miundombinu ya AI ya Afrika, inayodhibitiwa na Afrika"
+      },
+      "transparency": {
+        "title": "Uwazi wa Kipekee",
+        "description": "Uendeshaji wazi, maamuzi yanayoweza kuhakikiwa, uwajibikaji wa umma"
+      },
+      "community": {
+        "title": "Jamii Kwanza",
+        "description": "Mahitaji ya ndani yanaongoza vipaumbele na maendeleo yetu"
+      },
+      "sustainability": {
+        "title": "Nguvu Endelevu",
+        "description": "Nishati 100% inayozalishwa upya ya umeme wa maji kutoka Maporomoko ya Inga"
+      }
+    }
+  },
+  "blueprint": {
+    "title": "Mpango wa Kiufundi",
+    "subtitle": "Usanifu wa Nishati-hadi-Hesabu",
+    "caption": "Makubaliano ya Ununuzi wa Nguvu (PPA) ya 500MW inafanya kazi kama nanga ya kifedha inayofanya upanuzi wote wa Inga 3 kuwa wa kiuchumi.",
+    "nodes": {
+      "inga": {
+        "label": "Maporomoko ya Inga",
+        "metric": "Uwezo wa 42GW",
+        "description": "Uwezo mkubwa zaidi wa nguvu za umeme wa maji duniani"
+      },
+      "ppa": {
+        "label": "Kituo cha Nguvu cha Ubuntu",
+        "metric": "PPA iliyotolewa 500MW",
+        "description": "Kichocheo cha kifedha na nanga ya miundombinu"
+      },
+      "compute": {
+        "label": "Kompyuta Kuu ya AI",
+        "metric": "L1: Akili ya Uhuru",
+        "description": "Nguvu ya hesabu ya 10+ Exaflops FP16"
+      },
+      "grid": {
+        "label": "Gridi ya Kikanda",
+        "metric": "Ziada: Maisha 60M+",
+        "description": "Utiaji umeme kupitia uwezo wa ziada"
+      }
+    },
+    "specs": {
+      "title": "Vipimo vya Kiufundi vya Awamu ya 1",
+      "power": {
+        "label": "Chanzo cha Nguvu",
+        "value": "Umeme wa Maji wa Kuendesha Mto (Upanuzi wa Inga 3)"
+      },
+      "cooling": {
+        "label": "Upoezi",
+        "value": "Upoezi wa maji katika mzunguko uliofungwa ukitumia ubadilishanaji wa joto wa Mto Congo"
+      },
+      "compute": {
+        "label": "Lengo la Hesabu",
+        "value": "10+ Exaflops (FP16) zinazolenga mafunzo ya LLM kwa lugha za Kiafrika"
+      },
+      "connectivity": {
+        "label": "Uunganisho",
+        "value": "Muunganisho wa nyuzi wa kipimo cha terabit hadi Kinshasa na nyaya za chini ya bahari kupitia Muanda"
+      }
+    }
+  },
+  "philosophy": {
+    "title": "Falsafa ya Ubuntu",
+    "subtitle": "Mimi ni kwa sababu sisi tu",
+    "description": "Mbinu yetu kwa AI imezikwa katika falsafa ya Kiafrika ya Ubuntu—inayosisitiza jamii, ubinadamu unaoshirikiwa, na maendeleo ya pamoja.",
+    "principles": {
+      "community": {
+        "title": "Jamii Kati",
+        "description": "Maamuzi yanachagua manufaa ya pamoja badala ya faida ya mtu binafsi"
+      },
+      "transparency": {
+        "title": "Uendeshaji Wazi",
+        "description": "Vitendo vyote vinaweza kuhakikiwa na kuwajibika kwa umma"
+      },
+      "respect": {
+        "title": "Heshima ya Kitamaduni",
+        "description": "Kuheshimu maadili, mamlaka, na mila za Kikongo"
+      },
+      "sustainability": {
+        "title": "Mawazo ya Muda Mrefu",
+        "description": "Kujenga kwa vizazi, si tu robo"
+      }
+    }
+  },
+  "agents": {
+    "title": "Mfumo wa Mawakala wa AI",
+    "subtitle": "Uotomatishaji wa Akili na Usimamizi wa Binadamu",
+    "description": "Mawakala 8 maalum wa AI wanafuatilia sera, wanafuatilia maendeleo, na wanasaidia shughuli—wote wakihitaji uhakiki wa binadamu.",
+    "systemStatus": "Hali ya Mfumo",
+    "healthy": "Mifumo Yote Inafanya Kazi",
+    "agentList": {
+      "policy": {
+        "name": "Mfuatiliaji wa Sera",
+        "description": "Anafuatilia kanuni za serikali ya DRC"
+      },
+      "community": {
+        "name": "Msikilizaji wa Jamii",
+        "description": "Anafuatilia hisia za kijamii"
+      },
+      "narrative": {
+        "name": "Mtengenezaji wa Maudhui",
+        "description": "Anaunda masasisho ya uwazi"
+      },
+      "funding": {
+        "name": "Mtafutaji wa Ruzuku",
+        "description": "Anatambua fursa za ufadhili"
+      },
+      "chatbot": {
+        "name": "Inga GPT",
+        "description": "Anaendesha maswali na majibu ya umma"
+      },
+      "milestone": {
+        "name": "Mfuatiliaji wa Maendeleo",
+        "description": "Anafuatilia maendeleo ya Awamu ya 0"
+      },
+      "research": {
+        "name": "Muunganishaji wa Utafiti",
+        "description": "Anachanganua makala za kitaaluma"
+      },
+      "dueDiligence": {
+        "name": "Mthibitishaji wa Wadau",
+        "description": "Anathibitisha washirika wanaowezekana"
+      }
+    }
+  },
+  "progress": {
+    "title": "Maendeleo ya Mradi",
+    "subtitle": "Awamu ya 0: Msingi na Uwezekano",
+    "currentPhase": "Awamu ya Sasa",
+    "timeline": "Ratiba",
+    "milestones": {
+      "feasibility": {
+        "title": "Utafiti wa Uwezekano",
+        "status": "Inaendelea"
+      },
+      "environmental": {
+        "title": "Tathmini ya Athari za Mazingira",
+        "status": "Imepangwa"
+      },
+      "ppa": {
+        "title": "Makubaliano ya Ununuzi wa Nguvu",
+        "status": "Mazungumzo"
+      }
+    }
+  },
+  "policy": {
+    "title": "Masasisho ya Sera",
+    "subtitle": "Kanuni za Serikali ya DRC Zinazoathiri Mradi",
+    "filters": {
+      "all": "Zote",
+      "pending": "Inasubiri Uhakiki",
+      "approved": "Imeidhinishwa",
+      "high": "Athari Kubwa"
+    }
+  },
+  "contact": {
+    "title": "Wasiliana Nasi",
+    "subtitle": "Pata Mawasiliano",
+    "description": "Una maswali kuhusu Mpango wa Ubuntu? Tungependa kusikia kutoka kwako.",
+    "form": {
+      "name": "Jina",
+      "email": "Barua pepe",
+      "message": "Ujumbe",
+      "submit": "Tuma Ujumbe"
+    }
+  },
+  "footer": {
+    "tagline": "Kujenga Mapinduzi ya Miundombinu ya AI ya Afrika",
+    "copyright": "© 2026 Mpango wa Ubuntu. Haki zote zimehifadhiwa.",
+    "poweredBy": "Inaendeshwa na Umeme wa Maji wa Inga"
+  }
+}

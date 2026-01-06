@@ -2,10 +2,27 @@
 
 import Link from 'next/link';
 import { Menu, X, Cpu } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { CompactLanguageSwitcher } from '@/components/language-switcher';
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
 
     return (
         <nav className="fixed w-full z-50 glass">
@@ -51,13 +68,18 @@ export function Navbar() {
                             <Link href="/support" className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 px-4 py-2 rounded-md text-sm font-bold transition-colors">
                                 Support Us
                             </Link>
+                            <div className="ml-2">
+                                <CompactLanguageSwitcher />
+                            </div>
                         </div>
                     </div>
 
-                    <div className="md:hidden">
+                    <div className="md:hidden flex items-center gap-2">
+                        <CompactLanguageSwitcher />
                         <button
-                            onClick={() => setIsOpen(!isOpen)}
+                            onClick={toggleMenu}
                             className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700/50 focus:outline-none"
+                            aria-label="Toggle menu"
                         >
                             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                         </button>
@@ -71,42 +93,42 @@ export function Navbar() {
                         <Link
                             href="/"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            onClick={() => setIsOpen(false)}
+                            onClick={toggleMenu}
                         >
                             Home
                         </Link>
                         <Link
                             href="/blueprint"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            onClick={() => setIsOpen(false)}
+                            onClick={toggleMenu}
                         >
                             Blueprint
                         </Link>
                         <Link
                             href="/philosophy"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            onClick={() => setIsOpen(false)}
+                            onClick={toggleMenu}
                         >
                             Philosophy
                         </Link>
                         <Link
                             href="/vision"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            onClick={() => setIsOpen(false)}
+                            onClick={toggleMenu}
                         >
                             Vision
                         </Link>
                         <Link
                             href="/agents"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            onClick={() => setIsOpen(false)}
+                            onClick={toggleMenu}
                         >
                             Agents
                         </Link>
                         <Link
                             href="/contact"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            onClick={() => setIsOpen(false)}
+                            onClick={toggleMenu}
                         >
                             Contact
                         </Link>
@@ -115,14 +137,14 @@ export function Navbar() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            onClick={() => setIsOpen(false)}
+                            onClick={toggleMenu}
                         >
                             Dashboard
                         </a>
                         <Link
                             href="/support"
                             className="text-[hsl(var(--primary))] block px-3 py-2 rounded-md text-base font-medium"
-                            onClick={() => setIsOpen(false)}
+                            onClick={toggleMenu}
                         >
                             Support Us
                         </Link>

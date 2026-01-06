@@ -1,10 +1,12 @@
 import Stripe from 'stripe';
 
+const stripeKey = process.env.STRIPE_SECRET_KEY || 'placeholder_for_build';
+
 if (!process.env.STRIPE_SECRET_KEY) {
-    throw new Error('STRIPE_SECRET_KEY is not defined in environment variables');
+    console.warn('⚠️ STRIPE_SECRET_KEY is missing. Stripe functionality will fail at runtime if not provided.');
 }
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+export const stripe = new Stripe(stripeKey, {
     apiVersion: '2025-12-15.clover',
     appInfo: {
         name: 'Ubuntu Initiative',

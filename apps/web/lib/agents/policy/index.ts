@@ -24,7 +24,7 @@ export class PolicyAgent extends BaseAgent {
       autonomyLevel: 'semi-autonomous'
     });
     this.policyConfig = config;
-    const apiKey = process.env.GOOGLE_AI_API_KEY;
+    const apiKey = process.env.GOOGLE_AI_API_KEY || 'MOCK_KEY';
     if (!apiKey && !config.dryRun) {
       console.warn('GOOGLE_AI_API_KEY is missing. Policy Agent will run in mock analysis mode.');
     }

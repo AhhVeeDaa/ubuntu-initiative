@@ -1,0 +1,206 @@
+{
+  "common": {
+    "home": "Accueil",
+    "about": "À propos",
+    "vision": "Vision",
+    "blueprint": "Plan directeur",
+    "philosophy": "Philosophie",
+    "progress": "Progrès",
+    "policy": "Mises à jour politiques",
+    "contact": "Contact",
+    "support": "Soutien",
+    "agents": "Agents IA",
+    "dashboard": "Tableau de bord"
+  },
+  "hero": {
+    "title": "L'Initiative Ubuntu",
+    "subtitle": "Le premier supercalculateur IA souverain d'Afrique",
+    "description": "Alimenté par les puissantes chutes d'Inga, nous construisons une infrastructure IA qui sert l'Afrique en premier—avec transparence, responsabilité et valeurs congolaises au cœur.",
+    "cta": "Explorer la vision",
+    "stats": {
+      "power": "42GW de potentiel",
+      "compute": "10+ Exaflops",
+      "lives": "60M+ vies électrifiées",
+      "jobs": "50K+ emplois créés"
+    }
+  },
+  "vision": {
+    "title": "Notre Vision",
+    "subtitle": "Construire l'avenir de l'IA en Afrique",
+    "mission": "Créer une infrastructure IA souveraine alimentée par l'énergie renouvelable, servant les besoins africains d'abord tout en électrifiant des millions de vies.",
+    "values": {
+      "sovereignty": {
+        "title": "Souveraineté numérique",
+        "description": "Infrastructure IA appartenant à l'Afrique, contrôlée par l'Afrique"
+      },
+      "transparency": {
+        "title": "Transparence radicale",
+        "description": "Opérations ouvertes, décisions vérifiables, responsabilité publique"
+      },
+      "community": {
+        "title": "Communauté d'abord",
+        "description": "Les besoins locaux guident nos priorités et notre développement"
+      },
+      "sustainability": {
+        "title": "Énergie durable",
+        "description": "100% d'énergie hydroélectrique renouvelable des chutes d'Inga"
+      }
+    }
+  },
+  "blueprint": {
+    "title": "Plan technique",
+    "subtitle": "Architecture énergie-calcul",
+    "caption": "L'accord d'achat d'électricité (PPA) de 500 MW sert d'ancrage financier qui rend toute l'expansion d'Inga 3 économiquement viable.",
+    "nodes": {
+      "inga": {
+        "label": "Chutes d'Inga",
+        "metric": "42GW de potentiel",
+        "description": "Plus grand potentiel hydroélectrique au monde"
+      },
+      "ppa": {
+        "label": "Station Ubuntu",
+        "metric": "500MW PPA dédié",
+        "description": "Déclencheur financier et ancrage d'infrastructure"
+      },
+      "compute": {
+        "label": "Supercalculateur IA",
+        "metric": "L1: Intelligence souveraine",
+        "description": "10+ Exaflops de puissance de calcul FP16"
+      },
+      "grid": {
+        "label": "Réseau régional",
+        "metric": "Surplus: 60M+ vies",
+        "description": "Électrification grâce à la capacité excédentaire"
+      }
+    },
+    "specs": {
+      "title": "Spécifications techniques Phase 1",
+      "power": {
+        "label": "Source d'énergie",
+        "value": "Hydroélectricité au fil de l'eau (Expansion Inga 3)"
+      },
+      "cooling": {
+        "label": "Refroidissement",
+        "value": "Refroidissement liquide en boucle fermée utilisant l'échange thermique du fleuve Congo"
+      },
+      "compute": {
+        "label": "Objectif de calcul",
+        "value": "10+ Exaflops (FP16) axés sur la formation LLM pour les langues africaines"
+      },
+      "connectivity": {
+        "label": "Connectivité",
+        "value": "Liaison fibre à l'échelle du térabit vers Kinshasa et câbles sous-marins via Muanda"
+      }
+    }
+  },
+  "philosophy": {
+    "title": "Philosophie Ubuntu",
+    "subtitle": "Je suis parce que nous sommes",
+    "description": "Notre approche de l'IA est enracinée dans la philosophie africaine Ubuntu—mettant l'accent sur la communauté, l'humanité partagée et le progrès collectif.",
+    "principles": {
+      "community": {
+        "title": "Centré sur la communauté",
+        "description": "Les décisions privilégient le bénéfice collectif plutôt que le gain individuel"
+      },
+      "transparency": {
+        "title": "Opérations transparentes",
+        "description": "Toutes les actions sont vérifiables et publiquement responsables"
+      },
+      "respect": {
+        "title": "Respect culturel",
+        "description": "Honorer les valeurs, l'autorité et les traditions congolaises"
+      },
+      "sustainability": {
+        "title": "Pensée à long terme",
+        "description": "Construire pour les générations, pas seulement pour les trimestres"
+      }
+    }
+  },
+  "agents": {
+    "title": "Système d'agents IA",
+    "subtitle": "Automatisation intelligente avec surveillance humaine",
+    "description": "8 agents IA spécialisés surveillent les politiques, suivent les progrès et soutiennent les opérations—tous avec examen humain obligatoire.",
+    "systemStatus": "État du système",
+    "healthy": "Tous les systèmes opérationnels",
+    "agentList": {
+      "policy": {
+        "name": "Moniteur de politique",
+        "description": "Suit les réglementations du gouvernement RDC"
+      },
+      "community": {
+        "name": "Auditeur communautaire",
+        "description": "Surveille le sentiment social"
+      },
+      "narrative": {
+        "name": "Générateur de contenu",
+        "description": "Crée des mises à jour transparentes"
+      },
+      "funding": {
+        "name": "Chercheur de subventions",
+        "description": "Identifie les opportunités de financement"
+      },
+      "chatbot": {
+        "name": "Inga GPT",
+        "description": "Alimente les questions-réponses publiques"
+      },
+      "milestone": {
+        "name": "Suivi des progrès",
+        "description": "Surveille les progrès de la Phase 0"
+      },
+      "research": {
+        "name": "Synthétiseur de recherche",
+        "description": "Analyse les articles académiques"
+      },
+      "dueDiligence": {
+        "name": "Vérificateur de parties prenantes",
+        "description": "Vérifie les partenaires potentiels"
+      }
+    }
+  },
+  "progress": {
+    "title": "Progrès du projet",
+    "subtitle": "Phase 0: Fondation et faisabilité",
+    "currentPhase": "Phase actuelle",
+    "timeline": "Chronologie",
+    "milestones": {
+      "feasibility": {
+        "title": "Étude de faisabilité",
+        "status": "En cours"
+      },
+      "environmental": {
+        "title": "Évaluation d'impact environnemental",
+        "status": "Prévu"
+      },
+      "ppa": {
+        "title": "Accord d'achat d'électricité",
+        "status": "Négociation"
+      }
+    }
+  },
+  "policy": {
+    "title": "Mises à jour politiques",
+    "subtitle": "Réglementations du gouvernement RDC affectant le projet",
+    "filters": {
+      "all": "Tous",
+      "pending": "En attente d'examen",
+      "approved": "Approuvé",
+      "high": "Impact élevé"
+    }
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Entrer en contact",
+    "description": "Vous avez des questions sur l'Initiative Ubuntu? Nous serions ravis de vous entendre.",
+    "form": {
+      "name": "Nom",
+      "email": "Email",
+      "message": "Message",
+      "submit": "Envoyer le message"
+    }
+  },
+  "footer": {
+    "tagline": "Construire la révolution de l'infrastructure IA de l'Afrique",
+    "copyright": "© 2026 Initiative Ubuntu. Tous droits réservés.",
+    "poweredBy": "Alimenté par l'hydroélectricité d'Inga"
+  }
+}

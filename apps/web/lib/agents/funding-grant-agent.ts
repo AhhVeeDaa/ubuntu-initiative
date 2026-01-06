@@ -35,7 +35,11 @@ export class FundingGrantAgent extends BaseAgent {
       autonomyLevel: 'semi-autonomous'
     });
 
-    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    const stripeKey = process.env.STRIPE_SECRET_KEY || 'stripe_key_placeholder_build';
+    if (!process.env.STRIPE_SECRET_KEY) {
+      console.warn("⚠️ [FundingAgent] STRIPE_SECRET_KEY missing. Using placeholder.");
+    }
+    this.stripe = new Stripe(stripeKey, {
       apiVersion: '2025-12-15.clover' as any
     });
   }

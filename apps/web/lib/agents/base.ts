@@ -43,8 +43,12 @@ export abstract class BaseAgent {
     this.config = config;
 
     // Initialize Supabase client with service role for agent operations
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 'placeholder_key';
+
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      console.warn(`⚠️ [${config.id}] Supabase credentials missing. Using placeholders for build.`);
+    }
 
     this.supabase = createClient(supabaseUrl, supabaseServiceKey, {
       auth: {

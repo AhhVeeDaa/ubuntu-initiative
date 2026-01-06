@@ -1,0 +1,206 @@
+{
+  "common": {
+    "home": "Ndako",
+    "about": "Na ntina ya",
+    "vision": "Emoniseli",
+    "blueprint": "Manaka ya mosala",
+    "philosophy": "Bwanya",
+    "progress": "Bokóli",
+    "policy": "Mibeko ya leta",
+    "contact": "Kopesa sango",
+    "support": "Lisalisi",
+    "agents": "Ba-agents IA",
+    "dashboard": "Esika ya kotala"
+  },
+  "hero": {
+    "title": "Mosala Ubuntu",
+    "subtitle": "Ordinateur ya liboso ya IA ya bokoko na Afrika",
+    "description": "Na nguya ya Inga Falls, tozali kotonga ba-infrastructures ya IA oyo ekosalela Afrika liboso—na polele, na ngonga, mpe na mitindo ya Kongo na kati.",
+    "cta": "Talá emoniseli",
+    "stats": {
+      "power": "42GW ya makasi",
+      "compute": "10+ Exaflops",
+      "lives": "Bato 60M+ bazwi courant",
+      "jobs": "Misala 50K+ ekelami"
+    }
+  },
+  "vision": {
+    "title": "Emoniseli na biso",
+    "subtitle": "Kotonga mikolo ya IA na Afrika",
+    "mission": "Kokela ba-infrastructures ya IA ya bokoko oyo esalemi na nguya ya moto ya solo, kosalela bamposa ya Afrika liboso ntango ezali kopesa courant na bato milioni.",
+    "values": {
+      "sovereignty": {
+        "title": "Bokonzi ya numérique",
+        "description": "Infrastructures ya IA ya Afrika, eyangemi na Afrika"
+      },
+      "transparency": {
+        "title": "Polele makasi",
+        "description": "Misala ya polele, mikano oyo ekoki kotalama, ngonga na liboso ya bato"
+      },
+      "community": {
+        "title": "Lisanga liboso",
+        "description": "Bamposa ya esika ezali kotambwisa ba-priorités na biso"
+      },
+      "sustainability": {
+        "title": "Nguya ya mabele",
+        "description": "100% nguya hydroélectrique ya moto ya solo uta na Inga Falls"
+      }
+    }
+  },
+  "blueprint": {
+    "title": "Manaka ya technique",
+    "subtitle": "Architecture ya nguya tii na ba-calculs",
+    "caption": "Boyokani ya kosomba courant (PPA) ya 500MW ezali anchor ya mbongo oyo ekomisa extension mobimba ya Inga 3 viable économiquement.",
+    "nodes": {
+      "inga": {
+        "label": "Inga Falls",
+        "metric": "42GW ya makasi",
+        "description": "Makasi ya nguya hydroélectrique ya monene koleka na mokili"
+      },
+      "ppa": {
+        "label": "Station Ubuntu",
+        "metric": "PPA ya 500MW",
+        "description": "Déclencheur financier mpe anchor ya infrastructure"
+      },
+      "compute": {
+        "label": "Supercalculateur IA",
+        "metric": "L1: Bwanya ya bokoko",
+        "description": "Nguya ya calcul ya 10+ Exaflops FP16"
+      },
+      "grid": {
+        "label": "Réseau ya zone",
+        "metric": "Surplus: 60M+ bato",
+        "description": "Électrification na nzela ya capacité ya kozongisa"
+      }
+    },
+    "specs": {
+      "title": "Ba-spécifications techniques Phase 1",
+      "power": {
+        "label": "Esika ya nguya",
+        "value": "Hydroélectricité ya fil de l'eau (Extension Inga 3)"
+      },
+      "cooling": {
+        "label": "Kopola",
+        "value": "Refroidissement liquide en boucle fermée na exchange thermique ya fleuve Congo"
+      },
+      "compute": {
+        "label": "Objectif ya calcul",
+        "value": "10+ Exaflops (FP16) etali na formation LLM mpo na nkota ya Afrika"
+      },
+      "connectivity": {
+        "label": "Connexion",
+        "value": "Liaison fibre ya térabit na Kinshasa mpe ba-câbles sous-marins na nzela ya Muanda"
+      }
+    }
+  },
+  "philosophy": {
+    "title": "Bwanya Ubuntu",
+    "subtitle": "Nazali mpo tozali",
+    "description": "Ndenge na biso ya kotala IA ezali na mizinda ya bwanya ya Afrika Ubuntu—kotia ntina na lisanga, bomoto ya kosangana, mpe bokóli ya bato banso.",
+    "principles": {
+      "community": {
+        "title": "Kati na lisanga",
+        "description": "Mikano eza na bolingo ya bolamu ya bato banso na esika ya litomba ya moto moko"
+      },
+      "transparency": {
+        "title": "Misala ya polele",
+        "description": "Misala nyonso ekoki kotalama mpe ezali na ngonga ya liboso"
+      },
+      "respect": {
+        "title": "Botosi ya mimeseno",
+        "description": "Kopesa lokumu na mitindo, bokonzi, mpe mimeseno ya Kongo"
+      },
+      "sustainability": {
+        "title": "Makanisi ya tango molai",
+        "description": "Kotonga mpo na ba-générations, kasi te mpo na ba-trimestres"
+      }
+    }
+  },
+  "agents": {
+    "title": "Système ya ba-agents IA",
+    "subtitle": "Automatisation ya mayele na botali ya batu",
+    "description": "Ba-agents 8 ya IA oyo bamesengo balandaka mibeko, balandaka bokóli, mpe basalisaka misala—nyonso na examen obligatoire ya moto.",
+    "systemStatus": "État ya système",
+    "healthy": "Ba-systèmes nyonso ezali kosala",
+    "agentList": {
+      "policy": {
+        "name": "Moniteur ya mibeko",
+        "description": "Ezali kolanda ba-réglementations ya gouvernement RDC"
+      },
+      "community": {
+        "name": "Moyoki ya lisanga",
+        "description": "Ezali kotala makanisi ya bato"
+      },
+      "narrative": {
+        "name": "Mobimisi ya makambu",
+        "description": "Ezali kokela ba-mises à jour ya polele"
+      },
+      "funding": {
+        "name": "Moluki ya ba-subventions",
+        "description": "Ezali koluka ba-opportunités ya financement"
+      },
+      "chatbot": {
+        "name": "Inga GPT",
+        "description": "Ezali kopesa nzela na mituna-biyano ya liboso"
+      },
+      "milestone": {
+        "name": "Molandi ya bokóli",
+        "description": "Ezali kolanda bokóli ya Phase 0"
+      },
+      "research": {
+        "name": "Mosangisi ya recherche",
+        "description": "Ezali kotalaka ba-articles académiques"
+      },
+      "dueDiligence": {
+        "name": "Motali ya ba-stakeholders",
+        "description": "Ezali kotala ba-partenaires ya kokoka"
+      }
+    }
+  },
+  "progress": {
+    "title": "Bokóli ya mosala",
+    "subtitle": "Phase 0: Mizinda mpe faisabilité",
+    "currentPhase": "Phase ya lelo",
+    "timeline": "Ligne ya tango",
+    "milestones": {
+      "feasibility": {
+        "title": "Étude ya faisabilité",
+        "status": "Ezali kokende"
+      },
+      "environmental": {
+        "title": "Évaluation ya impact environnemental",
+        "status": "Ebongisami"
+      },
+      "ppa": {
+        "title": "Boyokani ya kosomba courant",
+        "status": "Négociation"
+      }
+    }
+  },
+  "policy": {
+    "title": "Ba-mises à jour ya mibeko",
+    "subtitle": "Ba-réglementations ya gouvernement RDC oyo ezali kosala impact na mosala",
+    "filters": {
+      "all": "Nyonso",
+      "pending": "Ezali kozela examen",
+      "approved": "Endimami",
+      "high": "Impact monene"
+    }
+  },
+  "contact": {
+    "title": "Pesa biso sango",
+    "subtitle": "Yangana na biso",
+    "description": "Ozali na mituna na ntina ya Mosala Ubuntu? Tolingi koyoka yo.",
+    "form": {
+      "name": "Nkombo",
+      "email": "Email",
+      "message": "Nsango",
+      "submit": "Tinda nsango"
+    }
+  },
+  "footer": {
+    "tagline": "Kotonga révolution ya infrastructures IA ya Afrika",
+    "copyright": "© 2026 Mosala Ubuntu. Mikokwa nyonso ebombama.",
+    "poweredBy": "Na nguya ya hydroélectricité ya Inga"
+  }
+}
