@@ -128,8 +128,8 @@ export async function getAgent(agentId: string): Promise<Agent> {
       }
 
       case 'agent_001_policy': {
-        // Policy agent import would go here when implemented
-        throw new Error('Policy agent not yet implemented');
+        const { PolicyAgent } = await import('../../web/lib/agents/policy-agent');
+        return new PolicyAgent();
       }
 
       default:

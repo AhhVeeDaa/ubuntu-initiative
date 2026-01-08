@@ -14,10 +14,21 @@ import Image from 'next/image';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col bg-black">
-      <Navbar />
+    <div className="min-h-screen flex flex-col bg-black relative">
+      {/* Subtle background pattern */}
+      <div className="fixed inset-0 z-0 opacity-5">
+        <Image
+          src="/inga-dam.jpg"
+          alt="Background"
+          fill
+          className="object-cover"
+          priority={false}
+        />
+      </div>
+      <div className="relative z-10">
+        <Navbar />
 
-      <main className="flex-grow">
+        <main className="flex-grow">
         {/* Hero Section - Grounding Statement */}
         {/* Hero Image Section */}
         <section className="relative h-[80vh] min-h-[600px] w-full overflow-hidden">
@@ -318,6 +329,7 @@ export default function HomePage() {
       </main>
 
       <Footer />
+      </div>
     </div>
   );
 }

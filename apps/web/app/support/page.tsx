@@ -61,7 +61,7 @@ export default function SupportPage() {
                                 </div>
 
                                 <Link
-                                    href="mailto:founder@ubuntu-initiative.org?subject=Partnership Inquiry"
+                                    href="/contact"
                                     className="block w-full py-3 px-6 bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] text-center font-bold rounded-lg hover:bg-[hsl(var(--primary))]/90 transition-all"
                                 >
                                     Get in Touch

@@ -42,14 +42,14 @@ export function Navbar() {
                             <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 Home
                             </Link>
-                            <Link href="/blueprint" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <Link href="/vision" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 Blueprint
                             </Link>
                             <Link href="/philosophy" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 Philosophy
                             </Link>
-                            <Link href="/vision" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                                Vision
+                            <Link href="/blueprint" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                Architecture
                             </Link>
                             <Link href="/agents" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 Agents
@@ -98,7 +98,7 @@ export function Navbar() {
                             Home
                         </Link>
                         <Link
-                            href="/blueprint"
+                            href="/vision"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                             onClick={toggleMenu}
                         >
@@ -112,11 +112,11 @@ export function Navbar() {
                             Philosophy
                         </Link>
                         <Link
-                            href="/vision"
+                            href="/blueprint"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                             onClick={toggleMenu}
                         >
-                            Vision
+                            Architecture
                         </Link>
                         <Link
                             href="/agents"
