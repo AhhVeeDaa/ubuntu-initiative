@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 import { Loader2, Lock, ShieldCheck, AlertCircle } from 'lucide-react';
 
@@ -16,7 +16,7 @@ export default function AdminLoginPage() {
     const [lockoutUntil, setLockoutUntil] = useState<number | null>(null);
 
     const router = useRouter();
-    const supabase = createClientComponentClient();
+    const supabase = createClient();
 
     useEffect(() => {
         // Check for local lockout

@@ -1,5 +1,5 @@
 
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/lib/supabase/client';
 import { Database } from '@/lib/database.types'; // Assuming types exist or will be generated
 
 export type AdminRole = 'super_admin' | 'operations_admin' | 'finance_admin' | 'viewer';
@@ -52,7 +52,7 @@ export async function checkPermission(
 }
 
 export async function getCurrentAdminRole(): Promise<AdminRole | null> {
-    const supabase = createClientComponentClient<Database>();
+    const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) return null;
