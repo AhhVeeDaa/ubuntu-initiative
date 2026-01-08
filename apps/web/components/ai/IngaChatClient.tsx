@@ -6,8 +6,15 @@ import { Send, Bot, User, Sparkles, AlertCircle } from 'lucide-react';
 import clsx from 'clsx';
 
 export function IngaChatClient() {
-    // Type assertion to work around @ai-sdk/react 3.0.6 API changes
-    const chatHook = useChat({
+    const {
+        messages,
+        input,
+        handleInputChange,
+        handleSubmit,
+        isLoading,
+        error,
+        setInput
+    } = useChat({
         api: '/api/chat',
         initialMessages: [
             {
@@ -15,19 +22,11 @@ export function IngaChatClient() {
                 role: 'assistant',
                 content: "Hello. I am Inga GPT, the voice of the Ubuntu Initiative. I have access to our live funding databases—ask me about our mission or our current Phase 0 progress."
             }
-        ]
-    } as any);
-
-    // Cast the entire hook result to any to access all properties
-    const {
-        messages = [],
-        input = '',
-        handleInputChange,
-        handleSubmit,
-        isLoading = false,
-        error,
-        setInput
-    } = chatHook as any;
+        ],
+        onError: (err) => {
+            console.error('Chat error:', err);
+        }
+    });
 
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -41,21 +40,17 @@ export function IngaChatClient() {
         scrollToBottom();
     }, [messages]);
 
-    // Create a safe input change handler
+    // Safe input handler
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (handleInputChange) {
-            handleInputChange(e);
-        } else if (setInput) {
-            setInput(e.target.value);
-        }
+        handleInputChange(e);
     };
 
-    // Create a safe submit handler
+    // Safe submit handler
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (handleSubmit) {
-            handleSubmit(e);
-        }
+        // Prevent empty submissions
+        if (!input.trim()) return;
+        handleSubmit(e);
     };
 
     return (

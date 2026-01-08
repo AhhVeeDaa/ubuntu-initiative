@@ -24,14 +24,9 @@ export function LanguageSwitcher() {
   const currentLanguage = languages.find(lang => lang.code === currentLocale) || languages[0];
 
   const handleLanguageChange = (locale: string) => {
-    // Set cookie for locale preference
-    document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000; SameSite=Lax`;
-    
-    setCurrentLocale(locale);
+    // Show maintenance message
+    alert("Multilingual support is currently undergoing maintenance. Please check back later.");
     setIsOpen(false);
-    
-    // Reload page to apply new locale
-    window.location.reload();
   };
 
   return (
@@ -46,10 +41,9 @@ export function LanguageSwitcher() {
         <span className="text-sm font-medium text-white">
           {currentLanguage.flag} {currentLanguage.nativeName}
         </span>
-        <ChevronDown 
-          className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
-            isOpen ? 'rotate-180' : ''
-          }`}
+        <ChevronDown
+          className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
+            }`}
         />
       </button>
 
@@ -57,11 +51,11 @@ export function LanguageSwitcher() {
       {isOpen && (
         <>
           {/* Backdrop */}
-          <div 
+          <div
             className="fixed inset-0 z-40"
             onClick={() => setIsOpen(false)}
           />
-          
+
           {/* Menu */}
           <div className="absolute right-0 mt-2 w-64 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl overflow-hidden z-50">
             {/* Header */}
@@ -98,7 +92,7 @@ export function LanguageSwitcher() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {currentLocale === language.code && (
                     <Check className="w-5 h-5 text-green-400" />
                   )}
@@ -134,10 +128,8 @@ export function CompactLanguageSwitcher() {
   const currentLanguage = languages.find(lang => lang.code === currentLocale) || languages[0];
 
   const handleLanguageChange = (locale: string) => {
-    document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000; SameSite=Lax`;
-    setCurrentLocale(locale);
+    alert("Multilingual support is currently undergoing maintenance. Please check back later.");
     setIsOpen(false);
-    window.location.reload();
   };
 
   return (
@@ -153,11 +145,11 @@ export function CompactLanguageSwitcher() {
 
       {isOpen && (
         <>
-          <div 
+          <div
             className="fixed inset-0 z-40"
             onClick={() => setIsOpen(false)}
           />
-          
+
           <div className="absolute right-0 mt-2 w-48 bg-slate-800 border border-slate-700 rounded-lg shadow-xl overflow-hidden z-50">
             {languages.map((language) => (
               <button

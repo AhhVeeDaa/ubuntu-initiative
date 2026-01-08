@@ -3,10 +3,10 @@ import { redirect } from 'next/navigation';
 
 export default async function DashboardPage() {
   const supabase = await createClient();
-  
+
   // Check authentication and admin role
   const { data: { user } } = await supabase.auth.getUser();
-  
+
   if (!user) {
     redirect('/login');
   }
@@ -57,7 +57,7 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white p-8">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">Agent Dashboard</h1>
-        
+
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10">
@@ -72,6 +72,29 @@ export default async function DashboardPage() {
             <div className="text-gray-400 text-sm mb-2">Pending Review</div>
             <div className="text-3xl font-bold text-yellow-400">{stats.pending}</div>
           </div>
+        </div>
+
+        {/* Active Agents Status */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {[
+            { name: 'Policy Agent', status: 'active', icon: '⚖️', lastRun: '2 mins ago' },
+            { name: 'Progress Agent', status: 'active', icon: '🏗️', lastRun: '1 hour ago' },
+            { name: 'Funding Agent', status: 'active', icon: '💰', lastRun: '5 mins ago' },
+          ].map((agent) => (
+            <div key={agent.name} className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="text-2xl">{agent.icon}</div>
+                <div>
+                  <div className="font-bold text-white">{agent.name}</div>
+                  <div className="text-xs text-gray-400">Last run: {agent.lastRun}</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span className="text-sm text-green-400 uppercase tracking-wider font-bold">Online</span>
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Approval Queue */}
@@ -91,11 +114,10 @@ export default async function DashboardPage() {
                         </div>
                       )}
                     </div>
-                    <span className={`px-3 py-1 rounded-full text-xs ${
-                      item.priority === 'urgent' ? 'bg-red-500/20 text-red-400' :
-                      item.priority === 'high' ? 'bg-orange-500/20 text-orange-400' :
-                      'bg-blue-500/20 text-blue-400'
-                    }`}>
+                    <span className={`px-3 py-1 rounded-full text-xs ${item.priority === 'urgent' ? 'bg-red-500/20 text-red-400' :
+                        item.priority === 'high' ? 'bg-orange-500/20 text-orange-400' :
+                          'bg-blue-500/20 text-blue-400'
+                      }`}>
                       {item.priority}
                     </span>
                   </div>
