@@ -60,6 +60,20 @@ body {
   .animate-pulse-slow {
     animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
+
+  .illuminate-hover {
+    @apply transition-all duration-300;
+  }
+
+  .illuminate-hover:hover {
+    @apply text-white shadow-[0_0_15px_rgba(255,255,255,0.3)] bg-white/10;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  }
+
+  .illuminate-primary:hover {
+    @apply shadow-[0_0_20px_rgba(var(--primary),0.5)];
+    box-shadow: 0 0 20px hsla(var(--primary), 0.5);
+  }
 }
 
 @keyframes pulse {

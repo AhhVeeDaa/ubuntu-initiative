@@ -18,7 +18,7 @@ export function Navbar() {
         } else {
             document.body.style.overflow = '';
         }
-        
+
         return () => {
             document.body.style.overflow = '';
         };
@@ -39,25 +39,28 @@ export function Navbar() {
 
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-8">
-                            <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
                                 Home
                             </Link>
-                            <Link href="/agents" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <Link href="/agents" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
                                 Agents
                             </Link>
-                            <Link href="/transparency" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <Link href="/transparency" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
                                 Transparency
                             </Link>
-                            <Link href="/vision" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <Link href="/vision" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
                                 Initiative
                             </Link>
-                            <Link href="/about" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <Link href="/about" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
                                 About
                             </Link>
-                            <Link href="/contact" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <Link href="/support" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
+                                Support Us
+                            </Link>
+                            <Link href="/contact" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
                                 Contact
                             </Link>
-                            <Link href="/login" className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 px-4 py-2 rounded-md text-sm font-bold transition-colors">
+                            <Link href="/login" className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 px-4 py-2 rounded-md text-sm font-bold transition-all illuminate-primary">
                                 Admin Login
                             </Link>
                             <div className="ml-2">
@@ -84,49 +87,56 @@ export function Navbar() {
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                         <Link
                             href="/"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
                             onClick={toggleMenu}
                         >
                             Home
                         </Link>
                         <Link
                             href="/agents"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
                             onClick={toggleMenu}
                         >
                             Agents
                         </Link>
                         <Link
                             href="/transparency"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
                             onClick={toggleMenu}
                         >
                             Transparency
                         </Link>
                         <Link
                             href="/vision"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
                             onClick={toggleMenu}
                         >
                             Initiative
                         </Link>
                         <Link
                             href="/about"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
                             onClick={toggleMenu}
                         >
                             About
                         </Link>
                         <Link
+                            href="/support"
+                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
+                            onClick={toggleMenu}
+                        >
+                            Support Us
+                        </Link>
+                        <Link
                             href="/contact"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
                             onClick={toggleMenu}
                         >
                             Contact
                         </Link>
                         <Link
                             href="/login"
-                            className="text-[hsl(var(--primary))] block px-3 py-2 rounded-md text-base font-medium"
+                            className="text-[hsl(var(--primary))] block px-3 py-2 rounded-md text-base font-medium illuminate-primary"
                             onClick={toggleMenu}
                         >
                             Admin Login
