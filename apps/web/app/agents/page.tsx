@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { ShieldCheck, Zap, BarChart3, Eye, CheckCircle2, AlertCircle, AlertTriangle } from 'lucide-react';
+import Image from 'next/image';
 
 export default function AgentsPage() {
   return (
@@ -17,17 +18,31 @@ export default function AgentsPage() {
 
       <main className="flex-grow pt-24 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           {/* Header */}
-          <div className="mb-12">
-            <h1 className="text-4xl font-bold text-white mb-4">
-              Institutional Monitoring Agents
-            </h1>
-            <p className="text-gray-400 text-lg max-w-3xl">
-              Automated systems designed to track policy developments, monitor funding allocation, 
-              and surface operational data for human review. All agents operate under strict 
-              institutional oversight.
-            </p>
+          <div className="grid md:grid-cols-3 gap-12 items-center mb-16">
+            <div className="md:col-span-2">
+              <h1 className="text-5xl font-bold text-white mb-6">
+                Institutional Monitoring Agents
+              </h1>
+              <p className="text-gray-300 text-xl leading-relaxed max-w-3xl">
+                Automated systems designed to track policy developments, monitor funding allocation,
+                and surface operational data for human review. All agents operate under strict
+                institutional oversight and defined ethical boundaries.
+              </p>
+            </div>
+            <div className="relative">
+              <div className="relative z-10 glass-card p-4 rounded-2xl border border-white/10 shadow-2xl">
+                <Image
+                  src="/institutional_monitoring_agents_abstract.png"
+                  alt="Monitoring Agents Connectivity"
+                  width={400}
+                  height={400}
+                  className="rounded-xl"
+                />
+              </div>
+              <div className="absolute -inset-4 bg-[hsl(var(--primary))]/10 blur-2xl rounded-full z-0" />
+            </div>
           </div>
 
           {/* Boundary Statement - CRITICAL */}
@@ -39,7 +54,7 @@ export default function AgentsPage() {
             <p className="text-gray-300 mb-6">
               These agents operate under strict human oversight and defined limitations:
             </p>
-            
+
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
@@ -85,7 +100,7 @@ export default function AgentsPage() {
             </div>
 
             <p className="text-gray-400 text-sm mt-6 p-4 bg-black/40 rounded-lg">
-              All high-stakes actions require explicit human authorization. No agent operates 
+              All high-stakes actions require explicit human authorization. No agent operates
               autonomously beyond data aggregation and reporting.
             </p>
           </div>
@@ -94,7 +109,7 @@ export default function AgentsPage() {
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white mb-6">Active Agents</h2>
             <div className="grid gap-6">
-              
+
               {/* Policy Monitoring Agent */}
               <div className="glass-card p-6 rounded-xl">
                 <div className="flex items-start justify-between mb-4">
@@ -113,7 +128,7 @@ export default function AgentsPage() {
                     Active
                   </span>
                 </div>
-                
+
                 <div className="grid md:grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/10">
                   <div>
                     <p className="text-gray-500 text-xs uppercase mb-1">Scope</p>
@@ -148,7 +163,7 @@ export default function AgentsPage() {
                     Active
                   </span>
                 </div>
-                
+
                 <div className="grid md:grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/10">
                   <div>
                     <p className="text-gray-500 text-xs uppercase mb-1">Scope</p>
@@ -183,7 +198,7 @@ export default function AgentsPage() {
                     Active
                   </span>
                 </div>
-                
+
                 <div className="grid md:grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/10">
                   <div>
                     <p className="text-gray-500 text-xs uppercase mb-1">Scope</p>
@@ -204,51 +219,85 @@ export default function AgentsPage() {
           </div>
 
           {/* Approval Process */}
-          <div className="glass-card p-8 rounded-xl">
-            <h2 className="text-2xl font-bold text-white mb-4">Human Oversight Process</h2>
-            <p className="text-gray-300 mb-6">
-              All agent actions that impact institutional operations follow a strict approval workflow:
-            </p>
-            
-            <div className="grid md:grid-cols-4 gap-4">
-              <div className="text-center">
-                <div className="h-16 w-16 rounded-full bg-[hsl(var(--primary))]/20 flex items-center justify-center mx-auto mb-3">
-                  <Zap className="h-8 w-8 text-[hsl(var(--primary))]" />
+          <div className="glass-card p-8 rounded-xl overflow-hidden relative">
+            <div className="relative z-10">
+              <h2 className="text-3xl font-bold text-white mb-8">Human Oversight Process</h2>
+              <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+                <div className="space-y-6">
+                  <p className="text-gray-300 text-lg leading-relaxed">
+                    The Ubuntu Initiative maintains a "Human-in-the-loop" architecture. Agents
+                    are restricted to data processing and observation; they cannot commit the
+                    institution to actions, allocate financial resources, or pivot policy without
+                    explicit human authorization.
+                  </p>
+                  <div className="grid gap-4">
+                    <div className="p-4 bg-white/5 border border-white/10 rounded-lg">
+                      <p className="text-white font-semibold">Immutable Logging</p>
+                      <p className="text-gray-400 text-sm">Every agent action and human decision is cryptographically logged.</p>
+                    </div>
+                    <div className="p-4 bg-white/5 border border-white/10 rounded-lg">
+                      <p className="text-white font-semibold">Tiered Authorization</p>
+                      <p className="text-gray-400 text-sm">High-stakes operations require multi-party consensus from human directors.</p>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-white font-semibold mb-2">1. Agent Action</h3>
-                <p className="text-gray-400 text-sm">Agent identifies action requiring approval</p>
+                <div className="relative group">
+                  <Image
+                    src="/human_oversight_interaction.png"
+                    alt="Human Oversight Interaction"
+                    width={500}
+                    height={300}
+                    className="rounded-xl border border-white/10 shadow-xl opacity-80 group-hover:opacity-100 transition-opacity"
+                  />
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-4 left-4">
+                    <span className="px-3 py-1 bg-[hsl(var(--primary))] text-black text-xs font-bold rounded-full uppercase tracking-tighter">
+                      Human Authorization Required
+                    </span>
+                  </div>
+                </div>
               </div>
 
-              <div className="text-center">
-                <div className="h-16 w-16 rounded-full bg-amber-500/20 flex items-center justify-center mx-auto mb-3">
-                  <AlertCircle className="h-8 w-8 text-amber-500" />
+              <div className="grid md:grid-cols-4 gap-4 pt-8 border-t border-white/10">
+                <div className="text-center">
+                  <div className="h-16 w-16 rounded-full bg-[hsl(var(--primary))]/20 flex items-center justify-center mx-auto mb-3">
+                    <Zap className="h-8 w-8 text-[hsl(var(--primary))]" />
+                  </div>
+                  <h3 className="text-white font-semibold mb-2">1. Agent Action</h3>
+                  <p className="text-gray-400 text-sm">Agent identifies action requiring approval</p>
                 </div>
-                <h3 className="text-white font-semibold mb-2">2. Queue</h3>
-                <p className="text-gray-400 text-sm">Action enters approval queue for human review</p>
+
+                <div className="text-center">
+                  <div className="h-16 w-16 rounded-full bg-amber-500/20 flex items-center justify-center mx-auto mb-3">
+                    <AlertCircle className="h-8 w-8 text-amber-500" />
+                  </div>
+                  <h3 className="text-white font-semibold mb-2">2. Queue</h3>
+                  <p className="text-gray-400 text-sm">Action enters approval queue for human review</p>
+                </div>
+
+                <div className="text-center">
+                  <div className="h-16 w-16 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-3">
+                    <Eye className="h-8 w-8 text-blue-500" />
+                  </div>
+                  <h3 className="text-white font-semibold mb-2">3. Review</h3>
+                  <p className="text-gray-400 text-sm">Authorized personnel assess and decide</p>
+                </div>
+
+                <div className="text-center">
+                  <div className="h-16 w-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-3">
+                    <CheckCircle2 className="h-8 w-8 text-green-500" />
+                  </div>
+                  <h3 className="text-white font-semibold mb-2">4. Execute</h3>
+                  <p className="text-gray-400 text-sm">Approved actions executed and logged</p>
+                </div>
               </div>
 
-              <div className="text-center">
-                <div className="h-16 w-16 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-3">
-                  <Eye className="h-8 w-8 text-blue-500" />
-                </div>
-                <h3 className="text-white font-semibold mb-2">3. Review</h3>
-                <p className="text-gray-400 text-sm">Authorized personnel assess and decide</p>
-              </div>
-
-              <div className="text-center">
-                <div className="h-16 w-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-3">
-                  <CheckCircle2 className="h-8 w-8 text-green-500" />
-                </div>
-                <h3 className="text-white font-semibold mb-2">4. Execute</h3>
-                <p className="text-gray-400 text-sm">Approved actions executed and logged</p>
-              </div>
+              <p className="text-gray-500 text-sm mt-6 text-center">
+                All agent activities are recorded in an immutable audit log accessible to governance stakeholders.
+              </p>
             </div>
 
-            <p className="text-gray-500 text-sm mt-6 text-center">
-              All agent activities are recorded in an immutable audit log accessible to governance stakeholders.
-            </p>
           </div>
-
         </div>
       </main>
 
