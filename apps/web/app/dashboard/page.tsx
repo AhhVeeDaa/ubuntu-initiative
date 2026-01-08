@@ -4,11 +4,28 @@ import { redirect } from 'next/navigation';
 export default async function DashboardPage() {
   const supabase = await createClient();
   
-  // Check authentication (placeholder - implement proper auth)
+  // Check authentication and admin role
   const { data: { user } } = await supabase.auth.getUser();
   
   if (!user) {
-    redirect('/');
+    redirect('/login');
+  }
+
+  // Verify admin role
+  const { data: adminRole } = await supabase
+    .from('admin_roles')
+    .select('*')
+    .eq('user_id', user.id)
+    .eq('is_active', true)
+    .single();
+
+  if (!adminRole) {
+    redirect('/login');
+  }
+
+  // Check expiration
+  if (adminRole.expires_at && new Date(adminRole.expires_at) <= new Date()) {
+    redirect('/login');
   }
 
   // Fetch agent activity

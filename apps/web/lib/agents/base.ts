@@ -87,7 +87,7 @@ export abstract class BaseAgent {
 
   // Add item to approval queue
   protected async addToApprovalQueue(
-    itemType: 'policy' | 'milestone' | 'narrative' | 'grant' | 'insight',
+    itemType: 'policy_update' | 'milestone' | 'narrative' | 'grant' | 'insight',
     itemId: string,
     recommendation: unknown,
     priority: 'low' | 'medium' | 'high' | 'urgent' = 'medium'

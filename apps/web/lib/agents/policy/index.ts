@@ -176,7 +176,7 @@ export class PolicyAgent extends BaseAgent {
 
     // Add to approval queue
     await this.addToApprovalQueue(
-      'policy',
+      'policy_update',
       policyUpdateId,
       analysis,
       analysis.risk_flag ? 'high' : 'medium'

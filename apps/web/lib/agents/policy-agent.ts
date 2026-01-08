@@ -32,7 +32,7 @@ interface PolicySearchResult {
 
 export class PolicyAgent extends BaseAgent {
   private gemini: GoogleGenerativeAI | null = null;
-  
+
   // Trusted policy sources focused on African infrastructure and AI
   private readonly POLICY_SOURCES: PolicySource[] = [
     {
@@ -119,7 +119,7 @@ export class PolicyAgent extends BaseAgent {
       // 1. Fetch RSS feeds from policy sources
       // 2. Scrape latest announcements
       // 3. Check API endpoints for updates
-      
+
       // For now, demonstrate the workflow with simulated data
       const keywords = [
         'hydropower',
@@ -139,11 +139,11 @@ export class PolicyAgent extends BaseAgent {
       // Simulate policy scanning
       for (const source of this.POLICY_SOURCES) {
         sourcesChecked++;
-        
+
         // In production: fetch actual data
         // For now: log that we would check this source
         await this.logAudit({
-          action_type: 'source_check',
+          action_type: 'source_fetch',
           input_data: { source: source.source_name, url: source.url },
           output_data: { checked: true },
           confidence_score: 1.0,
@@ -167,20 +167,24 @@ export class PolicyAgent extends BaseAgent {
 
       // Store high-impact updates for review
       const highImpactUpdates = updates.filter(u => u.impact_level === 'high');
-      
+
       for (const update of highImpactUpdates) {
-        // Store in database
+        // Store in database with new V2 schema
         const { data: stored, error } = await this.supabase
           .from('policy_updates')
           .insert({
-            title: update.title,
-            source: update.source,
-            published_date: update.published_date,
+            headline: update.title,
+            source_name: update.source,
+            publication_date: update.published_date.split('T')[0], // Extract date part
             summary: update.summary,
             relevance_score: update.relevance_score,
-            impact_level: update.impact_level,
-            url: update.url,
-            reviewed: false
+            confidence_score: 0.9,
+            source_url: update.url,
+            // New V2 fields with defaults
+            jurisdiction: 'Africa',
+            policy_category: 'energy_generation',
+            status: 'pending',
+            risk_flag: update.impact_level === 'high'
           } as any)
           .select()
           .single();
@@ -203,7 +207,7 @@ export class PolicyAgent extends BaseAgent {
       }
 
       await this.logAudit({
-        action_type: 'scan_policies',
+        action_type: 'source_fetch',
         input_data: { sources: sourcesChecked },
         output_data: {
           sources_checked: sourcesChecked,
@@ -218,6 +222,7 @@ export class PolicyAgent extends BaseAgent {
       return {
         success: true,
         data: {
+          query: 'scan_sources',
           sources_checked: sourcesChecked,
           updates_found: updates.length,
           high_impact_count: highImpactUpdates.length,
@@ -281,24 +286,12 @@ Keep the analysis concise and actionable.`;
       const impactMatch = analysis.match(/IMPACT LEVEL.*?(low|medium|high)/i);
       const impactLevel = (impactMatch?.[1]?.toLowerCase() || 'medium') as 'low' | 'medium' | 'high';
 
-      // Store analysis
-      const { data: stored } = await this.supabase
-        .from('policy_analyses')
-        .insert({
-          policy_url: data.url,
-          analysis: analysis,
-          relevance_score: relevanceScore,
-          impact_level: impactLevel,
-          analyzed_at: new Date().toISOString()
-        } as any)
-        .select()
-        .single();
-
+      // Log analysis to audit log (Table policy_analyses is deprecated in V2)
       await this.logAudit({
-        action_type: 'analyze_policy',
+        action_type: 'gemini_analysis',
         input_data: { url: data.url },
         output_data: {
-          analysis_id: (stored as any)?.id,
+          analysis_summary: analysis.substring(0, 500),
           relevance_score: relevanceScore,
           impact_level: impactLevel
         },
@@ -334,10 +327,10 @@ Keep the analysis concise and actionable.`;
   private async searchPolicyKeywords(data: { keywords: string[] }): Promise<AgentOutput> {
     try {
       const keywords = data.keywords;
-      
+
       // In production: Search policy databases, RSS feeds, news aggregators
       // For now: Demonstrate workflow
-      
+
       const results: PolicyUpdate[] = [];
 
       // Simulate keyword search across sources

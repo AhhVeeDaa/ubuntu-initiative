@@ -32,7 +32,7 @@ export function Navbar() {
                         <Link href="/" className="flex items-center space-x-2">
                             <Cpu className="h-8 w-8 text-[hsl(var(--primary))]" />
                             <span className="font-bold text-xl tracking-tight text-white">
-                                UBUNTU<span className="text-[hsl(var(--primary))]">INITIATIVE</span>
+                                UBUNTU<span className="text-[hsl(var(--primary))]">HUB</span>
                             </span>
                         </Link>
                     </div>
@@ -42,31 +42,23 @@ export function Navbar() {
                             <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 Home
                             </Link>
-                            <Link href="/vision" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                                Blueprint
-                            </Link>
-                            <Link href="/philosophy" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                                Philosophy
-                            </Link>
-                            <Link href="/blueprint" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                                Architecture
-                            </Link>
                             <Link href="/agents" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 Agents
+                            </Link>
+                            <Link href="/transparency" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                Transparency
+                            </Link>
+                            <Link href="/vision" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                Initiative
+                            </Link>
+                            <Link href="/about" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                About
                             </Link>
                             <Link href="/contact" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 Contact
                             </Link>
-                            <a
-                                href="https://ubuntu-initiative-dashboard.vercel.app"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                            >
-                                Dashboard
-                            </a>
-                            <Link href="/support" className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 px-4 py-2 rounded-md text-sm font-bold transition-colors">
-                                Support Us
+                            <Link href="/login" className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 px-4 py-2 rounded-md text-sm font-bold transition-colors">
+                                Admin Login
                             </Link>
                             <div className="ml-2">
                                 <CompactLanguageSwitcher />
@@ -98,32 +90,32 @@ export function Navbar() {
                             Home
                         </Link>
                         <Link
-                            href="/vision"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            onClick={toggleMenu}
-                        >
-                            Blueprint
-                        </Link>
-                        <Link
-                            href="/philosophy"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            onClick={toggleMenu}
-                        >
-                            Philosophy
-                        </Link>
-                        <Link
-                            href="/blueprint"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            onClick={toggleMenu}
-                        >
-                            Architecture
-                        </Link>
-                        <Link
                             href="/agents"
                             className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                             onClick={toggleMenu}
                         >
                             Agents
+                        </Link>
+                        <Link
+                            href="/transparency"
+                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                            onClick={toggleMenu}
+                        >
+                            Transparency
+                        </Link>
+                        <Link
+                            href="/vision"
+                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                            onClick={toggleMenu}
+                        >
+                            Initiative
+                        </Link>
+                        <Link
+                            href="/about"
+                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                            onClick={toggleMenu}
+                        >
+                            About
                         </Link>
                         <Link
                             href="/contact"
@@ -132,21 +124,12 @@ export function Navbar() {
                         >
                             Contact
                         </Link>
-                        <a
-                            href="https://ubuntu-initiative-dashboard.vercel.app"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            onClick={toggleMenu}
-                        >
-                            Dashboard
-                        </a>
                         <Link
-                            href="/support"
+                            href="/login"
                             className="text-[hsl(var(--primary))] block px-3 py-2 rounded-md text-base font-medium"
                             onClick={toggleMenu}
                         >
-                            Support Us
+                            Admin Login
                         </Link>
                     </div>
                 </div>

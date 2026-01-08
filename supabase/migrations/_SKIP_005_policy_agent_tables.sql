@@ -31,10 +31,10 @@ CREATE TABLE IF NOT EXISTS policy_analyses (
 );
 
 -- Indexes
-CREATE INDEX idx_policy_updates_published ON policy_updates(published_date DESC);
-CREATE INDEX idx_policy_updates_impact ON policy_updates(impact_level, reviewed);
-CREATE INDEX idx_policy_updates_source ON policy_updates(source);
-CREATE INDEX idx_policy_analyses_analyzed ON policy_analyses(analyzed_at DESC);
+CREATE INDEX IF NOT EXISTS idx_policy_updates_published ON policy_updates(publication_date DESC);
+CREATE INDEX IF NOT EXISTS idx_policy_updates_impact ON policy_updates(impact_level, reviewed);
+CREATE INDEX IF NOT EXISTS idx_policy_updates_source ON policy_updates(source);
+CREATE INDEX IF NOT EXISTS idx_policy_analyses_analyzed ON policy_analyses(analyzed_at DESC);
 
 -- RLS Policies
 ALTER TABLE policy_updates ENABLE ROW LEVEL SECURITY;
