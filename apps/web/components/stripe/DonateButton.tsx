@@ -7,6 +7,7 @@ type DonateButtonProps = {
 };
 
 export const DonateButton = ({ priceId }: DonateButtonProps) => {
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const handleCheckout = async () => {

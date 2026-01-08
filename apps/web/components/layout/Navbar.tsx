@@ -29,7 +29,7 @@ export function Navbar() {
         { href: '/', label: 'Home', color: 'illuminate-cyan' },
         { href: '/about', label: 'About', color: 'illuminate-purple' },
         { href: '/vision', label: 'Initiative', color: 'illuminate-emerald' },
-        { href: '/agents', label: 'Ubuntu AI', color: 'illuminate-teal' },
+        { href: '/philosophy', label: 'Ubuntu AI', color: 'illuminate-teal' },
         { href: '/support', label: 'Support Us', color: 'illuminate-amber' },
         { href: '/contact', label: 'Contact', color: 'illuminate-rose' },
     ];
