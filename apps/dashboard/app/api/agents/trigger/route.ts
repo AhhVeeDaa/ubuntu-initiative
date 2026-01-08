@@ -1,13 +1,18 @@
 /**
- * Agent Trigger API
+ * Agent Trigger API - PRODUCTION VERSION
  * POST /api/agents/trigger
  * 
- * Triggers an agent execution and logs it to the database.
- * Returns immediately with run ID while agent executes in background.
+ * Triggers real agent execution with:
+ * - Circuit breaker protection
+ * - Automatic retry on failure
+ * - Real-time event streaming
+ * - Cost tracking
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { executeWithCircuitBreaker } from '@/lib/agent-retry';
+import { isAgentAvailable, getAgentConfig } from '@/lib/agent-factory';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -16,11 +21,26 @@ const supabase = createClient(
 
 export async function POST(req: NextRequest) {
   try {
-    const { agentId, triggeredBy = 'dashboard' } = await req.json();
+    const { agentId, triggeredBy = 'dashboard', inputData } = await req.json();
 
+    // Validate input
     if (!agentId) {
       return NextResponse.json(
-        { error: 'agentId is required' },
+        { success: false, error: 'agentId is required' },
+        { status: 400 }
+      );
+    }
+
+    // Check if agent is available
+    if (!isAgentAvailable(agentId)) {
+      const config = getAgentConfig(agentId);
+      return NextResponse.json(
+        {
+          success: false,
+          error: config
+            ? `Agent ${agentId} is not available. Missing environment variables.`
+            : `Unknown agent: ${agentId}`
+        },
         { status: 400 }
       );
     }
@@ -32,124 +52,113 @@ export async function POST(req: NextRequest) {
         agent_id: agentId,
         status: 'pending',
         started_at: new Date().toISOString(),
-        triggered_by: triggeredBy
+        triggered_by: triggeredBy,
+        input_data: inputData || null
       })
       .select()
       .single();
 
     if (runError || !run) {
-      console.error('Failed to create run:', runError);
+      console.error('[AgentTrigger] Failed to create run:', runError);
       return NextResponse.json(
-        { error: 'Failed to create agent run' },
+        { success: false, error: 'Failed to create agent run' },
         { status: 500 }
       );
     }
 
-    // Emit start event
+    console.log(`[AgentTrigger] Created run ${run.id} for agent ${agentId}`);
+
+    // Emit initial event
     await supabase.from('agent_events').insert({
       run_id: run.id,
       agent_id: agentId,
-      event_type: 'started',
-      message: `Agent ${agentId} execution started`,
-      severity: 'info'
+      event_type: 'queued',
+      message: `Agent ${agentId} execution queued`,
+      severity: 'info',
+      data: { triggeredBy }
     });
 
-    // Trigger actual agent execution (async - don't await)
-    executeAgent(agentId, run.id).catch(console.error);
+    // Execute agent asynchronously with circuit breaker protection
+    executeAgentAsync(agentId, run.id, inputData).catch(error => {
+      console.error(`[AgentTrigger] Async execution error for ${agentId}:`, error);
+    });
 
     return NextResponse.json({
       success: true,
       runId: run.id,
-      status: 'started',
-      message: 'Agent execution initiated'
+      status: 'pending',
+      message: 'Agent execution initiated',
+      agentId
     });
 
-  } catch (error) {
-    console.error('Trigger error:', error);
+  } catch (error: any) {
+    console.error('[AgentTrigger] Trigger error:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { success: false, error: error.message || 'Internal server error' },
       { status: 500 }
     );
   }
 }
 
 /**
- * Execute agent in background
- * This is where you'd integrate with actual agent code
+ * Execute agent in background with full error handling
  */
-async function executeAgent(agentId: string, runId: string) {
-  const startTime = Date.now();
-
+async function executeAgentAsync(
+  agentId: string,
+  runId: string,
+  inputData?: any
+): Promise<void> {
   try {
-    // Update status to running
-    await supabase
-      .from('agent_runs')
-      .update({ status: 'running' })
-      .eq('id', runId);
+    console.log(`[AgentTrigger] Starting async execution for ${agentId}, run ${runId}`);
 
-    // Log progress event
-    await supabase.from('agent_events').insert({
-      run_id: runId,
-      agent_id: agentId,
-      event_type: 'progress',
-      message: 'Executing agent logic...',
-      severity: 'info'
-    });
+    // Execute with circuit breaker and retry logic
+    const result = await executeWithCircuitBreaker(
+      agentId,
+      runId,
+      'manual',
+      inputData
+    );
 
-    // PLACEHOLDER: Call actual agent code here
-    // For now, simulate work with timeout
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    
-    // Simulate processing items
-    const itemsProcessed = Math.floor(Math.random() * 10) + 1;
-
-    // Calculate execution time
-    const executionTime = Date.now() - startTime;
-
-    // Update to success
-    await supabase
-      .from('agent_runs')
-      .update({
-        status: 'success',
-        completed_at: new Date().toISOString(),
-        execution_time_ms: executionTime,
-        items_processed: itemsProcessed
-      })
-      .eq('id', runId);
-
-    // Log completion event
-    await supabase.from('agent_events').insert({
-      run_id: runId,
-      agent_id: agentId,
-      event_type: 'completed',
-      message: `Agent completed successfully. Processed ${itemsProcessed} items in ${executionTime}ms`,
-      severity: 'info',
-      data: { itemsProcessed, executionTime }
-    });
+    console.log(`[AgentTrigger] Execution completed successfully for ${agentId}`);
+    console.log(`[AgentTrigger] Result:`, result);
 
   } catch (error: any) {
-    const executionTime = Date.now() - startTime;
+    console.error(`[AgentTrigger] Execution failed for ${agentId}:`, error);
     
-    // Update to error
-    await supabase
-      .from('agent_runs')
-      .update({
-        status: 'error',
-        completed_at: new Date().toISOString(),
-        execution_time_ms: executionTime,
-        error_message: error.message,
-        error_stack: error.stack
-      })
-      .eq('id', runId);
-
-    // Log error event
-    await supabase.from('agent_events').insert({
-      run_id: runId,
-      agent_id: agentId,
-      event_type: 'error',
-      message: `Agent execution failed: ${error.message}`,
-      severity: 'error',
-      data: { error: error.message, stack: error.stack }
-    });
+    // Error is already logged to database by retry logic
+    // Just log to console for monitoring
   }
+}
+
+/**
+ * GET endpoint to check trigger availability
+ */
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const agentId = searchParams.get('agentId');
+
+  if (!agentId) {
+    return NextResponse.json(
+      { error: 'agentId query parameter required' },
+      { status: 400 }
+    );
+  }
+
+  const available = isAgentAvailable(agentId);
+  const config = getAgentConfig(agentId);
+
+  if (!config) {
+    return NextResponse.json(
+      { available: false, error: 'Agent not found' },
+      { status: 404 }
+    );
+  }
+
+  return NextResponse.json({
+    available,
+    agentId: config.id,
+    name: config.name,
+    enabled: config.enabled,
+    autonomyLevel: config.autonomyLevel
+  });
 }
