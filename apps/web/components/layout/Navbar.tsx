@@ -24,13 +24,23 @@ export function Navbar() {
         };
     }, [isOpen]);
 
+    // Navigation items with individual colors
+    const navItems = [
+        { href: '/', label: 'Home', color: 'illuminate-cyan' },
+        { href: '/about', label: 'About', color: 'illuminate-purple' },
+        { href: '/vision', label: 'Initiative', color: 'illuminate-emerald' },
+        { href: '/agents', label: 'Ubuntu AI', color: 'illuminate-teal' },
+        { href: '/support', label: 'Support Us', color: 'illuminate-amber' },
+        { href: '/contact', label: 'Contact', color: 'illuminate-rose' },
+    ];
+
     return (
         <nav className="fixed w-full z-50 glass">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
-                        <Link href="/" className="flex items-center space-x-2">
-                            <Cpu className="h-8 w-8 text-[hsl(var(--primary))]" />
+                        <Link href="/" className="flex items-center space-x-2 group">
+                            <Cpu className="h-8 w-8 text-[hsl(var(--primary))] group-hover:animate-pulse" />
                             <span className="font-bold text-xl tracking-tight text-white">
                                 UBUNTU<span className="text-[hsl(var(--primary))]">HUB</span>
                             </span>
@@ -38,29 +48,20 @@ export function Navbar() {
                     </div>
 
                     <div className="hidden md:block">
-                        <div className="ml-10 flex items-baseline space-x-8">
-                            <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
-                                Home
-                            </Link>
-                            <Link href="/agents" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
-                                Agents
-                            </Link>
-                            <Link href="/transparency" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
-                                Transparency
-                            </Link>
-                            <Link href="/vision" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
-                                Initiative
-                            </Link>
-                            <Link href="/about" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
-                                About
-                            </Link>
-                            <Link href="/support" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
-                                Support Us
-                            </Link>
-                            <Link href="/contact" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all illuminate-hover">
-                                Contact
-                            </Link>
-                            <Link href="/login" className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 px-4 py-2 rounded-md text-sm font-bold transition-all illuminate-primary">
+                        <div className="ml-10 flex items-baseline space-x-6">
+                            {navItems.map((item) => (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    className={`text-gray-300 px-3 py-2 rounded-md text-sm font-medium transition-all ${item.color}`}
+                                >
+                                    {item.label}
+                                </Link>
+                            ))}
+                            <Link
+                                href="/login"
+                                className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 px-4 py-2 rounded-md text-sm font-bold transition-all illuminate-primary"
+                            >
                                 Admin Login
                             </Link>
                             <div className="ml-2">
@@ -85,55 +86,16 @@ export function Navbar() {
             {isOpen && (
                 <div className="md:hidden glass border-t-0">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <Link
-                            href="/"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
-                            onClick={toggleMenu}
-                        >
-                            Home
-                        </Link>
-                        <Link
-                            href="/agents"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
-                            onClick={toggleMenu}
-                        >
-                            Agents
-                        </Link>
-                        <Link
-                            href="/transparency"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
-                            onClick={toggleMenu}
-                        >
-                            Transparency
-                        </Link>
-                        <Link
-                            href="/vision"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
-                            onClick={toggleMenu}
-                        >
-                            Initiative
-                        </Link>
-                        <Link
-                            href="/about"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
-                            onClick={toggleMenu}
-                        >
-                            About
-                        </Link>
-                        <Link
-                            href="/support"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
-                            onClick={toggleMenu}
-                        >
-                            Support Us
-                        </Link>
-                        <Link
-                            href="/contact"
-                            className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium illuminate-hover"
-                            onClick={toggleMenu}
-                        >
-                            Contact
-                        </Link>
+                        {navItems.map((item) => (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className={`text-gray-300 block px-3 py-2 rounded-md text-base font-medium ${item.color}`}
+                                onClick={toggleMenu}
+                            >
+                                {item.label}
+                            </Link>
+                        ))}
                         <Link
                             href="/login"
                             className="text-[hsl(var(--primary))] block px-3 py-2 rounded-md text-base font-medium illuminate-primary"

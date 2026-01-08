@@ -29,42 +29,120 @@ export default function HomePage() {
         <Navbar />
 
         <main className="flex-grow">
-          {/* Hero Section - Grounding Statement */}
-          {/* Hero Image Section */}
-          <section className="relative h-[80vh] min-h-[600px] w-full overflow-hidden">
+          {/* Hero Section - Primary Landing */}
+          <section className="relative h-[100vh] min-h-[700px] w-full overflow-hidden">
             <div className="absolute inset-0 z-0">
               <Image
-                src="/sovereign_ai_infrastructure_inga.png"
-                alt="Sovereign AI Infrastructure powered by Inga Falls"
+                src="/hero-inga-dam-datacenter.jpg"
+                alt="Inga Dam Hydropower & Datacenter Vision"
                 fill
                 className="object-cover"
                 priority
-                quality={90}
+                quality={95}
               />
-              {/* Subtle overlay for atmosphere, but keeping image clear */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black" />
+              {/* Gradient overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80" />
             </div>
 
-            <div className="absolute bottom-10 left-0 right-0 text-center z-10">
-              <p className="text-white/80 font-mono text-sm uppercase tracking-widest mb-4">The Inga-Compute Nexus</p>
+            {/* Ubuntu Text Overlay - Centered */}
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4">
+              <h1 className="text-8xl md:text-[12rem] lg:text-[16rem] font-black text-white tracking-tighter leading-none mb-4 drop-shadow-2xl">
+                UBUNTU
+              </h1>
+              <p className="text-2xl md:text-3xl text-white/90 font-light tracking-[0.3em] uppercase">
+                Energy into Intelligence
+              </p>
+              <div className="mt-12 flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/vision"
+                  className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 illuminate-cyan text-center"
+                >
+                  Discover the Initiative
+                </Link>
+                <Link
+                  href="/support"
+                  className="px-8 py-4 bg-[hsl(var(--primary))] text-black font-bold rounded-xl hover:scale-105 transition-all duration-300 text-center"
+                >
+                  Support Ubuntu AI
+                </Link>
+              </div>
+            </div>
+
+            {/* Scroll indicator */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+              <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+                <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse" />
+              </div>
             </div>
           </section>
 
-          {/* Hero Text Section - Now Below Image */}
-          <section className="relative py-20 px-4 bg-black">
+          {/* Hero Text Section - Tagline & Mission */}
+          <section className="relative py-24 px-4 bg-black">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-5xl md:text-7xl font-black text-white mb-8 leading-tight">
+              <p className="text-[hsl(var(--primary))] font-mono text-sm uppercase tracking-[0.3em] mb-6">The Vision</p>
+              <h2 className="text-4xl md:text-6xl font-black text-white mb-8 leading-tight">
                 Energy into Intelligence.<br />
-                Intelligence into <span className="text-[hsl(var(--primary))]">Sovereignty</span>.
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-12 max-w-3xl mx-auto font-medium">
+                Intelligence into <span className="text-gradient">Sovereignty</span>.
+              </h2>
+              <p className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-8 max-w-3xl mx-auto font-medium">
                 Ubuntu AI is a sovereign intelligence infrastructure that converts renewable energy
                 into local compute, ethical AI systems, and shared prosperity.
               </p>
-              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
+              <p className="text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">
                 It exists to ensure Africa is not only a consumer of global AI — but a producer,
                 steward, and beneficiary of intelligence itself.
               </p>
+            </div>
+          </section>
+
+          {/* Visual Infrastructure Showcase */}
+          <section className="relative py-20 px-4 bg-gradient-to-b from-black to-[hsl(var(--background))]">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div className="relative group">
+                  <div className="relative z-10 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                    <Image
+                      src="/sovereign_ai_infrastructure_inga.png"
+                      alt="Sovereign AI Infrastructure powered by Inga Falls"
+                      width={800}
+                      height={600}
+                      className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-6 left-6">
+                      <span className="px-3 py-1 bg-[hsl(var(--primary))] text-black text-xs font-bold rounded-full uppercase tracking-wide">
+                        The Inga-Compute Nexus
+                      </span>
+                    </div>
+                  </div>
+                  <div className="absolute -inset-4 bg-[hsl(var(--primary))]/10 blur-3xl rounded-full z-0" />
+                </div>
+                <div>
+                  <p className="text-[hsl(var(--accent))] font-mono text-sm uppercase tracking-[0.2em] mb-4">Infrastructure Vision</p>
+                  <h3 className="text-3xl md:text-4xl font-black text-white mb-6 uppercase leading-tight">
+                    Where Energy Becomes Intelligence
+                  </h3>
+                  <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+                    The Inga Falls represent the world's largest untapped hydropower potential.
+                    Ubuntu AI transforms this natural abundance into computational sovereignty—
+                    building Africa's first energy-integrated AI supercomputing facility.
+                  </p>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <Check className="text-[hsl(var(--primary))] flex-shrink-0" size={24} />
+                      <span className="text-gray-300">40,000+ MW potential capacity</span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <Check className="text-[hsl(var(--primary))] flex-shrink-0" size={24} />
+                      <span className="text-gray-300">100% renewable compute power</span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <Check className="text-[hsl(var(--primary))] flex-shrink-0" size={24} />
+                      <span className="text-gray-300">Sovereign data residency</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
