@@ -40,7 +40,7 @@ export class FundingGrantAgent extends BaseAgent {
       console.warn("⚠️ [FundingAgent] STRIPE_SECRET_KEY missing. Using placeholder.");
     }
     this.stripe = new Stripe(stripeKey, {
-      apiVersion: '2025-12-15.clover' as any
+      apiVersion: '2024-12-18.acacia' as any
     });
   }
 

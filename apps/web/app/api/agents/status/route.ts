@@ -1,29 +1,87 @@
 /**
  * Agent Status API
  * GET /api/agents/status
+ * Returns real-time status of all agents and environment configuration
  */
 
 import { NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 
 export async function GET() {
   try {
+    // Check environment configuration
     const envStatus = {
       supabase_url: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
-      supabase_key: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
-      gemini_key: !!process.env.GOOGLE_AI_API_KEY
+      supabase_service_key: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+      supabase_anon_key: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      gemini_key: !!process.env.GOOGLE_AI_API_KEY,
+      stripe_key: !!process.env.STRIPE_SECRET_KEY,
+      cron_secret: !!process.env.CRON_SECRET
     };
 
-    const allConfigured = Object.values(envStatus).every(v => v);
+    const allConfigured = envStatus.supabase_url && envStatus.supabase_service_key && envStatus.gemini_key;
 
+    // Try to get last agent runs from database
+    let lastRuns: Record<string, string | null> = {};
+
+    if (envStatus.supabase_url && envStatus.supabase_service_key) {
+      try {
+        const supabase = createClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL!,
+          process.env.SUPABASE_SERVICE_ROLE_KEY!
+        );
+
+        const { data: auditLogs } = await supabase
+          .from('agent_audit_log')
+          .select('agent_id, timestamp')
+          .order('timestamp', { ascending: false })
+          .limit(50);
+
+        if (auditLogs) {
+          // Get most recent run per agent
+          const runsByAgent: Record<string, string> = {};
+          auditLogs.forEach((log: any) => {
+            if (!runsByAgent[log.agent_id]) {
+              runsByAgent[log.agent_id] = log.timestamp;
+            }
+          });
+          lastRuns = runsByAgent;
+        }
+      } catch (e) {
+        console.error('Failed to fetch agent logs:', e);
+      }
+    }
+
+    // Agent definitions with real status
     const agents = [
-      { id: 'agent_001_policy', name: 'Policy Monitor', status: 'ready' },
-      { id: 'agent_002_community', name: 'Community Listener', status: 'ready' },
-      { id: 'agent_003_narrative', name: 'Content Generator', status: 'ready' },
-      { id: 'agent_004_funding', name: 'Grant Finder', status: 'ready' },
-      { id: 'agent_005_chatbot', name: 'Inga GPT', status: 'ready' },
-      { id: 'agent_006_milestone', name: 'Progress Tracker', status: 'ready' },
-      { id: 'agent_007_research', name: 'Research Synthesizer', status: 'ready' },
-      { id: 'agent_008_due_diligence', name: 'Stakeholder Vetter', status: 'ready' }
+      {
+        id: 'agent_001_policy',
+        name: 'Policy Monitor',
+        status: envStatus.gemini_key ? 'ready' : 'missing_api_key',
+        lastRun: lastRuns['agent_001_policy'] || lastRuns['agent_001'] || null,
+        triggers: ['scheduled', 'manual', 'api']
+      },
+      {
+        id: 'agent_002_funding',
+        name: 'Funding & Grant Agent',
+        status: envStatus.stripe_key ? 'ready' : 'missing_api_key',
+        lastRun: lastRuns['agent_002'] || null,
+        triggers: ['donation_webhook', 'scan_grants', 'generate_funding_report']
+      },
+      {
+        id: 'agent_004_milestone',
+        name: 'Progress Tracker',
+        status: 'ready',
+        lastRun: lastRuns['agent_004'] || null,
+        triggers: ['github_webhook', 'manual_submission', 'validate_milestone']
+      },
+      {
+        id: 'agent_005_chatbot',
+        name: 'Inga GPT',
+        status: envStatus.gemini_key ? 'ready' : 'missing_api_key',
+        lastRun: null,
+        triggers: ['chat']
+      }
     ];
 
     return NextResponse.json({
@@ -32,8 +90,8 @@ export async function GET() {
       agents: agents,
       count: agents.length,
       timestamp: new Date().toISOString(),
-      version: '0.5.0',
-      project: 'Ubuntu Initiative Agent System'
+      version: '1.0.0',
+      project: 'Ubuntu Initiative Agent Network (UIAN)'
     });
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';

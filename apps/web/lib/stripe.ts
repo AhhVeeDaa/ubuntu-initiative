@@ -7,7 +7,7 @@ if (!process.env.STRIPE_SECRET_KEY) {
 }
 
 export const stripe = new Stripe(stripeKey, {
-    apiVersion: '2025-12-15.clover',
+    apiVersion: '2024-12-18.acacia' as any,
     appInfo: {
         name: 'Ubuntu Initiative',
         version: '0.1.0',
