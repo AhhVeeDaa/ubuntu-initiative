@@ -1,16 +1,13 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Check, X } from 'lucide-react';
 import Link from 'next/link';
-
-export const metadata = {
-  title: 'Ubuntu Initiative | Energy into Intelligence',
-  description: 'A sovereign intelligence infrastructure converting renewable energy into local compute, ethical AI systems, and shared prosperity.',
-};
-
 import Image from 'next/image';
 
-// ... (other imports)
+export const metadata = {
+  title: 'Ubuntu | Sovereign AI Orchestration for 500MW-Scale Compute',
+  description: 'Ubuntu licenses an AI execution and governance layer designed to operate within explicit energy envelopes. Licensable, deployable, governed.',
+};
 
 export default function HomePage() {
   return (
@@ -29,448 +26,336 @@ export default function HomePage() {
         <Navbar />
 
         <main className="flex-grow">
-          {/* Hero Section - Primary Landing */}
-          <section className="relative h-[100vh] min-h-[700px] w-full overflow-hidden">
+          {/* HERO SECTION */}
+          <section className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden pt-20">
             <div className="absolute inset-0 z-0">
               <Image
                 src="/hero-inga-dam-datacenter.jpg"
-                alt="Inga Dam Hydropower & Datacenter Vision"
+                alt="AI Orchestration Infrastructure"
                 fill
                 className="object-cover"
                 priority
                 quality={95}
               />
-              {/* Gradient overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black" />
             </div>
 
-            {/* Ubuntu Text Overlay - Centered */}
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4">
-              <h1 className="text-8xl md:text-[12rem] lg:text-[16rem] font-black text-white tracking-tighter leading-none mb-4 drop-shadow-2xl">
-                UBUNTU
+            <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
+              <div className="inline-block px-4 py-2 bg-[hsl(var(--primary))]/20 border border-[hsl(var(--primary))]/40 rounded-full mb-6">
+                <span className="text-[hsl(var(--primary))] text-sm font-bold uppercase tracking-wider">
+                  Platform Status: Operational
+                </span>
+              </div>
+              
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-tight">
+                Sovereign AI Orchestration<br />
+                <span className="text-gradient">for 500MW-Scale Compute</span>
               </h1>
-              <p className="text-2xl md:text-3xl text-white/90 font-light tracking-[0.3em] uppercase">
-                Energy into Intelligence
+              
+              <p className="text-xl md:text-2xl text-gray-200 mb-4 max-w-4xl mx-auto leading-relaxed">
+                Ubuntu licenses an AI execution and governance layer designed to operate 
+                within explicit energy envelopes.
               </p>
-              <div className="mt-12 flex flex-col sm:flex-row gap-4">
+              
+              <p className="text-lg md:text-xl text-gray-400 mb-12 max-w-3xl mx-auto">
+                You bring power. We enforce constraints. Infrastructure follows demand.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Link
+                  href="/ai-orchestration"
+                  className="px-10 py-5 bg-[hsl(var(--primary))] text-black font-black rounded-xl hover:scale-105 transition-all duration-300 text-lg shadow-2xl"
+                >
+                  License the AI Stack
+                </Link>
+                <Link
+                  href="/governance-framework"
+                  className="px-10 py-5 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300"
+                >
+                  View Governance Framework
+                </Link>
+              </div>
+
+              <div className="mt-8">
                 <Link
                   href="/vision"
-                  className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 illuminate-cyan text-center"
+                  className="text-gray-400 hover:text-[hsl(var(--primary))] transition-colors text-sm font-medium"
                 >
-                  Discover the Initiative
-                </Link>
-                <Link
-                  href="/support"
-                  className="px-8 py-4 bg-[hsl(var(--primary))] text-black font-bold rounded-xl hover:scale-105 transition-all duration-300 text-center"
-                >
-                  Support Ubuntu AI
+                  Learn about the Initiative →
                 </Link>
               </div>
             </div>
-
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
-              <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-                <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse" />
-              </div>
-            </div>
           </section>
 
-          {/* Hero Text Section - Tagline & Mission */}
-          <section className="relative py-24 px-4 bg-black">
-            <div className="max-w-4xl mx-auto text-center">
-              <p className="text-[hsl(var(--primary))] font-mono text-sm uppercase tracking-[0.3em] mb-6">The Vision</p>
-              <h2 className="text-4xl md:text-6xl font-black text-white mb-8 leading-tight">
-                Energy into Intelligence.<br />
-                Intelligence into <span className="text-gradient">Sovereignty</span>.
-              </h2>
-              <p className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-8 max-w-3xl mx-auto font-medium">
-                Ubuntu AI is a sovereign intelligence infrastructure that converts renewable energy
-                into local compute, ethical AI systems, and shared prosperity.
-              </p>
-              <p className="text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">
-                It exists to ensure Africa is not only a consumer of global AI — but a producer,
-                steward, and beneficiary of intelligence itself.
-              </p>
-            </div>
-          </section>
-
-          {/* Visual Infrastructure Showcase */}
-          <section className="relative py-20 px-4 bg-gradient-to-b from-black to-[hsl(var(--background))]">
+          {/* SECTION 2: WHAT YOU GET */}
+          <section className="py-24 px-4 bg-black">
             <div className="max-w-6xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="relative group">
-                  <div className="relative z-10 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-                    <Image
-                      src="/sovereign_ai_infrastructure_inga.png"
-                      alt="Sovereign AI Infrastructure powered by Inga Falls"
-                      width={800}
-                      height={600}
-                      className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-6 left-6">
-                      <span className="px-3 py-1 bg-[hsl(var(--primary))] text-black text-xs font-bold rounded-full uppercase tracking-wide">
-                        The Inga-Compute Nexus
-                      </span>
-                    </div>
-                  </div>
-                  <div className="absolute -inset-4 bg-[hsl(var(--primary))]/10 blur-3xl rounded-full z-0" />
-                </div>
-                <div>
-                  <p className="text-[hsl(var(--accent))] font-mono text-sm uppercase tracking-[0.2em] mb-4">Infrastructure Vision</p>
-                  <h3 className="text-3xl md:text-4xl font-black text-white mb-6 uppercase leading-tight">
-                    Where Energy Becomes Intelligence
-                  </h3>
-                  <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                    The Inga Falls represent the world's largest untapped hydropower potential.
-                    Ubuntu AI transforms this natural abundance into computational sovereignty—
-                    building Africa's first energy-integrated AI supercomputing facility.
-                  </p>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4">
-                      <Check className="text-[hsl(var(--primary))] flex-shrink-0" size={24} />
-                      <span className="text-gray-300">40,000+ MW potential capacity</span>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <Check className="text-[hsl(var(--primary))] flex-shrink-0" size={24} />
-                      <span className="text-gray-300">100% renewable compute power</span>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <Check className="text-[hsl(var(--primary))] flex-shrink-0" size={24} />
-                      <span className="text-gray-300">Sovereign data residency</span>
-                    </div>
-                  </div>
-                </div>
+              <div className="text-center mb-16">
+                <p className="text-[hsl(var(--primary))] font-mono text-sm uppercase tracking-[0.3em] mb-4">The Product</p>
+                <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
+                  AI Orchestration as a Service
+                </h2>
               </div>
-            </div>
-          </section>
 
-          {/* UbuntuHub Platform Section - NEW */}
-          <section className="py-24 px-4 bg-black overflow-hidden">
-            <div className="max-w-6xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-16 items-center">
-                <div>
-                  <p className="text-[hsl(var(--primary))] font-mono text-sm uppercase tracking-[0.2em] mb-4">Platform Infrastructure</p>
-                  <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase leading-tight">
-                    UbuntuHub: The Operational Layer
-                  </h2>
-                  <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                    The infrastructure of sovereignty requires the infrastructure of transparency.
-                    UbuntuHub provides the real-time operational interface for monitoring agents,
-                    policy compliance, and institutional coordination.
-                  </p>
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="p-4 bg-white/5 border border-white/10 rounded-xl">
-                      <p className="text-white font-bold mb-1">Agent Registry</p>
-                      <p className="text-gray-400 text-sm">Real-time monitoring oversight</p>
-                    </div>
-                    <div className="p-4 bg-white/5 border border-white/10 rounded-xl">
-                      <p className="text-white font-bold mb-1">Audit Trail</p>
-                      <p className="text-gray-400 text-sm">Immutable execution logs</p>
-                    </div>
-                  </div>
-                  <div className="mt-10">
-                    <Link
-                      href="/about"
-                      className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-black rounded-xl hover:bg-gray-200 transition-colors"
-                    >
-                      Explore the Platform <ArrowRight size={20} />
-                    </Link>
-                  </div>
-                </div>
-                <div className="relative">
-                  <div className="relative z-10 glass-card p-2 rounded-2xl border border-white/20 transform hover:scale-[1.02] transition-transform duration-500 shadow-2xl">
-                    <Image
-                      src="/ubuntuhub_hero_interface.png"
-                      alt="UbuntuHub Platform Interface"
-                      width={800}
-                      height={600}
-                      className="rounded-xl"
-                    />
-                  </div>
-                  {/* Background glow */}
-                  <div className="absolute -inset-4 bg-[hsl(var(--primary))]/20 blur-3xl rounded-full z-0" />
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Hero Text Section - Now Below Image */}
-          <section className="relative py-20 px-4 bg-black">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-5xl md:text-7xl font-black text-white mb-8 leading-tight">
-                Energy into Intelligence.<br />
-                Intelligence into <span className="text-[hsl(var(--primary))]">Sovereignty</span>.
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-12 max-w-3xl mx-auto font-medium">
-                Ubuntu AI is a sovereign intelligence infrastructure that converts renewable energy
-                into local compute, ethical AI systems, and shared prosperity.
-              </p>
-              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                It exists to ensure Africa is not only a consumer of global AI — but a producer,
-                steward, and beneficiary of intelligence itself.
-              </p>
-            </div>
-          </section>
-
-          {/* The Stack - Visual */}
-          <section className="py-20 px-4 bg-white/5">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl font-black text-white text-center mb-16 uppercase">
-                From Natural Power to Collective Intelligence
-              </h2>
-              <p className="text-lg text-gray-400 text-center mb-12 max-w-3xl mx-auto leading-relaxed">
-                Ubuntu AI begins with what already exists in abundance: natural energy. Instead of exporting
-                raw power and importing intelligence, Ubuntu AI transforms energy at the source into computation,
-                modeling, and decision-making capacity — owned locally and governed responsibly.
-              </p>
-
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-8 bg-black rounded-2xl border border-white/10">
-                {[
-                  { label: 'River', color: 'bg-blue-500' },
-                  { label: 'Power', color: 'bg-yellow-500' },
-                  { label: 'Compute', color: 'bg-purple-500' },
-                  { label: 'AI', color: 'bg-cyan-500' },
-                  { label: 'Community', color: 'bg-green-500' },
-                ].map((step, i) => (
-                  <div key={i} className="flex items-center gap-4">
-                    <div className={`${step.color} w-24 h-24 rounded-xl flex items-center justify-center`}>
-                      <span className="text-black font-black text-sm uppercase">{step.label}</span>
-                    </div>
-                    {i < 4 && (
-                      <ArrowRight className="text-gray-600 hidden md:block" size={24} />
-                    )}
-                  </div>
-                ))}
-              </div>
-              <p className="text-center text-gray-500 text-sm mt-6">
-                A closed, sovereign loop
-              </p>
-            </div>
-          </section>
-
-          {/* The Problem */}
-          <section className="py-20 px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-black text-white mb-12 uppercase">
-                The Problem We Address
-              </h2>
-              <div className="space-y-6">
-                <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-                  <h3 className="text-white font-bold mb-2">Today:</h3>
-                  <ul className="space-y-3 text-gray-400">
+              <div className="grid md:grid-cols-2 gap-8 mb-12">
+                <div className="p-8 bg-white/5 border border-white/10 rounded-2xl">
+                  <h3 className="text-2xl font-bold text-white mb-4">Ubuntu Provides:</h3>
+                  <ul className="space-y-4">
                     <li className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0" />
-                      <span>Energy-rich regions export raw resources</span>
+                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-1" size={20} />
+                      <span className="text-gray-300">Load-aware AI scheduling (assumes 500MW envelope)</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0" />
-                      <span>Intelligence infrastructure is concentrated elsewhere</span>
+                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-1" size={20} />
+                      <span className="text-gray-300">Quantum-classical workflow management</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0" />
-                      <span>Data leaves, value returns slowly — or not at all</span>
+                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-1" size={20} />
+                      <span className="text-gray-300">Agent execution layer with sovereign compliance</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0" />
-                      <span>AI systems are built about communities, not with them</span>
+                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-1" size={20} />
+                      <span className="text-gray-300">Governance enforcement (caps, ramps, audit, revocation)</span>
                     </li>
                   </ul>
                 </div>
-                <p className="text-lg text-gray-300 italic text-center pt-4">
-                  This is not a technological failure. It is an infrastructural one.
+
+                <div className="p-8 bg-white/5 border border-white/10 rounded-2xl">
+                  <h3 className="text-2xl font-bold text-white mb-4">Available Now:</h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3">
+                      <ArrowRight className="text-[hsl(var(--accent))] flex-shrink-0 mt-1" size={20} />
+                      <span className="text-gray-300">Exclusive license</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <ArrowRight className="text-[hsl(var(--accent))] flex-shrink-0 mt-1" size={20} />
+                      <span className="text-gray-300">Custom deployment</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <ArrowRight className="text-[hsl(var(--accent))] flex-shrink-0 mt-1" size={20} />
+                      <span className="text-gray-300">JV partnership</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <Link
+                  href="/ai-orchestration"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition-colors"
+                >
+                  Explore the Product <ArrowRight size={20} />
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* SECTION 3: WHAT YOU DON'T GET (CRITICAL) */}
+          <section className="py-24 px-4 bg-gradient-to-b from-black to-red-950/10">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
+                  Energy is Your Problem
+                </h2>
+                <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                  Ubuntu facilitates access to renewable energy partnerships but does not own or operate power infrastructure.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="p-8 bg-black/50 border-2 border-red-500/30 rounded-2xl">
+                  <h3 className="text-2xl font-bold text-red-400 mb-6 flex items-center gap-2">
+                    <X size={24} />
+                    Ubuntu Does NOT Provide:
+                  </h3>
+                  <ul className="space-y-3 text-gray-300">
+                    <li className="flex items-start gap-3">
+                      <X className="text-red-500 flex-shrink-0 mt-0.5" size={16} />
+                      <span>Energy infrastructure</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <X className="text-red-500 flex-shrink-0 mt-0.5" size={16} />
+                      <span>Hardware procurement</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <X className="text-red-500 flex-shrink-0 mt-0.5" size={16} />
+                      <span>Unlimited scale</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="p-8 bg-black/50 border-2 border-[hsl(var(--primary))]/30 rounded-2xl">
+                  <h3 className="text-2xl font-bold text-[hsl(var(--primary))] mb-6 flex items-center gap-2">
+                    <Check size={24} />
+                    We Provide:
+                  </h3>
+                  <ul className="space-y-3 text-gray-300">
+                    <li className="flex items-start gap-3">
+                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={16} />
+                      <span>The orchestration layer</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={16} />
+                      <span>Governance constraints</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={16} />
+                      <span>Compliance automation</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={16} />
+                      <span>Load envelope management</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-12 p-6 bg-white/5 border border-white/10 rounded-xl text-center">
+                <p className="text-xl text-white font-bold mb-2">
+                  You provide the power. We make it governable.
+                </p>
+                <p className="text-gray-400">
+                  Infrastructure follows proven demand. Ubuntu facilitates access to 500MW+ renewable hydro envelopes through DRC government partnerships in the Inga region.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Contrast Table */}
-          <section className="py-20 px-4 bg-white/5">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl font-black text-white mb-12 uppercase text-center">
-                The Ubuntu AI Model
-              </h2>
-              <p className="text-lg text-gray-400 text-center mb-12">
-                Ubuntu AI reverses the flow.
-              </p>
-
-              <div className="overflow-hidden rounded-2xl border border-white/10">
-                <table className="w-full">
-                  <thead>
-                    <tr className="bg-white/5">
-                      <th className="p-4 text-left text-red-400 font-black uppercase text-sm">
-                        Conventional Model
-                      </th>
-                      <th className="p-4 text-left text-green-400 font-black uppercase text-sm">
-                        Ubuntu AI
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      ['Export energy', 'Convert energy to intelligence'],
-                      ['Centralized foreign compute', 'Local sovereign compute'],
-                      ['Extractive data use', 'Stewarded data governance'],
-                      ['Shareholder-first', 'Community-first value'],
-                      ['Reactive systems', 'Anticipatory intelligence'],
-                    ].map(([conventional, ubuntu], i) => (
-                      <tr key={i} className="border-t border-white/5">
-                        <td className="p-4 text-gray-400 bg-black">{conventional}</td>
-                        <td className="p-4 text-gray-300 bg-black font-medium">{ubuntu}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+          {/* SECTION 4: WHO BUYS THIS */}
+          <section className="py-24 px-4 bg-black">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+                  Who Buys This
+                </h2>
               </div>
 
-              <p className="text-center text-lg text-gray-400 mt-8 italic">
-                Ubuntu AI treats intelligence as infrastructure, not a product.
-              </p>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-[hsl(var(--primary))]/50 transition-colors">
+                  <h3 className="text-2xl font-bold text-white mb-4">Hyperscalers</h3>
+                  <p className="text-gray-300 mb-6">
+                    License AI orchestration for sovereign compute deployments. Governance built-in. Energy agnostic.
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 text-[hsl(var(--primary))] hover:text-[hsl(var(--primary))]/80 font-semibold"
+                  >
+                    Contact for Licensing <ArrowRight size={16} />
+                  </Link>
+                </div>
+
+                <div className="p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-[hsl(var(--primary))]/50 transition-colors">
+                  <h3 className="text-2xl font-bold text-white mb-4">Sovereign Buyers</h3>
+                  <p className="text-gray-300 mb-6">
+                    Deploy governed AI capability within national infrastructure. Policy compliance automated.
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 text-[hsl(var(--primary))] hover:text-[hsl(var(--primary))]/80 font-semibold"
+                  >
+                    Deploy the Platform <ArrowRight size={16} />
+                  </Link>
+                </div>
+
+                <div className="p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-[hsl(var(--primary))]/50 transition-colors">
+                  <h3 className="text-2xl font-bold text-white mb-4">Infrastructure Partners</h3>
+                  <p className="text-gray-300 mb-6">
+                    Respond to demand after orchestration is deployed. Energy follows intelligence, not vice versa.
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 text-[hsl(var(--primary))] hover:text-[hsl(var(--primary))]/80 font-semibold"
+                  >
+                    Partnership Inquiry <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </div>
             </div>
           </section>
 
-          {/* What Exists Today */}
-          <section className="py-20 px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-black text-white mb-6 uppercase">
-                What Exists Today
-              </h2>
-              <p className="text-lg text-gray-400 mb-12">
-                Ubuntu AI is not speculative.
-              </p>
+          {/* SECTION 5: GOVERNANCE AS FEATURE */}
+          <section className="py-24 px-4 bg-gradient-to-b from-black to-purple-950/10">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-16">
+                <p className="text-[hsl(var(--accent))] font-mono text-sm uppercase tracking-[0.3em] mb-4">The Constraint</p>
+                <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
+                  Constraints Enable Scale
+                </h2>
+              </div>
 
-              <div className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-6 mb-12">
                 {[
-                  'A defined energy-to-compute architecture',
-                  'Governance and ethical frameworks aligned with African and global standards',
-                  'Institutional engagement and policy alignment',
-                  'Early-stage infrastructure planning',
-                  'A growing ecosystem of contributors and advisors',
+                  '500MW load caps per unit',
+                  'Ramp rate compliance',
+                  'Audit trail generation',
+                  'Revocation capability',
+                  'Sovereign policy alignment',
+                  'Multi-tenant isolation'
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4 p-4 bg-white/5 border border-white/10 rounded-xl">
-                    <Check className="text-green-400 flex-shrink-0 mt-0.5" size={20} />
-                    <span className="text-gray-300">{item}</span>
+                  <div key={i} className="p-6 bg-white/5 border border-white/10 rounded-xl">
+                    <div className="flex items-start gap-3">
+                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={20} />
+                      <span className="text-gray-300 font-medium">{item}</span>
+                    </div>
                   </div>
                 ))}
               </div>
 
-              <p className="text-gray-500 text-sm mt-8 text-center">
-                Each component is designed to mature independently — and integrate seamlessly.
-              </p>
-            </div>
-          </section>
-
-          {/* What Ubuntu AI Enables */}
-          <section className="py-20 px-4 bg-white/5">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl font-black text-white mb-12 uppercase text-center">
-                What Ubuntu AI Enables
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[
-                  'Energy optimization & resilience',
-                  'Climate and environmental intelligence',
-                  'Public infrastructure planning',
-                  'Economic modeling & development policy',
-                  'Education, research, and local innovation',
-                  'Healthcare and agricultural systems',
-                ].map((domain, i) => (
-                  <div key={i} className="p-6 bg-black border border-white/10 rounded-xl">
-                    <h3 className="text-white font-bold mb-2">{domain}</h3>
-                    <div className="h-1 w-12 bg-[hsl(var(--primary))] rounded" />
-                  </div>
-                ))}
+              <div className="p-8 bg-black/50 border border-[hsl(var(--accent))]/30 rounded-2xl text-center">
+                <p className="text-2xl text-white font-bold mb-2">
+                  This is not ethics marketing.
+                </p>
+                <p className="text-xl text-gray-300">
+                  This is what makes institutional deployment possible.
+                </p>
               </div>
 
-              <p className="text-center text-lg text-gray-400 mt-12 max-w-2xl mx-auto leading-relaxed">
-                All built on the principle that those closest to the resource should benefit most from its intelligence.
-              </p>
-            </div>
-          </section>
-
-          {/* Governance */}
-          <section className="py-20 px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-black text-white mb-6 uppercase">
-                Governed, Not Extracted
-              </h2>
-
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-                {[
-                  'Community benefit structures',
-                  'Transparent governance',
-                  'Long-term stewardship',
-                  'Intergenerational responsibility',
-                ].map((principle, i) => (
-                  <div key={i} className="p-4 bg-white/5 border border-white/10 rounded-xl">
-                    <p className="text-gray-300 text-sm font-medium">{principle}</p>
-                  </div>
-                ))}
-              </div>
-
-              <p className="text-lg text-gray-400 mt-12 italic">
-                Technology here is not neutral. It is deliberate.
-              </p>
-            </div>
-          </section>
-
-          {/* Call to Action */}
-          <section className="py-20 px-4 bg-white/5">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-black text-white mb-6 uppercase">
-                An Invitation
-              </h2>
-              <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-                Ubuntu AI is an infrastructure initiative in formation — open to:
-              </p>
-
-              <div className="flex flex-wrap justify-center gap-4 mb-12">
-                {['Governments', 'Institutions', 'Engineers', 'Researchers', 'Communities'].map((group, i) => (
-                  <div key={i} className="px-6 py-3 bg-black border border-white/10 rounded-full">
-                    <span className="text-white font-medium">{group}</span>
-                  </div>
-                ))}
-              </div>
-
-              <p className="text-lg text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
-                Those who believe intelligence should serve people, place, and future generations.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="text-center mt-8">
                 <Link
-                  href="/philosophy"
-                  className="px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-colors"
+                  href="/governance-framework"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition-colors"
                 >
-                  Learn More
-                </Link>
-                <Link
-                  href="/support"
-                  className="px-8 py-4 bg-[hsl(var(--accent))] text-black font-black rounded-xl hover:scale-105 transition-transform"
-                >
-                  Support Ubuntu AI
+                  See Governance Framework <ArrowRight size={20} />
                 </Link>
               </div>
             </div>
           </section>
 
-          {/* Final Statement */}
-          <section className="py-32 px-4">
-            <div className="max-w-3xl mx-auto text-center">
-              <div className="space-y-6 mb-12">
-                <p className="text-2xl text-[hsl(var(--primary))] font-black uppercase tracking-wider">
-                  Energy → Intelligence → Sovereignty
-                </p>
-                <p className="text-xl text-gray-400">
-                  This is not a platform. This is not a product.
-                </p>
-                <p className="text-3xl text-white font-black uppercase">
-                  This is infrastructure for the century ahead.
-                </p>
+          {/* SECTION 6: STATUS */}
+          <section className="py-24 px-4 bg-black">
+            <div className="max-w-4xl mx-auto">
+              <div className="p-12 bg-gradient-to-br from-white/10 to-white/5 border border-white/20 rounded-3xl text-center">
+                <div className="inline-block px-6 py-3 bg-green-500/20 border border-green-500/40 rounded-full mb-6">
+                  <span className="text-green-400 text-lg font-bold uppercase tracking-wide">
+                    System Status: Operational
+                  </span>
+                </div>
+                
+                <div className="space-y-4 mb-8">
+                  <div className="flex justify-center items-center gap-4">
+                    <span className="text-gray-400">Orchestration Layer:</span>
+                    <span className="text-white font-bold">Live</span>
+                  </div>
+                  <div className="flex justify-center items-center gap-4">
+                    <span className="text-gray-400">Infrastructure:</span>
+                    <span className="text-white font-bold">Demand-Driven</span>
+                  </div>
+                  <div className="flex justify-center items-center gap-4">
+                    <span className="text-gray-400">Available for Licensing:</span>
+                    <span className="text-[hsl(var(--primary))] font-bold">Now</span>
+                  </div>
+                </div>
+
+                <Link
+                  href="/contact"
+                  className="inline-block px-10 py-4 bg-[hsl(var(--primary))] text-black font-black rounded-xl hover:scale-105 transition-transform text-lg"
+                >
+                  Contact for Licensing
+                </Link>
               </div>
             </div>
           </section>
+
         </main>
 
         <Footer />

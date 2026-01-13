@@ -14,8 +14,8 @@ type MilestoneEvent = Database['public']['Tables']['milestone_events']['Row'];
 type AuditLog = Database['public']['Tables']['agent_audit_log']['Row'];
 
 export const metadata = {
-  title: 'Transparency | UbuntuHub',
-  description: 'Real-time operational transparency and accountability data for the Ubuntu Initiative.',
+  title: 'Transparency | Ubuntu Platform',
+  description: 'Real-time operational transparency and accountability for Ubuntu AI orchestration deployments.',
 };
 
 export default async function TransparencyPage() {

@@ -11,6 +11,10 @@ type ContactRow = {
     name: string;
     email: string;
     organization?: string;
+    organization_type?: string;
+    deployment_timeline?: string;
+    energy_availability?: string;
+    licensing_interest?: string;
     message: string;
 };
 
@@ -21,6 +25,10 @@ export default function ContactPage() {
         name: '',
         email: '',
         organization: '',
+        organization_type: '',
+        deployment_timeline: '',
+        energy_availability: '',
+        licensing_interest: '',
         message: ''
     });
 
@@ -35,7 +43,16 @@ export default function ContactPage() {
 
             if (error) throw error;
             setSuccess(true);
-            setFormData({ name: '', email: '', organization: '', message: '' });
+            setFormData({ 
+                name: '', 
+                email: '', 
+                organization: '', 
+                organization_type: '',
+                deployment_timeline: '',
+                energy_availability: '',
+                licensing_interest: '',
+                message: '' 
+            });
         } catch (error) {
             console.error('Error submitting form:', error);
             alert('Failed to submit form. Please try again.');
@@ -44,7 +61,7 @@ export default function ContactPage() {
         }
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
@@ -56,10 +73,10 @@ export default function ContactPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-2xl mx-auto">
                         <div className="text-center mb-12">
-                            <h1 className="text-4xl font-bold text-white mb-4">Contact Us</h1>
+                            <h1 className="text-4xl font-bold text-white mb-4">Contact for Licensing</h1>
                             <p className="text-gray-400">
-                                Interested in partnering with the Ubuntu Initiative?
-                                Reach out to our team.
+                                Interested in licensing Ubuntu's AI orchestration platform?
+                                Reach out to discuss partnership opportunities.
                             </p>
                         </div>
 
@@ -118,6 +135,82 @@ export default function ContactPage() {
                                         onChange={handleChange}
                                         className="mt-1 block w-full rounded-md border border-white/10 bg-black/20 text-white px-3 py-2 focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))] focus:outline-none"
                                     />
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                                    <div>
+                                        <label htmlFor="organization_type" className="block text-sm font-medium text-gray-300">Organization Type</label>
+                                        <select
+                                            name="organization_type"
+                                            id="organization_type"
+                                            required
+                                            value={formData.organization_type}
+                                            onChange={handleChange}
+                                            className="mt-1 block w-full rounded-md border border-white/10 bg-black/20 text-white px-3 py-2 focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))] focus:outline-none"
+                                        >
+                                            <option value="">Select type</option>
+                                            <option value="hyperscaler">Hyperscaler</option>
+                                            <option value="sovereign">Sovereign</option>
+                                            <option value="industrial_ai">Industrial AI</option>
+                                            <option value="infrastructure_partner">Infrastructure Partner</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor="deployment_timeline" className="block text-sm font-medium text-gray-300">Deployment Timeline</label>
+                                        <select
+                                            name="deployment_timeline"
+                                            id="deployment_timeline"
+                                            required
+                                            value={formData.deployment_timeline}
+                                            onChange={handleChange}
+                                            className="mt-1 block w-full rounded-md border border-white/10 bg-black/20 text-white px-3 py-2 focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))] focus:outline-none"
+                                        >
+                                            <option value="">Select timeline</option>
+                                            <option value="q1_2026">Q1 2026</option>
+                                            <option value="q2_q4_2026">Q2-Q4 2026</option>
+                                            <option value="2027_plus">2027+</option>
+                                            <option value="exploratory">Exploratory</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                                    <div>
+                                        <label htmlFor="energy_availability" className="block text-sm font-medium text-gray-300">Energy Availability</label>
+                                        <select
+                                            name="energy_availability"
+                                            id="energy_availability"
+                                            required
+                                            value={formData.energy_availability}
+                                            onChange={handleChange}
+                                            className="mt-1 block w-full rounded-md border border-white/10 bg-black/20 text-white px-3 py-2 focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))] focus:outline-none"
+                                        >
+                                            <option value="">Select availability</option>
+                                            <option value="yes_specify_mw">Yes - Specify MW in message</option>
+                                            <option value="no_seeking_partners">No - Seeking Partners</option>
+                                            <option value="tbd">TBD</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor="licensing_interest" className="block text-sm font-medium text-gray-300">Licensing Interest</label>
+                                        <select
+                                            name="licensing_interest"
+                                            id="licensing_interest"
+                                            required
+                                            value={formData.licensing_interest}
+                                            onChange={handleChange}
+                                            className="mt-1 block w-full rounded-md border border-white/10 bg-black/20 text-white px-3 py-2 focus:border-[hsl(var(--primary))] focus:ring-1 focus:ring-[hsl(var(--primary))] focus:outline-none"
+                                        >
+                                            <option value="">Select interest</option>
+                                            <option value="exclusive">Exclusive</option>
+                                            <option value="non_exclusive">Non-Exclusive</option>
+                                            <option value="joint_venture">Joint Venture</option>
+                                            <option value="custom">Custom</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div>

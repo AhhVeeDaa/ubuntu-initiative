@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     try {
         const body = await req.json();
-        const { priceId, amount, label } = body;
+        const { priceId, amount, label, email } = body;
 
         let line_items;
         let mode: 'payment' | 'subscription' = 'payment';
@@ -53,7 +53,10 @@ export async function POST(req: Request) {
 
         const origin = req.headers.get('origin') || 'https://ubuntu-initiative-web.vercel.app';
 
-        const session = await stripe.checkout.sessions.create({
+        // Check if we're in test mode
+        const isTestMode = process.env.STRIPE_SECRET_KEY?.startsWith('sk_test_');
+        
+        let sessionConfig: any = {
             line_items,
             mode: mode,
             success_url: `${origin}/support?success=true`,
@@ -62,7 +65,34 @@ export async function POST(req: Request) {
                 donation_type: priceId ? 'tier' : 'custom',
                 impact_label: label || 'General Support'
             }
-        });
+        };
+
+        // For test mode with Accounts V2, we need to create a customer first
+        if (isTestMode) {
+            try {
+                // Create a test customer
+                const customer = await stripe.customers.create({
+                    email: email || 'test@example.com',
+                    metadata: {
+                        source: 'checkout_session',
+                        test_mode: 'true'
+                    }
+                });
+                
+                sessionConfig.customer = customer.id;
+            } catch (customerError) {
+                console.error('Customer creation failed:', customerError);
+                // Continue without customer in case of error
+            }
+        } else {
+            // For production, let Stripe create the customer automatically
+            // or use customer_email for guest checkout
+            if (email) {
+                sessionConfig.customer_email = email;
+            }
+        }
+
+        const session = await stripe.checkout.sessions.create(sessionConfig);
 
         if (!session.url) {
             throw new Error('Checkout session created but no URL returned');
@@ -72,6 +102,17 @@ export async function POST(req: Request) {
     } catch (err: unknown) {
         const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';
         console.error('Checkout error:', err);
+
+        // Check for specific Stripe errors
+        if (errorMessage.includes('testmode without an existing customer')) {
+            return NextResponse.json(
+                { 
+                    error: 'Test mode configuration issue. Please use live mode or contact support.',
+                    details: 'Stripe test mode requires additional setup. Consider using live keys or a sandbox environment.'
+                },
+                { status: 400 }
+            );
+        }
 
         // Return JSON error response
         return NextResponse.json(

@@ -24,14 +24,14 @@ export function Navbar() {
         };
     }, [isOpen]);
 
-    // Navigation items with individual colors
+    // Navigation items - Updated for revenue-ready positioning
     const navItems = [
         { href: '/', label: 'Home', color: 'illuminate-cyan' },
-        { href: '/about', label: 'About', color: 'illuminate-purple' },
-        { href: '/vision', label: 'Initiative', color: 'illuminate-emerald' },
-        { href: '/philosophy', label: 'Ubuntu AI', color: 'illuminate-teal' },
-        { href: '/support', label: 'Support Us', color: 'illuminate-amber' },
-        { href: '/contact', label: 'Contact', color: 'illuminate-rose' },
+        { href: '/ai-orchestration', label: 'AI Orchestration', color: 'illuminate-purple' },
+        { href: '/governance-framework', label: 'Governance', color: 'illuminate-emerald' },
+        { href: '/transparency', label: 'Transparency', color: 'illuminate-teal' },
+        { href: '/about', label: 'About', color: 'illuminate-amber' },
+        { href: '/vision', label: 'Initiative', color: 'illuminate-rose' },
     ];
 
     return (
@@ -59,10 +59,16 @@ export function Navbar() {
                                 </Link>
                             ))}
                             <Link
-                                href="/login"
-                                className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 px-4 py-2 rounded-md text-sm font-bold transition-all illuminate-primary"
+                                href="/contact"
+                                className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary))]/90 px-5 py-2 rounded-md text-sm font-bold transition-all illuminate-primary"
                             >
-                                Admin Login
+                                Contact for Licensing
+                            </Link>
+                            <Link
+                                href="/login"
+                                className="text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-all"
+                            >
+                                Admin
                             </Link>
                             <div className="ml-2">
                                 <CompactLanguageSwitcher />
@@ -97,8 +103,15 @@ export function Navbar() {
                             </Link>
                         ))}
                         <Link
+                            href="/contact"
+                            className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] block px-3 py-3 rounded-md text-base font-bold illuminate-primary"
+                            onClick={toggleMenu}
+                        >
+                            Contact for Licensing
+                        </Link>
+                        <Link
                             href="/login"
-                            className="text-[hsl(var(--primary))] block px-3 py-2 rounded-md text-base font-medium illuminate-primary"
+                            className="text-gray-400 block px-3 py-2 rounded-md text-base font-medium"
                             onClick={toggleMenu}
                         >
                             Admin Login

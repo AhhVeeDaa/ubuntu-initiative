@@ -22,12 +22,18 @@ export default function AgentsPage() {
           {/* Header */}
           <div className="grid md:grid-cols-3 gap-12 items-center mb-16">
             <div className="md:col-span-2">
+              <div className="inline-block px-4 py-2 bg-amber-500/20 border border-amber-500/40 rounded-full mb-4">
+                <span className="text-amber-400 text-sm font-bold uppercase tracking-wider">
+                  Dashboard Feature - Not Part of Licensable Product
+                </span>
+              </div>
               <h1 className="text-5xl font-bold text-white mb-6">
-                Institutional Monitoring Agents
+                Platform Monitoring Agents
               </h1>
               <p className="text-gray-300 text-xl leading-relaxed max-w-3xl">
-                Automated systems designed to track policy developments, monitor funding allocation,
-                and surface operational data for human review. All agents operate under strict
+                These are internal automation agents used by Ubuntu for platform operations and transparency.
+                They are not part of the AI orchestration product available for licensing. For product features,
+                see <a href="/ai-orchestration" className="text-[hsl(var(--primary))] hover:underline">AI Orchestration</a>.</p>
                 institutional oversight and defined ethical boundaries.
               </p>
             </div>
