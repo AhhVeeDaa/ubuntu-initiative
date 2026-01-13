@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -19,26 +19,6 @@ export default function AdminLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        const { data: role } = await supabase
-          .from('admin_roles')
-          .select('*')
-          .eq('user_id', session.user.id)
-          .eq('is_active', true)
-          .single();
-
-        if (role) {
-          router.push('/dashboard');
-        }
-      }
-    };
-    checkSession();
-  }, [router]);
-
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,11 +51,12 @@ export default function AdminLoginPage() {
         throw new Error('Access denied: Admin role has expired');
       }
 
+      // Successful login - redirect
       router.push('/dashboard');
+      router.refresh();
 
     } catch (err: any) {
       setError(err.message || 'Authentication failed. Please try again.');
-    } finally {
       setLoading(false);
     }
   };
@@ -158,7 +139,7 @@ export default function AdminLoginPage() {
               <button
                 type="submit"
                 disabled={loading || !email || !password}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-semibold rounded-lg hover:bg-[hsl(var(--primary))]/90 transition-all disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-semibold rounded-lg hover:bg-[hsl(var(--primary))]/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
@@ -193,13 +174,14 @@ export default function AdminLoginPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
             <p>
-              © 2026 UbuntuHub. Operational platform of the{' '}
+              © 2026 Ubuntu. Operational platform of the{' '}
               <Link href="/" className="text-[hsl(var(--primary))] hover:underline">Ubuntu Initiative</Link>
             </p>
             <div className="flex items-center gap-4">
-              <span>Platform v0.1.0 | Phase 0</span>
-              <span className="hidden md:inline">•</span>
-              <span>Subject to governance oversight</span>
+              <span className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                Platform Operational
+              </span>
             </div>
           </div>
         </div>
