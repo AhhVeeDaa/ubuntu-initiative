@@ -33,8 +33,7 @@ export default function AgentsPage() {
               <p className="text-gray-300 text-xl leading-relaxed max-w-3xl">
                 These are internal automation agents used by Ubuntu for platform operations and transparency.
                 They are not part of the AI orchestration product available for licensing. For product features,
-                see <a href="/ai-orchestration" className="text-[hsl(var(--primary))] hover:underline">AI Orchestration</a>.</p>
-                institutional oversight and defined ethical boundaries.
+                see <a href="/ai-orchestration" className="text-[hsl(var(--primary))] hover:underline">AI Orchestration</a>.
               </p>
             </div>
             <div className="relative">
