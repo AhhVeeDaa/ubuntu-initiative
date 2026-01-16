@@ -79,6 +79,7 @@ export class BaseAgent {
                 .insert({
                     item_type: itemType,
                     item_id: itemId,
+                    agent_id: this.agentId, // Add agent_id
                     agent_recommendation: recommendation,
                     priority: priority,
                     status: 'pending'
