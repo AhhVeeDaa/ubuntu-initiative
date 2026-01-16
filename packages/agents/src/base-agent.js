@@ -7,21 +7,36 @@ import { createClient } from '@supabase/supabase-js';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import dotenv from 'dotenv';
 
-dotenv.config();
+// Load .env only in local development (not in CI/CD)
+if (!process.env.CI) {
+    dotenv.config();
+}
 
 export class BaseAgent {
     constructor(agentId, config = {}) {
         this.agentId = agentId;
         this.config = config;
         
+        // Validate required environment variables
+        const supabaseUrl = process.env.SUPABASE_URL;
+        const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+        const geminiKey = process.env.GEMINI_API_KEY;
+
+        if (!supabaseUrl) {
+            throw new Error('SUPABASE_URL environment variable is required');
+        }
+        if (!supabaseKey) {
+            throw new Error('SUPABASE_SERVICE_KEY environment variable is required');
+        }
+        if (!geminiKey) {
+            throw new Error('GEMINI_API_KEY environment variable is required');
+        }
+        
         // Initialize Supabase
-        this.supabase = createClient(
-            process.env.SUPABASE_URL,
-            process.env.SUPABASE_SERVICE_KEY
-        );
+        this.supabase = createClient(supabaseUrl, supabaseKey);
         
         // Initialize Gemini AI
-        this.genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+        this.genAI = new GoogleGenerativeAI(geminiKey);
         this.model = this.genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
     }
 
