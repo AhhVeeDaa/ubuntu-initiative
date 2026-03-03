@@ -7,6 +7,28 @@ import Image from 'next/image';
 export const metadata = {
   title: 'Ubuntu | Sovereign AI Orchestration for 500MW-Scale Compute',
   description: 'Ubuntu licenses an AI execution and governance layer designed to operate within explicit energy envelopes. Licensable, deployable, governed.',
+  alternates: {
+    canonical: 'https://ubuntu-initiative.org',
+  },
+  openGraph: {
+    title: 'Ubuntu | Sovereign AI Orchestration for 500MW-Scale Compute',
+    description: 'Ubuntu licenses an AI execution and governance layer designed to operate within explicit energy envelopes. Licensable, deployable, governed.',
+    url: 'https://ubuntu-initiative.org',
+    images: [
+      {
+        url: 'https://ubuntu-initiative.org/hero-inga-dam-datacenter.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Inga Dam datacenter — Sovereign AI compute infrastructure powered by hydroelectric energy',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ubuntu | Sovereign AI Orchestration for 500MW-Scale Compute',
+    description: 'Ubuntu licenses an AI execution and governance layer designed to operate within explicit energy envelopes. Licensable, deployable, governed.',
+    creator: '@UbuntuInitiative',
+  },
 };
 
 export default function HomePage() {
@@ -16,7 +38,7 @@ export default function HomePage() {
       <div className="fixed inset-0 z-0 opacity-5">
         <Image
           src="/inga-dam.jpg"
-          alt="Background"
+          alt="Inga Dam hydropower infrastructure background"
           fill
           className="object-cover"
           priority={false}
@@ -25,13 +47,13 @@ export default function HomePage() {
       <div className="relative z-10">
         <Navbar />
 
-        <main className="flex-grow">
+        <main id="main-content" role="main" className="flex-grow">
           {/* HERO SECTION */}
-          <section className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden pt-20">
+          <section aria-label="Hero — Sovereign AI Orchestration" className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden pt-20">
             <div className="absolute inset-0 z-0">
               <Image
                 src="/hero-inga-dam-datacenter.jpg"
-                alt="AI Orchestration Infrastructure"
+                alt="Inga Dam datacenter — Sovereign AI compute infrastructure powered by hydroelectric energy"
                 fill
                 className="object-cover"
                 priority
@@ -88,7 +110,7 @@ export default function HomePage() {
           </section>
 
           {/* SECTION 2: WHAT YOU GET */}
-          <section className="py-24 px-4 bg-black">
+          <section aria-label="Product offering — AI Orchestration as a Service" className="py-24 px-4 bg-black">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
                 <p className="text-[hsl(var(--primary))] font-mono text-sm uppercase tracking-[0.3em] mb-4">The Product</p>
@@ -102,19 +124,19 @@ export default function HomePage() {
                   <h3 className="text-2xl font-bold text-white mb-4">Ubuntu Provides:</h3>
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
-                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-1" size={20} />
+                      <Check aria-hidden="true" className="text-[hsl(var(--primary))] flex-shrink-0 mt-1" size={20} />
                       <span className="text-gray-300">Load-aware AI scheduling (assumes 500MW envelope)</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-1" size={20} />
+                      <Check aria-hidden="true" className="text-[hsl(var(--primary))] flex-shrink-0 mt-1" size={20} />
                       <span className="text-gray-300">Quantum-classical workflow management</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-1" size={20} />
+                      <Check aria-hidden="true" className="text-[hsl(var(--primary))] flex-shrink-0 mt-1" size={20} />
                       <span className="text-gray-300">Agent execution layer with sovereign compliance</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-1" size={20} />
+                      <Check aria-hidden="true" className="text-[hsl(var(--primary))] flex-shrink-0 mt-1" size={20} />
                       <span className="text-gray-300">Governance enforcement (caps, ramps, audit, revocation)</span>
                     </li>
                   </ul>
@@ -124,15 +146,15 @@ export default function HomePage() {
                   <h3 className="text-2xl font-bold text-white mb-4">Available Now:</h3>
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
-                      <ArrowRight className="text-[hsl(var(--accent))] flex-shrink-0 mt-1" size={20} />
+                      <ArrowRight aria-hidden="true" className="text-[hsl(var(--accent))] flex-shrink-0 mt-1" size={20} />
                       <span className="text-gray-300">Exclusive license</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <ArrowRight className="text-[hsl(var(--accent))] flex-shrink-0 mt-1" size={20} />
+                      <ArrowRight aria-hidden="true" className="text-[hsl(var(--accent))] flex-shrink-0 mt-1" size={20} />
                       <span className="text-gray-300">Custom deployment</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <ArrowRight className="text-[hsl(var(--accent))] flex-shrink-0 mt-1" size={20} />
+                      <ArrowRight aria-hidden="true" className="text-[hsl(var(--accent))] flex-shrink-0 mt-1" size={20} />
                       <span className="text-gray-300">JV partnership</span>
                     </li>
                   </ul>
@@ -144,14 +166,14 @@ export default function HomePage() {
                   href="/ai-orchestration"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition-colors"
                 >
-                  Explore the Product <ArrowRight size={20} />
+                  Explore the Product <ArrowRight aria-hidden="true" size={20} />
                 </Link>
               </div>
             </div>
           </section>
 
           {/* SECTION 3: WHAT YOU DON'T GET (CRITICAL) */}
-          <section className="py-24 px-4 bg-gradient-to-b from-black to-red-950/10">
+          <section aria-label="Energy responsibilities and scope" className="py-24 px-4 bg-gradient-to-b from-black to-red-950/10">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
                 <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
@@ -165,20 +187,20 @@ export default function HomePage() {
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="p-8 bg-black/50 border-2 border-red-500/30 rounded-2xl">
                   <h3 className="text-2xl font-bold text-red-400 mb-6 flex items-center gap-2">
-                    <X size={24} />
+                    <X aria-hidden="true" size={24} />
                     Ubuntu Does NOT Provide:
                   </h3>
                   <ul className="space-y-3 text-gray-300">
                     <li className="flex items-start gap-3">
-                      <X className="text-red-500 flex-shrink-0 mt-0.5" size={16} />
+                      <X aria-hidden="true" className="text-red-500 flex-shrink-0 mt-0.5" size={16} />
                       <span>Energy infrastructure</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <X className="text-red-500 flex-shrink-0 mt-0.5" size={16} />
+                      <X aria-hidden="true" className="text-red-500 flex-shrink-0 mt-0.5" size={16} />
                       <span>Hardware procurement</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <X className="text-red-500 flex-shrink-0 mt-0.5" size={16} />
+                      <X aria-hidden="true" className="text-red-500 flex-shrink-0 mt-0.5" size={16} />
                       <span>Unlimited scale</span>
                     </li>
                   </ul>
@@ -186,24 +208,24 @@ export default function HomePage() {
 
                 <div className="p-8 bg-black/50 border-2 border-[hsl(var(--primary))]/30 rounded-2xl">
                   <h3 className="text-2xl font-bold text-[hsl(var(--primary))] mb-6 flex items-center gap-2">
-                    <Check size={24} />
+                    <Check aria-hidden="true" size={24} />
                     We Provide:
                   </h3>
                   <ul className="space-y-3 text-gray-300">
                     <li className="flex items-start gap-3">
-                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={16} />
+                      <Check aria-hidden="true" className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={16} />
                       <span>The orchestration layer</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={16} />
+                      <Check aria-hidden="true" className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={16} />
                       <span>Governance constraints</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={16} />
+                      <Check aria-hidden="true" className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={16} />
                       <span>Compliance automation</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={16} />
+                      <Check aria-hidden="true" className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={16} />
                       <span>Load envelope management</span>
                     </li>
                   </ul>
@@ -222,7 +244,7 @@ export default function HomePage() {
           </section>
 
           {/* SECTION 4: WHO BUYS THIS */}
-          <section className="py-24 px-4 bg-black">
+          <section aria-label="Target customers" className="py-24 px-4 bg-black">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
@@ -240,7 +262,7 @@ export default function HomePage() {
                     href="/contact"
                     className="inline-flex items-center gap-2 text-[hsl(var(--primary))] hover:text-[hsl(var(--primary))]/80 font-semibold"
                   >
-                    Contact for Licensing <ArrowRight size={16} />
+                    Contact for Licensing <ArrowRight aria-hidden="true" size={16} />
                   </Link>
                 </div>
 
@@ -253,7 +275,7 @@ export default function HomePage() {
                     href="/contact"
                     className="inline-flex items-center gap-2 text-[hsl(var(--primary))] hover:text-[hsl(var(--primary))]/80 font-semibold"
                   >
-                    Deploy the Platform <ArrowRight size={16} />
+                    Deploy the Platform <ArrowRight aria-hidden="true" size={16} />
                   </Link>
                 </div>
 
@@ -266,7 +288,7 @@ export default function HomePage() {
                     href="/contact"
                     className="inline-flex items-center gap-2 text-[hsl(var(--primary))] hover:text-[hsl(var(--primary))]/80 font-semibold"
                   >
-                    Partnership Inquiry <ArrowRight size={16} />
+                    Partnership Inquiry <ArrowRight aria-hidden="true" size={16} />
                   </Link>
                 </div>
               </div>
@@ -274,7 +296,7 @@ export default function HomePage() {
           </section>
 
           {/* SECTION 5: GOVERNANCE AS FEATURE */}
-          <section className="py-24 px-4 bg-gradient-to-b from-black to-purple-950/10">
+          <section aria-label="Governance features" className="py-24 px-4 bg-gradient-to-b from-black to-purple-950/10">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
                 <p className="text-[hsl(var(--accent))] font-mono text-sm uppercase tracking-[0.3em] mb-4">The Constraint</p>
@@ -294,7 +316,7 @@ export default function HomePage() {
                 ].map((item, i) => (
                   <div key={i} className="p-6 bg-white/5 border border-white/10 rounded-xl">
                     <div className="flex items-start gap-3">
-                      <Check className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={20} />
+                      <Check aria-hidden="true" className="text-[hsl(var(--primary))] flex-shrink-0 mt-0.5" size={20} />
                       <span className="text-gray-300 font-medium">{item}</span>
                     </div>
                   </div>
@@ -315,14 +337,14 @@ export default function HomePage() {
                   href="/governance-framework"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition-colors"
                 >
-                  See Governance Framework <ArrowRight size={20} />
+                  See Governance Framework <ArrowRight aria-hidden="true" size={20} />
                 </Link>
               </div>
             </div>
           </section>
 
           {/* SECTION 6: STATUS */}
-          <section className="py-24 px-4 bg-black">
+          <section aria-label="System status" className="py-24 px-4 bg-black">
             <div className="max-w-4xl mx-auto">
               <div className="p-12 bg-gradient-to-br from-white/10 to-white/5 border border-white/20 rounded-3xl text-center">
                 <div className="inline-block px-6 py-3 bg-green-500/20 border border-green-500/40 rounded-full mb-6">

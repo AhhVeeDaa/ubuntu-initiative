@@ -76,7 +76,7 @@ The Ubuntu Initiative Agent Network transforms the static website into a living,
 - `agent_audit_log` - Complete agent action trail
 - `approval_queue` - Items awaiting review
 - `chat_logs` - Inga GPT conversation history
-- `community_signals` - Sentiment data
+- `communications` - Community communications and sentiment data
 
 ## Getting Started
 
