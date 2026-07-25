@@ -74,8 +74,8 @@ Proprietary - Ubuntu Initiative Foundation
 
 ## Contact
 
-Founder: [Your Name]
-Email: [Your Email]
+Founder: Avida Buyombo
+Email: avidabuyombo1@gmail.com
 
 ---
 
