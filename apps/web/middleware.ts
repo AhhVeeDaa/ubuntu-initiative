@@ -16,6 +16,9 @@ export function middleware(request: NextRequest) {
   // Set locale header for next-intl
   response.headers.set('x-locale', validLocale);
   
+  // Set Content-Language header for search engine indexing
+  response.headers.set('Content-Language', validLocale);
+  
   return response;
 }
 
