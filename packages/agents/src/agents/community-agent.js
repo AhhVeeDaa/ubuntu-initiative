@@ -65,6 +65,22 @@ export class CommunityAgent extends BaseAgent {
     }
 
     /**
+     * Retry a database operation with exponential backoff
+     */
+    async retryOperation(operation, maxRetries = 3, baseDelay = 1000) {
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                return await operation();
+            } catch (error) {
+                if (attempt === maxRetries) throw error;
+                const delay = baseDelay * Math.pow(2, attempt - 1);
+                console.warn(`[CommunityAgent] Attempt ${attempt} failed, retrying in ${delay}ms...`, error.message);
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
+        }
+    }
+
+    /**
      * Process community signals (chat logs, social media, etc)
      */
     async processCommunitySignals(signals) {
@@ -74,25 +90,39 @@ export class CommunityAgent extends BaseAgent {
         for (const signal of signals) {
             const sentiment = this.analyzeSentiment(signal.content);
             const category = this.categorizeSignal(signal.content);
+            const contentHash = this.hashContent(signal.content);
 
             const signalData = {
-                source: signal.source,
-                content_hash: this.hashContent(signal.content),
-                sentiment: Math.round(sentiment * 100) / 100,
-                category: category
+                type: category,
+                direction: 'inbound',
+                summary: `${signal.source}: ${category} signal`,
+                sent_by: signal.source,
+                full_content: contentHash,
+                metadata: {
+                    sentiment: Math.round(sentiment * 100) / 100,
+                    category: category,
+                    source: signal.source
+                },
+                sent_at: new Date().toISOString()
             };
 
             try {
-                const { data, error } = await this.supabase
-                    .from('community_signals')
-                    .insert(signalData)
-                    .select()
-                    .single();
+                const { data, error } = await this.retryOperation(async () => {
+                    const result = await this.supabase
+                        .from('communications')
+                        .insert(signalData)
+                        .select()
+                        .single();
+                    if (result.error) throw result.error;
+                    return result;
+                });
 
                 if (error) throw error;
 
                 processed.push({
                     ...data,
+                    sentiment: signalData.metadata.sentiment,
+                    category: category,
                     original_sentiment: sentiment
                 });
             } catch (error) {
@@ -113,11 +143,16 @@ export class CommunityAgent extends BaseAgent {
             // Get signals from past week
             const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
             
-            const { data: signals, error } = await this.supabase
-                .from('community_signals')
-                .select('*')
-                .gte('timestamp', weekAgo)
-                .order('timestamp', { ascending: false });
+            const { data: signals, error } = await this.retryOperation(async () => {
+                const result = await this.supabase
+                    .from('communications')
+                    .select('*')
+                    .eq('direction', 'inbound')
+                    .gte('sent_at', weekAgo)
+                    .order('sent_at', { ascending: false });
+                if (result.error) throw result.error;
+                return result;
+            });
 
             if (error) throw error;
 
@@ -129,11 +164,12 @@ export class CommunityAgent extends BaseAgent {
                 };
             }
 
-            // Calculate aggregated metrics
-            const avgSentiment = signals.reduce((sum, s) => sum + s.sentiment, 0) / signals.length;
+            // Calculate aggregated metrics (sentiment and category stored in metadata)
+            const avgSentiment = signals.reduce((sum, s) => sum + (s.metadata?.sentiment || 0), 0) / signals.length;
             const categoryCounts = {};
             signals.forEach(s => {
-                categoryCounts[s.category] = (categoryCounts[s.category] || 0) + 1;
+                const cat = s.metadata?.category || s.type;
+                categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
             });
 
             // Get top category
@@ -141,7 +177,7 @@ export class CommunityAgent extends BaseAgent {
                 .sort((a, b) => b[1] - a[1])[0];
 
             // Check for sentiment issues
-            const lowSentiment = signals.filter(s => s.sentiment < -0.5).length;
+            const lowSentiment = signals.filter(s => (s.metadata?.sentiment || 0) < -0.5).length;
             const sentimentAlert = avgSentiment < this.config.sentimentThreshold;
 
             const insights = {
